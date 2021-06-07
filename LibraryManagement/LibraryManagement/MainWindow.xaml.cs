@@ -13,6 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
+//sql requirements
+using System.Data;
+using System.Data.SqlClient;
+
 namespace LibraryManagement
 {
     /// <summary>
@@ -27,18 +32,33 @@ namespace LibraryManagement
 
         private void signInBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(emailBox.Text == "a")
+            SqlConnection sqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\database\db.mdf;Integrated Security=True;Connect Timeout=30");
+            sqlConnection.Open();
+            string command = "select * from UsersInfo";
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command, sqlConnection);
+            DataTable dataTable = new DataTable();
+            sqlDataAdapter.Fill(dataTable);
+            for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                //show another window
-                //MessageBox.Show("Logged in!");
-                User user = new User();
-                user.Show();
-                this.Close();
+                MessageBox.Show($"{dataTable.Rows[i][0]}");
             }
-            else
-            {
-                MessageBox.Show("Wrong!");
-            }
+            //SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
+            //sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.Close();
+
+
+            //if (emailUserNameBox.Text == "a")
+            //{
+            //    //show another window
+            //    MessageBox.Show("Logged in!");
+            //    User user = new User();
+            //    user.Show();
+            //    this.Close();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Wrong!");
+            //}
         }
     }
 }

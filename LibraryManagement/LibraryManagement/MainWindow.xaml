@@ -19,11 +19,11 @@
                 <TextBlock Text="Library" FontSize="40"/>
             </StackPanel>
             <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="20">
-                <TextBlock Text="Email"/>
-                <TextBox x:Name="emailBox"/>
+                <TextBlock Text="Email or username :"/>
+                <TextBox x:Name="emailUserNameBox"/>
             </StackPanel>
             <StackPanel Grid.Row="2" VerticalAlignment="Center" Margin="20">
-                <TextBlock Text="Password"/>
+                <TextBlock Text="Password :"/>
                 <PasswordBox/>
             </StackPanel>
             <StackPanel Grid.Row="3" VerticalAlignment="Center">
