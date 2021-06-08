@@ -12,6 +12,4 @@ D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Li
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.csproj.CoreCompileInputs.cache
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.exe
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.pdb
-D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\User.g.cs
-D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\User.baml
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.csproj.AssemblyReference.cache
