@@ -39,8 +39,11 @@ namespace LibraryManagement
             else
             {
                 bool loggedIn = false;
+
                 string startupPath = Environment.CurrentDirectory;
-                SqlConnection sqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + startupPath + @"\database\db.mdf;Integrated Security=True;Connect Timeout=30");
+                string path = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + startupPath + @"\database\db.mdf;Integrated Security=True;Connect Timeout=30";
+
+                SqlConnection sqlConnection = new SqlConnection(path);
                 sqlConnection.Open();
                 string command = "select * from UsersInfo";
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command, sqlConnection);
