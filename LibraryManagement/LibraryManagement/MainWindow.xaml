@@ -28,7 +28,7 @@
             </StackPanel>
             <StackPanel Grid.Row="3" VerticalAlignment="Center">
                 <Button x:Name="signInBtn" Content="Sign in" Width="150" Margin="0,0,0,5" Padding="5" Click="signInBtn_Click"/>
-                <Button Content="Forget My password" Width="150" Padding="5"/>
+                <Button Content="Sign up" Width="150" Padding="5"/>
             </StackPanel>
         </Grid>
     </Grid>
