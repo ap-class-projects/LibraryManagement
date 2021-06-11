@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryManagement"
         mc:Ignorable="d"
-        Title="Login page" Height="500" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" 
-        Background="#aa99cc">
+        Title="Login page"  MinHeight="500" MinWidth="400" WindowStartupLocation="CenterScreen" Background="#aa99cc">
     <Grid>
+        <!--Login Page-->
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
@@ -31,5 +31,7 @@
                 <Button Content="Sign up" Width="150" Padding="5"/>
             </StackPanel>
         </Grid>
+        
+        
     </Grid>
 </Window>

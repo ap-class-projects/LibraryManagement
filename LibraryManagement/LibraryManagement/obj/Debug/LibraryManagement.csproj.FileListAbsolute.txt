@@ -1,10 +1,11 @@
-D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\bin\Debug\LibraryManagement.exe.config
-D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\bin\Debug\LibraryManagement.exe
-D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\bin\Debug\LibraryManagement.pdb
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.csproj.AssemblyReference.cache
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\MainWindow.g.cs
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\App.g.cs
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement_MarkupCompile.cache
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement_MarkupCompile.lref
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\bin\Debug\LibraryManagement.exe.config
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\bin\Debug\LibraryManagement.exe
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\bin\Debug\LibraryManagement.pdb
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\MainWindow.baml
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.g.resources
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.Properties.Resources.resources
@@ -12,4 +13,5 @@ D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Li
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.csproj.CoreCompileInputs.cache
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.exe
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.pdb
-D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.csproj.AssemblyReference.cache
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\AdminPanel.g.cs
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\AdminPanel.baml

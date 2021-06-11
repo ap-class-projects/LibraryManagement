@@ -45,13 +45,13 @@ namespace LibraryManagement
 
                 SqlConnection sqlConnection = new SqlConnection(path);
                 sqlConnection.Open();
-                string command = "select * from UsersInfo";
+                string command = "select * from People";
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command, sqlConnection);
                 DataTable dataTable = new DataTable();
                 sqlDataAdapter.Fill(dataTable);
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
-                    if ((string)dataTable.Rows[i][0] == emailUserNameBox.Text && (string)dataTable.Rows[i][3] == passwordBox.Password)
+                    if ((string)dataTable.Rows[i][Infos.indexUserName] == emailUserNameBox.Text && (string)dataTable.Rows[i][Infos.indexPassword] == passwordBox.Password)
                     {
                         loggedIn = true;
                     }
