@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\App.xaml
-2-155518526
-
-11248810222
+5-181240737
+21416626884
+12-1842287656
 13-1505183044
-AdminPanel.xaml;MainWindow.xaml;
+MainWindow.xaml;Pages\AdminPanelPage.xaml;Pages\LoginPage.xaml;Pages\PaymentPage.xaml;Pages\SignUpPage.xaml;
 
-False
+True
 

@@ -13,5 +13,9 @@ D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Li
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.csproj.CoreCompileInputs.cache
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.exe
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.pdb
-D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\AdminPanel.g.cs
-D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\AdminPanel.baml
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\AdminPanelPage.g.cs
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\LoginPage.g.cs
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\AdminPanelPage.baml
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\LoginPage.baml
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\SignUpPage.g.cs
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\SignUpPage.baml
