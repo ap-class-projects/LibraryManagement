@@ -181,6 +181,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>db.mdf</DependentUpon>
     </Content>
+    <Resource Include="Images\addBook.png" />
     <Resource Include="Images\bookShelf.png" />
     <Resource Include="Images\payPerson.png" />
     <Resource Include="Images\list.png" />
