@@ -16,7 +16,7 @@ namespace LibraryManagement.Pages
             InitializeComponent();
         }
 
-        private void signInBtn_Click(object sender, RoutedEventArgs e)
+        private void signInButton_Click(object sender, RoutedEventArgs e)
         {
             if (emailUserNameBox.Text == "" || passwordBox.Password == "")
             {
@@ -25,10 +25,10 @@ namespace LibraryManagement.Pages
             else
             {
                 bool loggedIn = false;
-                DataTable dataTable = DB.read();
+                DataTable dataTable = PeopleTable.read();
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
-                    if ((string)dataTable.Rows[i][Infos.indexUserName] == emailUserNameBox.Text && (string)dataTable.Rows[i][Infos.indexPassword] == passwordBox.Password)
+                    if ((string)dataTable.Rows[i][PeopleTable.indexUserName] == emailUserNameBox.Text && (string)dataTable.Rows[i][PeopleTable.indexPassword] == passwordBox.Password)
                     {
                         loggedIn = true;
                     }

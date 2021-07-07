@@ -8,14 +8,40 @@ namespace LibraryManagement.Classes
 {
     static class DB
     {
-        static string connectionString;
+        /// <summary>
+        /// Closes connection with 4 second delay
+        /// </summary>
+        /// <param name="sqlConnection"></param>
+        public static void delayedClose(this SqlConnection sqlConnection)
+        {
+            void close()
+            {
+                Thread.Sleep(4000);
+                sqlConnection.Close();
+            }
+            
+            Thread thread = new Thread(close);
+            thread.Start();
+        }
+    }
 
-        static DB()
+    static class PeopleTable
+    {
+        static string connectionString;
+        static PeopleTable()
         {
             string path = Environment.CurrentDirectory + @"\..\..\Database\db.mdf";
             FileInfo DbFile = new FileInfo(path);
             connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + DbFile.FullName + ";Integrated Security=True;Connect Timeout=30";
         }
+
+        public const int indexUserName = 0;
+        public const int indexFirstName = 1;
+        public const int indexLastName = 2;
+        public const int indexRole = 3;
+        public const int indexPhoneNumber = 4;
+        public const int indexEmail = 5;
+        public const int indexPassword = 6;
 
         public static DataTable read()
         {
@@ -29,14 +55,20 @@ namespace LibraryManagement.Classes
             return dataTable;
         }
 
-        public static void write()
+        public static void write(Person person)
         {
-            string a = "ali";
-            int b = 10;
-            bool c = false;
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-            string command = "insert into table1 values( '" + a.Trim() + "', '" + b + "', '" + c + "' )";
+            string command = "insert into People values" +
+                "(" +
+                " '" + person.userName          + "', " +
+                " '" + person.firstName         + "', " +
+                " '" + person.lastName          + "', " +
+                " '" + person.role.ToString()   + "', " +
+                " '" + person.phoneNumber       + "', " +
+                " '" + person.email             + "', " +
+                " '" + person.password          + "', " +
+                ")";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
             sqlConnection.delayedClose();
@@ -61,18 +93,5 @@ namespace LibraryManagement.Classes
             sqlCommand.BeginExecuteNonQuery();
             sqlConnection.delayedClose();
         }
-
-        static void delayedClose(this SqlConnection sqlConnection)
-        {
-            void close()
-            {
-                Thread.Sleep(4000);
-                sqlConnection.Close();
-            }
-
-            Thread thread = new Thread(close);
-            thread.Start();
-        }
-
     }
 }

@@ -11,24 +11,24 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Library" FontSize="40"/>
+            <TextBlock Text="Library" FontSize="40" FontWeight="ExtraBold"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="20">
-            <TextBlock Text="Email or username :"/>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="20" Width="500">
+            <TextBlock Text="Email or username :" FontWeight="Bold"/>
             <TextBox x:Name="emailUserNameBox"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" VerticalAlignment="Center" Margin="20">
-            <TextBlock Text="Password :"/>
+        <StackPanel Grid.Row="2" VerticalAlignment="Center" Margin="20" Width="500">
+            <TextBlock Text="Password :" FontWeight="Bold"/>
             <PasswordBox x:Name="passwordBox"/>
         </StackPanel>
         <StackPanel Grid.Row="3" VerticalAlignment="Center">
-            <Button x:Name="signInBtn" Content="Sign in" Width="150" Margin="0,0,0,5" Padding="5" Click="signInBtn_Click"/>
+            <Button x:Name="signInBtn" Content="Sign in" Width="150" Margin="0,0,0,5" Padding="5" Click="signInButton_Click"/>
             <Button Content="Create account" Width="150" Padding="5"/>
         </StackPanel>
     </Grid>

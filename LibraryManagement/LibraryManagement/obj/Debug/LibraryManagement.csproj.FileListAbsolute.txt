@@ -19,3 +19,8 @@ D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pa
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\LoginPage.baml
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\SignUpPage.g.cs
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\SignUpPage.baml
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\bin\Debug\Database\db.mdf
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\bin\Debug\Database\db_log.ldf
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\PaymentPage.g.cs
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement_Content.g.cs
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\PaymentPage.baml

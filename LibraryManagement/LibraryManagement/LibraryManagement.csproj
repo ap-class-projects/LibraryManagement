@@ -70,8 +70,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Admin.cs" />
     <Compile Include="Classes\DB.cs" />
+    <Compile Include="Classes\Employee.cs" />
     <Compile Include="Classes\Infos.cs" />
+    <Compile Include="Classes\mRegex.cs" />
+    <Compile Include="Classes\Person.cs" />
+    <Compile Include="Classes\User.cs" />
     <Compile Include="Pages\AdminPanelPage.xaml.cs">
       <DependentUpon>AdminPanelPage.xaml</DependentUpon>
     </Compile>
