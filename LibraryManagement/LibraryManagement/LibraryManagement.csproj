@@ -170,7 +170,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UserControls\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Database\db.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -179,6 +181,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>db.mdf</DependentUpon>
     </Content>
+    <Resource Include="Images\bookShelf.png" />
+    <Resource Include="Images\payPerson.png" />
+    <Resource Include="Images\list.png" />
+    <Resource Include="Images\removePerson.png" />
+    <Resource Include="Images\addPerson.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
