@@ -4,7 +4,8 @@
     {
         Admin,
         Employee,
-        User
+        User,
+        Unknown
     }
 
     abstract class Person

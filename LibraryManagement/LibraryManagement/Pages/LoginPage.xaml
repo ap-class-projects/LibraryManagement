@@ -28,8 +28,8 @@
             <PasswordBox x:Name="passwordBox"/>
         </StackPanel>
         <StackPanel Grid.Row="3" VerticalAlignment="Center">
-            <Button x:Name="signInBtn" Content="Sign in" Width="150" Margin="0,0,0,5" Padding="5" Click="signInButton_Click"/>
-            <Button Content="Create account" Width="150" Padding="5"/>
+            <Button x:Name="signInButton" Content="Sign in" Width="150" Margin="0,0,0,5" Padding="5" Click="signInButton_Click"/>
+            <Button x:Name="createAccount" Content="Create account" Width="150" Padding="5" Click="createAccount_Click"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -24,3 +24,7 @@ D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\bin\Debug\Da
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\PaymentPage.g.cs
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement_Content.g.cs
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\PaymentPage.baml
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\EmployeePanelPage.g.cs
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\UserPanelPage.g.cs
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\EmployeePanelPage.baml
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\UserPanelPage.baml
