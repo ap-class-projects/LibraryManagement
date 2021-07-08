@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\Admin.cs" />
+    <Compile Include="Classes\Book.cs" />
     <Compile Include="Classes\DbClasses.cs" />
     <Compile Include="Classes\Employee.cs" />
     <Compile Include="Classes\mRegex.cs" />
