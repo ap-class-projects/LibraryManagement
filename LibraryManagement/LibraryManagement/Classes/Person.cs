@@ -9,5 +9,17 @@
         public string phoneNumber { get; }
         public string email { get; }
         public string password { get; }
+
+        public Person(string userName, string firstName, string lastName, 
+                      Role role, string phoneNumber, string email, string password)
+        {
+            this.userName = userName;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.role = role;
+            this.phoneNumber = phoneNumber;
+            this.email = email;
+            this.password = password;
+        }
     }
 }

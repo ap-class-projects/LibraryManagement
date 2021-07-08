@@ -59,16 +59,7 @@ namespace LibraryManagement.Classes
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-            string command = "insert into People values" +
-                "(" +
-                " '" + person.userName          + "', " +
-                " '" + person.firstName         + "', " +
-                " '" + person.lastName          + "', " +
-                " '" + person.role.ToString()   + "', " +
-                " '" + person.phoneNumber       + "', " +
-                " '" + person.email             + "', " +
-                " '" + person.password          + "', " +
-                ")";
+            string command = "insert into People values ('"+ person.userName +"', '"+ person.firstName +"', '"+ person.lastName +"', '"+ person.role.ToString() +"', '"+ person.phoneNumber +"', '"+ person.email +"', '"+ person.password +"')";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
             sqlConnection.delayedClose();

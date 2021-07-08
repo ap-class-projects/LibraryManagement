@@ -33,42 +33,78 @@
             <TextBlock Text="Username :"
                        FontWeight="Bold"
                        />
-            <TextBox x:Name="userNameBox"></TextBox>
+            <TextBox x:Name="userNameBox" TextChanged="userNameBox_TextChanged"></TextBox>
+            <TextBlock 
+                       x:Name="userNameRegexWarn"
+                       Foreground="#e31912"
+                       FontSize="10"
+                       FontWeight="Bold"
+                       Visibility="Hidden">Invalid regex! - pattern : ^[a-zA-Z][a-zA-Z\d]{2,31}$</TextBlock>
         </StackPanel>
         
         <StackPanel Grid.Row="2" VerticalAlignment="Center" Width="500">
             <TextBlock Text="First name :"
                        FontWeight="Bold"
                        />
-            <TextBox x:Name="firstNameBox"></TextBox>
+            <TextBox x:Name="firstNameBox" TextChanged="firstNameBox_TextChanged"></TextBox>
+            <TextBlock 
+                       x:Name="firstNameRegexWarn"
+                       Foreground="#e31912"
+                       FontSize="10"
+                       FontWeight="Bold"
+                       Visibility="Hidden">Invalid regex! - pattern : ^[a-zA-Z]{3,32}$</TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="3" VerticalAlignment="Center" Width="500">
             <TextBlock Text="Last name :"
                        FontWeight="Bold"
                        />
-            <TextBox x:Name="lastNameBox"></TextBox>
+            <TextBox x:Name="lastNameBox" TextChanged="lastNameBox_TextChanged"></TextBox>
+            <TextBlock 
+                       x:Name="lastNameRegexWarn"
+                       Foreground="#e31912"
+                       FontSize="10"
+                       FontWeight="Bold"
+                       Visibility="Hidden">Invalid regex! - pattern : ^[a-zA-Z]{3,32}$</TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="4" VerticalAlignment="Center" Width="500">
             <TextBlock Text="Email :"
                        FontWeight="Bold"
                        />
-            <TextBox x:Name="emailBox"></TextBox>
+            <TextBox x:Name="emailBox" TextChanged="emailBox_TextChanged"></TextBox>
+            <TextBlock 
+                       x:Name="emailRegexWarn"
+                       Foreground="#e31912"
+                       FontSize="10"
+                       FontWeight="Bold"
+                       Visibility="Hidden">Invalid regex! - pattern : ^[a-zA-Z][a-zA-Z\d_-]{0,31}@[a-zA-Z][a-zA-Z\d]{0,7}\.[a-zA-Z]{1,3}$</TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="5" VerticalAlignment="Center" Width="500">
             <TextBlock Text="Phone number :"
                        FontWeight="Bold"
                        />
-            <TextBox x:Name="phoneNumberBox"></TextBox>
+            <TextBox x:Name="phoneNumberBox" TextChanged="phoneNumberBox_TextChanged"></TextBox>
+            <TextBlock 
+                       x:Name="phoneNumberRegexWarn"
+                       Foreground="#e31912"
+                       FontSize="10"
+                       FontWeight="Bold"
+                       Visibility="Hidden">Invalid regex! - pattern : ^09\d{9}$</TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="6" VerticalAlignment="Center" Width="500">
             <TextBlock Text="Password :"
                        FontWeight="Bold"
                        />
-            <PasswordBox x:Name="passwordBox"></PasswordBox>
+            <PasswordBox x:Name="passwordBox" PasswordChanged="passwordBox_PasswordChanged"></PasswordBox>
+            <TextBlock 
+                       x:Name="passwordRegexWarn"
+                       Foreground="#e31912"
+                       FontSize="10"
+                       FontWeight="Bold"
+                       Visibility="Hidden">Invalid regex! - pattern : ^(?=.*[A-Z])[a-zA-Z\d]{8,32}$</TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="7" VerticalAlignment="Center" Width="500">

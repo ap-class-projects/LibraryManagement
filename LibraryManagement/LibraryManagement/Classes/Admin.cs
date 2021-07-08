@@ -2,31 +2,38 @@
 {
     class Admin : Person
     {
-        public Admin(string name, string password)
+        public Admin(string userName, string firstName, string lastName,
+            Role role, string phoneNumber, string email, string password)
+        : base(userName, firstName, lastName, role, phoneNumber, email, password)
         {
-            //Regex1 a = new Regex1();
-            //bool checkname = a.namecheck(name);
-            //if (checkname == true)
-            //{
-            //    this.name = name;
-            //}
-            //else
-            //{
-            //    MessageBox.Show("name has wrong format");
-            //    //throw new Exception("name has wrong format");
-            //}
-            //Regex1 b = new Regex1();
-            //bool checkpass = b.passwordcheck(password);
-            //if (checkpass == true)
-            //{
-            //    this.password = password;
-            //}
-            //else
-            //{
-            //    MessageBox.Show("pass has wrong format");
-            //    //throw new Exception("pass has wrong format");
-            //}
+
         }
+        //public Admin(string name, string password)
+        //{
+        //Regex1 a = new Regex1();
+        //bool checkname = a.namecheck(name);
+        //if (checkname == true)
+        //{
+        //    this.name = name;
+        //}
+        //else
+        //{
+        //    MessageBox.Show("name has wrong format");
+        //    //throw new Exception("name has wrong format");
+        //}
+        //Regex1 b = new Regex1();
+        //bool checkpass = b.passwordcheck(password);
+        //if (checkpass == true)
+        //{
+        //    this.password = password;
+        //}
+        //else
+        //{
+        //    MessageBox.Show("pass has wrong format");
+        //    //throw new Exception("pass has wrong format");
+        //}
+        //}
+
         public void addEmployee(User a)
         {
 

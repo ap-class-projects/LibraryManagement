@@ -20,7 +20,7 @@ namespace LibraryManagement.Classes
 
         public static bool nameIsValid(string name)
         {
-            string pattern = @"^[a-zA-Z][a-zA-Z]{1,30}[a-zA-Z]$";
+            string pattern = @"^[a-zA-Z]{3,32}$";
             Regex regex = new Regex(pattern);
             if (regex.IsMatch(name))
             {
@@ -34,7 +34,7 @@ namespace LibraryManagement.Classes
 
         public static bool emailIsValid(string email)
         {
-            string pattern = @"^[a-zA-Z][a-zA-Z\d_-]{0,31}@[a-zA-Z][a-zA-Z\d]{0,7}\.[a-zA-Z]{0,2}[a-zA-Z]$";
+            string pattern = @"^[a-zA-Z][a-zA-Z\d_-]{0,31}@[a-zA-Z][a-zA-Z\d]{0,7}\.[a-zA-Z]{1,3}$";
             Regex regex = new Regex(pattern);
             if (regex.IsMatch(email))
             {
@@ -48,7 +48,7 @@ namespace LibraryManagement.Classes
 
         public static bool phoneNumberIsValid(string phoneNumber)
         {
-            string pattern = @"^09\d{8}\d$";
+            string pattern = @"^09\d{9}$";
             Regex regex = new Regex(pattern);
             if (regex.IsMatch(phoneNumber))
             {
