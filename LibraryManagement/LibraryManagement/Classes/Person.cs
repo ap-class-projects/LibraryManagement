@@ -1,4 +1,4 @@
-﻿namespace LibraryManagement.Classes
+namespace LibraryManagement.Classes
 {
     abstract class Person
     {
@@ -9,9 +9,10 @@
         public string phoneNumber { get; }
         public string email { get; }
         public string password { get; }
+        public double moneyBag { get; }
 
         public Person(string userName, string firstName, string lastName, 
-                      Role role, string phoneNumber, string email, string password)
+                      Role role, string phoneNumber, string email, string password,double moneyBag)
         {
             this.userName = userName;
             this.firstName = firstName;
@@ -20,6 +21,7 @@
             this.phoneNumber = phoneNumber;
             this.email = email;
             this.password = password;
+            this.moneyBag = moneyBag;
         }
     }
 }
