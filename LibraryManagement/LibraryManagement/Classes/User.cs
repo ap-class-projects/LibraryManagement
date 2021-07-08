@@ -8,5 +8,33 @@
         {
 
         }
+        public void seebook()
+        {
+
+        }
+        public void borrowbook()
+        {
+
+        }
+        public void  givebackbook()
+        {
+
+        }
+        public void paypenalty()
+        {
+
+        }
+        public void seecash()
+        {
+
+        }
+        public void increasecash()
+        {
+
+        }
+        public void changeinfo()
+        {
+
+        }
     }
 }
