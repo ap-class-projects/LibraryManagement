@@ -25,6 +25,9 @@ namespace LibraryManagement.Classes
         }
     }
 
+    /// <summary>
+    /// contains methods for manipulating People table
+    /// </summary>
     static class PeopleTable
     {
         static string connectionString;
@@ -92,5 +95,35 @@ namespace LibraryManagement.Classes
             sqlCommand.BeginExecuteNonQuery();
             sqlConnection.delayedClose();
         }
+    }
+
+    /// <summary>
+    /// contains methods for manipulating Books table
+    /// </summary>
+    static class BooksTable
+    {
+        static string connectionString;
+        static BooksTable()
+        {
+            string path = Environment.CurrentDirectory + @"\..\..\Database\db.mdf";
+            FileInfo DbFile = new FileInfo(path);
+            connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + DbFile.FullName + ";Integrated Security=True;Connect Timeout=30";
+        }
+
+        //public static DataTable read()
+        //{
+        //}
+
+        //public static void write(Book book)
+        //{ 
+        //}
+
+        //public static void delete(string bookId)
+        //{
+        //}
+
+        //public static void update(string oldBookId, Book book)
+        //{
+        //}
     }
 }
