@@ -23,6 +23,7 @@ namespace LibraryManagement.Pages
         public EmployeePanelPage()
         {
             InitializeComponent();
+            
         }
     }
 }
