@@ -84,6 +84,9 @@
     <Compile Include="Pages\EmployeePanelPage.xaml.cs">
       <DependentUpon>EmployeePanelPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\FirstPage.xaml.cs">
+      <DependentUpon>FirstPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -104,6 +107,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\EmployeePanelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\FirstPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -182,9 +189,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>db.mdf</DependentUpon>
     </Content>
+    <Resource Include="Images\moneyBag.png" />
+    <Resource Include="Images\book1.png" />
+    <Resource Include="Images\study.png" />
+    <Resource Include="Images\read.png" />
+    <Resource Include="Images\books.png" />
+    <Resource Include="Images\book.png" />
     <Resource Include="Images\addBook.png" />
     <Resource Include="Images\bookShelf.png" />
-    <Resource Include="Images\payPerson.png" />
+    <Resource Include="Images\pay.png" />
     <Resource Include="Images\list.png" />
     <Resource Include="Images\removePerson.png" />
     <Resource Include="Images\addPerson.png" />

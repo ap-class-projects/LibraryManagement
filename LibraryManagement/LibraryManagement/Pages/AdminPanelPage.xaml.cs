@@ -20,9 +20,16 @@ namespace LibraryManagement.Pages
     /// </summary>
     public partial class AdminPanelPage : Page
     {
+        public event PageChanger changeToLoginPage;
+
         public AdminPanelPage()
         {
             InitializeComponent();
+        }
+
+        private void logOutbutton_Click(object sender, RoutedEventArgs e)
+        {
+            changeToLoginPage();
         }
     }
 }

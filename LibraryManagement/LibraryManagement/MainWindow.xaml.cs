@@ -21,6 +21,7 @@ namespace LibraryManagement
     /// </summary>
     public partial class MainWindow : Window
     {
+        FirstPage firstPage;
         LoginPage loginPage;
         SignUpPage signUpPage;
         AdminPanelPage adminPanelPage;
@@ -31,16 +32,24 @@ namespace LibraryManagement
         {
             InitializeComponent();
 
+            firstPage = new FirstPage();
             loginPage = new LoginPage();
             signUpPage = new SignUpPage();
             adminPanelPage = new AdminPanelPage();
             employeePanelPage = new EmployeePanelPage();
             userPanelPage = new UserPanelPage();
 
-            goToLoginPage();
+            goToFirstPage();
 
+            subscribeToFirstPageEvents();
             subscribeToLoginPageEvents();
             subscribeToSignUpPageEvents();
+            subscribeToAdminPanelPageEvents();
+        }
+
+        void subscribeToFirstPageEvents()
+        {
+            firstPage.changeToLoginPage += goToLoginPage;
         }
 
         void subscribeToLoginPageEvents()
@@ -54,6 +63,16 @@ namespace LibraryManagement
         void subscribeToSignUpPageEvents()
         {
             signUpPage.changeToLoginPage += goToLoginPage;
+        }
+
+        void subscribeToAdminPanelPageEvents()
+        {
+            adminPanelPage.changeToLoginPage += goToLoginPage;
+        }
+
+        void goToFirstPage()
+        {
+            MainWindowFrame.Content = firstPage;
         }
 
         void goToLoginPage()
