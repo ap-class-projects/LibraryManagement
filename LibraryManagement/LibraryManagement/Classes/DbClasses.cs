@@ -65,21 +65,29 @@ namespace LibraryManagement.Classes
             sqlConnection.delayedClose();
         }
 
-        public static void delete()
+        /// <summary>
+        /// delete from People table by userName
+        /// </summary>
+        /// <param name="userName"></param>
+        public static void delete(string userName)
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-            string command = "delete from table1 where age = 10";
+            string command = "delete from People where userName = '"+ userName +"'";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
             sqlConnection.delayedClose();
         }
 
-        public static void update()
+        /// <summary>
+        /// !before update check person exists!
+        /// </summary>
+        /// <param name="person"></param>
+        public static void update(string oldUserName, Person person)
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-            string command = "update table1 SET name = '"+"reza"+"', age = '"+14+"' where name ='"+"hasan"+"'";
+            string command = "update People SET userName = '"+ person.userName +"', firstName = '"+ person.firstName +"', lastName = '"+ person.lastName +"', role = '"+ person.role.ToString() +"', phoneNumber = '"+ person.phoneNumber +"', email = '"+ person.email +"', password = '"+ person.password +"' where name ='"+ oldUserName +"' ";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
             sqlConnection.delayedClose();
