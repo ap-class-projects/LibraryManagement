@@ -3,8 +3,8 @@
     class Admin : Person
     {
         public Admin(string userName, string firstName, string lastName,
-            Role role, string phoneNumber, string email, string password)
-        : base(userName, firstName, lastName, role, phoneNumber, email, password)
+            Role role, string phoneNumber, string email, string password,double money)
+        : base(userName, firstName, lastName, role, phoneNumber, email, password,money)
         {
 
         }
