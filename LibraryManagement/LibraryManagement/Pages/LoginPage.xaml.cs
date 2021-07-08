@@ -11,7 +11,6 @@ namespace LibraryManagement.Pages
     /// </summary> 
     public partial class LoginPage : Page
     {
-        public delegate void PageChanger();
         public event PageChanger changeToSignUpPage;
         public event PageChanger changeToAdminPanelPage;
         public event PageChanger changeToEmployeePanelPage;

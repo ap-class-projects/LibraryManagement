@@ -38,7 +38,9 @@ namespace LibraryManagement
             userPanelPage = new UserPanelPage();
 
             goToLoginPage();
+
             subscribeToLoginPageEvents();
+            subscribeToSignUpPageEvents();
         }
 
         void subscribeToLoginPageEvents()
@@ -47,6 +49,11 @@ namespace LibraryManagement
             loginPage.changeToEmployeePanelPage += goToEmployeePanelPage;
             loginPage.changeToUserPanelPage += goToUserPanelPage;
             loginPage.changeToSignUpPage += goToSignUpPage;
+        }
+
+        void subscribeToSignUpPageEvents()
+        {
+            signUpPage.changeToLoginPage += goToLoginPage;
         }
 
         void goToLoginPage()

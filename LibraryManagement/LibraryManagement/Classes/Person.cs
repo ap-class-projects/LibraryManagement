@@ -1,13 +1,5 @@
 ﻿namespace LibraryManagement.Classes
 {
-    enum Role
-    {
-        Admin,
-        Employee,
-        User,
-        Unknown
-    }
-
     abstract class Person
     {
         public string userName { get; }
