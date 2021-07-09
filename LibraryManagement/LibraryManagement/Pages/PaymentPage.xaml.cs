@@ -21,18 +21,21 @@ namespace LibraryManagement.Pages
     /// </summary>
     public partial class PaymentPage : Page
     {
-        public PageChangerNoArg changeToLoginPage;
+        public event PageChangerNoArg changeToLoginPage;
         public event PageChangerNoArg changeToSignUpPage;
+        public event PageChanger changeToAdminPanelPage;
+
         Person person;
         double money;
 
-        public PaymentPage(PageChangerNoArg changeToLoginPage, PageChangerNoArg changeToSignUpPage, Person person, double moneyToPay)
+        public PaymentPage(PageChangerNoArg changeToLoginPage, PageChangerNoArg changeToSignUpPage, PageChanger changeToAdminPanelPage, Person person, double moneyToPay)
         {
             InitializeComponent();
             this.changeToLoginPage = changeToLoginPage;
             this.changeToSignUpPage = changeToSignUpPage;
             this.person = person;
             this.money = moneyToPay;
+            this.changeToAdminPanelPage = changeToAdminPanelPage;
             this.moneyToPay.Text = $"Money to pay : {money}";
         }
 
@@ -65,7 +68,8 @@ namespace LibraryManagement.Pages
                             }
                             else if (person is Admin)
                             {
-
+                                MessageBox.Show("Salaries paid - returning to admin panel");
+                                changeToAdminPanelPage(person);
                             }
                         }
                         else
@@ -87,7 +91,14 @@ namespace LibraryManagement.Pages
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
-            changeToSignUpPage();
+            if(person is User)
+            {
+                changeToSignUpPage();
+            }
+            else if(person is Admin)
+            {
+                changeToAdminPanelPage(person);
+            }
         }
     }
 }

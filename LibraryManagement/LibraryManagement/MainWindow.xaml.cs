@@ -57,7 +57,7 @@ namespace LibraryManagement
                 money = 0;
             }
             
-            MainWindowFrame.Content = new PaymentPage(goToLoginPage, goToSignUpPage, person, money);
+            MainWindowFrame.Content = new PaymentPage(goToLoginPage, goToSignUpPage, goToAdminPanelPage,person, money);
         }
 
         void goToAdminPanelPage(Person person)
@@ -67,7 +67,27 @@ namespace LibraryManagement
                                     person.phoneNumber, person.email,
                                     person.password, person.moneyBag);
 
-            MainWindowFrame.Content = new AdminPanelPage(goToLoginPage, admin);
+            MainWindowFrame.Content = new AdminPanelPage(goToLoginPage, goToAddEmployeePage, goToPaymentPage, goToAddBookPage, admin);
+        }
+
+        void goToAddEmployeePage(Person person)
+        {
+            Admin admin = new Admin(person.userName, person.firstName,
+                                    person.lastName, person.role,
+                                    person.phoneNumber, person.email,
+                                    person.password, person.moneyBag);
+
+            MainWindowFrame.Content = new addEmployeePage(goToAdminPanelPage, admin);
+        }
+
+        void goToAddBookPage(Person person)
+        {
+            Admin admin = new Admin(person.userName, person.firstName,
+                                    person.lastName, person.role,
+                                    person.phoneNumber, person.email,
+                                    person.password, person.moneyBag);
+
+            MainWindowFrame.Content = new addBookPage(goToAdminPanelPage, admin);
         }
 
         void goToEmployeePanelPage(Person person)

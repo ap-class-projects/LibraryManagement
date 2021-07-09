@@ -1,4 +1,6 @@
 ﻿using LibraryManagement.Classes;
+using System.Collections.ObjectModel;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,18 +13,121 @@ namespace LibraryManagement.Pages
     public partial class AdminPanelPage : Page
     {
         public event PageChangerNoArg changeToLoginPage;
+        public event PageChanger changeToAddEmployeePage;
+        public event PageChanger changeToPaymentPage;
+        public event PageChanger changeToAddBookPage;
+
+        public ObservableCollection<string> employeesList {get;set;}
+        public ObservableCollection<string> booksList { get; set; }
         Admin admin;
 
-        public AdminPanelPage(PageChangerNoArg changeToLoginPage, Admin admin)
+        public AdminPanelPage(PageChangerNoArg changeToLoginPage, PageChanger changeToAddEmployeePage,
+            PageChanger changeToPaymentPage, PageChanger changeToAddBookPage, Admin admin)
         {
             InitializeComponent();
             this.changeToLoginPage = changeToLoginPage;
             this.admin = admin;
+            this.changeToAddEmployeePage = changeToAddEmployeePage;
+            this.changeToPaymentPage = changeToPaymentPage;
+            this.changeToAddBookPage = changeToAddBookPage;
+            employeesList = new ObservableCollection<string>();
+            booksList = new ObservableCollection<string>();
+            this.DataContext = this;
+            updateEmployeeList();
+            updateBooksList();
+            updateBudget();
+        }
+
+        private void updateEmployeeList()
+        {
+            employeesList.Clear();
+            DataTable dataTable = PeopleTable.read();
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                if (dataTable.Rows[i][PeopleTable.indexRole].ToString() == Role.Employee.ToString())
+                {
+                    string employeeInfo = $"{dataTable.Rows[i][PeopleTable.indexUserName].ToString()} - {dataTable.Rows[i][PeopleTable.indexFirstName].ToString()} - {dataTable.Rows[i][PeopleTable.indexLastName].ToString()} - {dataTable.Rows[i][PeopleTable.indexPhoneNumber].ToString()}";
+                    employeesList.Add(employeeInfo);
+                }
+            }
+        }
+
+        private void updateBooksList()
+        {
+            booksList.Clear();
+            DataTable dataTable = BooksTable.read();
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                string BookInfo = $"{dataTable.Rows[i][BooksTable.indexName].ToString()} - {dataTable.Rows[i][BooksTable.indexWriter].ToString()} - {dataTable.Rows[i][BooksTable.indexGenre].ToString()} - {dataTable.Rows[i][BooksTable.indexPrintingNumber].ToString()} - {dataTable.Rows[i][BooksTable.indexcount].ToString()}";
+                booksList.Add(BookInfo);
+            }
         }
 
         private void logOutbutton_Click(object sender, RoutedEventArgs e)
         {
             changeToLoginPage();
+        }
+
+        private void addEmployeeButton_Click(object sender, RoutedEventArgs e)
+        {
+            changeToAddEmployeePage(this.admin);
+        }
+
+        private void deleteEmployeeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(deleteEmployeeBox.Text == "")
+            {
+                MessageBox.Show("type username to delete!");
+            }
+            else
+            {
+                DataTable dataTable = PeopleTable.read();
+                bool isValid = false;
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    if (dataTable.Rows[i][PeopleTable.indexUserName].ToString() == deleteEmployeeBox.Text)
+                    {
+                        isValid = true;
+                        PeopleTable.delete(deleteEmployeeBox.Text);
+                        break;
+                    }
+                }
+
+                if (isValid)
+                {
+                    updateEmployeeList();
+                    MessageBox.Show("Deleted successfully!");
+                }
+                else
+                {
+                    MessageBox.Show("Username not found!");
+                }
+            }
+        }
+
+        private void payEmployeeButton_Click(object sender, RoutedEventArgs e)
+        {
+            changeToPaymentPage(this.admin);
+        }
+
+        private void addBookButton_Click(object sender, RoutedEventArgs e)
+        {
+            changeToAddBookPage(this.admin);
+        }
+
+        private void updateBudget()
+        {
+            DataTable dataTable = PeopleTable.read();
+            double money = 0;
+            for(int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                if(dataTable.Rows[i][PeopleTable.indexRole].ToString() == Role.Admin.ToString())
+                {
+                    money = double.Parse(dataTable.Rows[i][PeopleTable.indexMoneyBag].ToString());
+                    break;
+                }
+            }
+            budgetText.Text = money.ToString();
         }
     }
 }

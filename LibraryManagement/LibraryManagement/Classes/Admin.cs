@@ -1,3 +1,5 @@
+using System.Data;
+
 namespace LibraryManagement.Classes
 {
     public class Admin : Person
@@ -8,61 +10,59 @@ namespace LibraryManagement.Classes
         {
 
         }
-        //public Admin(string name, string password)
+
+        //public void addEmployee(User a)
         //{
-        //Regex1 a = new Regex1();
-        //bool checkname = a.namecheck(name);
-        //if (checkname == true)
-        //{
-        //    this.name = name;
+
+
         //}
-        //else
+        //public void removeEmployee(User a)
         //{
-        //    MessageBox.Show("name has wrong format");
-        //    //throw new Exception("name has wrong format");
+
         //}
-        //Regex1 b = new Regex1();
-        //bool checkpass = b.passwordcheck(password);
-        //if (checkpass == true)
+        //public void payEmployee(User a)
         //{
-        //    this.password = password;
-        //}
-        //else
-        //{
-        //    MessageBox.Show("pass has wrong format");
-        //    //throw new Exception("pass has wrong format");
-        //}
+
         //}
 
-        public void addEmployee(User a)
+        public void addBook(Book book)
         {
+            DataTable dataTable = BooksTable.read();
+            bool exists = false;
+            int count = 0;
+            for(int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                if(dataTable.Rows[i][BooksTable.indexName].ToString() == book.name)
+                {
+                    exists = true;
+                    count = int.Parse(dataTable.Rows[i][BooksTable.indexcount].ToString());
+                    break;
+                }
+            }
 
-
+            if(exists)
+            {
+                book.count = count + 1;
+                BooksTable.update(book.name, book);
+            }
+            else
+            {
+                BooksTable.write(book);
+            }
         }
-        public void removeEmployee(User a)
-        {
 
-        }
-        public void payEmployee(User a)
-        {
+        //public void seeBook()
+        //{
 
-        }
-        public void addBook()
-        {
+        //}
+        //public void seeBank()
+        //{
 
-        }
-        public void seeBook()
-        {
+        //}
+        //public void increaseBank()
+        //{
 
-        }
-        public void seeBank()
-        {
-
-        }
-        public void increaseBank()
-        {
-
-        }
+        //}
 
     }
 }
