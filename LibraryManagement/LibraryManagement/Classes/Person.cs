@@ -1,6 +1,6 @@
 namespace LibraryManagement.Classes
 {
-    abstract class Person
+    public abstract class Person
     {
         public string userName { get; }
         public string firstName { get; }
