@@ -30,100 +30,93 @@
                      FontWeight="Bold">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
-                        <Button
-                        Grid.Column="0"
-                        Height="150"
-                        BorderThickness="0"
-                        Background="Transparent"
-                        Width="100">
-                            <StackPanel>
-                                <Image Source="/Images/bookShelf.png"/>
-                                <TextBlock HorizontalAlignment="Center" 
-                                       Margin="0,10,0,0"
-                                       >Show Books</TextBlock>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                                <Button x:Name="showAllBooksButton"
+                                        Click="showAllBooksButton_Click"
+                                        Height="50" Width="110">All books</Button>
                             </StackPanel>
-                        </Button>
-                        <Button
-                        Grid.Column="1"
-                        Height="150"
-                        BorderThickness="0"
-                        Background="Transparent"
-                        Width="100">
-                            <StackPanel>
-                                <Image Source="/Images/addBook.png"/>
-                                <TextBlock HorizontalAlignment="Center"
-                                       Margin="0,10,0,0"
-                                       >Add book</TextBlock>
+                            <StackPanel Grid.Row="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                                <Button x:Name="showBorrowedBooksButton"
+                                        Click="showBorrowedBooksButton_Click"
+                                        Height="50" Width="110">Borrowed books</Button>
                             </StackPanel>
-                        </Button>
+                            <StackPanel Grid.Row="2"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                                <Button x:Name="showAvailableBooksButton"
+                                        Click="showAvailableBooksButton_Click"
+                                        Height="50" Width="110">Available books</Button>
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+                            <ListBox Width="400"
+                                     Height="400"
+                                     Padding="10"
+                                     ItemsSource="{Binding collection}">
+                                
+                            </ListBox>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
 
 
-                <TabItem Header="Employees"
+                <TabItem Header="Users"
                      FontWeight="Bold">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
-                        <Button
-                        Grid.Column="0"
-                        Height="150"
-                        BorderThickness="0"
-                        Background="Transparent"
-                        Width="100">
-                            <StackPanel>
-                                <Image Source="/Images/list.png"/>
-                                <TextBlock HorizontalAlignment="Center" 
-                                       Margin="0,10,0,0">
-                                Show users</TextBlock>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                                <Button 
+                                        Height="50" Width="110">All books</Button>
                             </StackPanel>
-                        </Button>
-                        <Button
-                        Grid.Column="1"
-                        Height="150"
-                        BorderThickness="0"
-                        Background="Transparent"
-                        Width="100">
-                            <StackPanel>
-                                <Image Source="/Images/addPerson.png"/>
-                                <TextBlock HorizontalAlignment="Center"
-                                       Margin="0,10,0,0">
-                                Add employee</TextBlock>
+                            <StackPanel Grid.Row="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                                <Button 
+                                        Height="50" Width="110">Borrowed books</Button>
                             </StackPanel>
-                        </Button>
-                        <Button
-                        Grid.Column="2"
-                        BorderThickness="0"
-                        Height="150"
-                        Background="Transparent"
-                        Width="100">
-                            <StackPanel>
-                                <Image Source="/Images/removePerson.png"/>
-                                <TextBlock HorizontalAlignment="Center"
-                                        Margin="0,10,0,0">
-                                Delete employee</TextBlock>
+                            <StackPanel Grid.Row="2"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                                <Button 
+                                        Height="50" Width="110">Available books</Button>
                             </StackPanel>
-                        </Button>
-                        <Button
-                        Grid.Column="3"
-                        BorderThickness="0"
-                        Background="Transparent"
-                        Height="150"
-                        Width="100">
-                            <StackPanel>
-                                <Image Source="/Images/pay.png"/>
-                                <TextBlock HorizontalAlignment="Center"
-                                        Margin="0,10,0,0"
-                                       >Pay employees</TextBlock>
-                            </StackPanel>
-                        </Button>
+                        </Grid>
+                        <StackPanel Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+                            <ListBox Width="400"
+                                     Height="400"
+                                     Padding="10"
+                                     ItemsSource="{Binding collection}">
+
+                            </ListBox>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
 

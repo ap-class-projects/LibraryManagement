@@ -12,9 +12,10 @@ namespace LibraryManagement.Pages
     {
         public PageChanger changeToLoginPage;
 
-        public SignUpPage()
+        public SignUpPage(PageChanger changeToLoginPage)
         {
             InitializeComponent();
+            this.changeToLoginPage = changeToLoginPage;
         }
 
         private void signInButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -153,7 +154,7 @@ namespace LibraryManagement.Pages
                                                  Role.User,
                                                  phoneNumberBox.Text,
                                                  emailBox.Text,
-                                                 passwordBox.Password);
+                                                 passwordBox.Password,0);
                             PeopleTable.write(user);
                             MessageBox.Show("Sign up was successful!");
                         }

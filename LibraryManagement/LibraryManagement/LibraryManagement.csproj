@@ -182,13 +182,6 @@
     <Folder Include="UserControls\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Database\db.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Database\db_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>db.mdf</DependentUpon>
-    </Content>
     <Resource Include="Images\moneyBag.png" />
     <Resource Include="Images\book1.png" />
     <Resource Include="Images\study.png" />
@@ -201,6 +194,15 @@
     <Resource Include="Images\list.png" />
     <Resource Include="Images\removePerson.png" />
     <Resource Include="Images\addPerson.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Database\db.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\db_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>db.mdf</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

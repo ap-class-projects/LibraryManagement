@@ -5,8 +5,6 @@ namespace LibraryManagement.Classes
         public Admin(string userName, string firstName, string lastName,
              Role role, string phoneNumber, string email, string password, double moneyBag)
          : base(userName, firstName, lastName, role, phoneNumber, email, password, moneyBag)
-            Role role, string phoneNumber, string email, string password,double moneyBag)
-        : base(userName, firstName, lastName, role, phoneNumber, email, password,moneyBag)
         {
 
         }

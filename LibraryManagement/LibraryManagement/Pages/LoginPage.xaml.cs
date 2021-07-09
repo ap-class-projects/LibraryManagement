@@ -16,9 +16,16 @@ namespace LibraryManagement.Pages
         public event PageChanger changeToEmployeePanelPage;
         public event PageChanger changeToUserPanelPage;
 
-        public LoginPage()
+        public LoginPage(PageChanger changeToSignUpPage, 
+                         PageChanger changeToAdminPanelPage,
+                         PageChanger changeToEmployeePanelPage,
+                         PageChanger changeToUserPanelPage)
         {
             InitializeComponent();
+            this.changeToSignUpPage = changeToSignUpPage;
+            this.changeToAdminPanelPage = changeToAdminPanelPage;
+            this.changeToEmployeePanelPage = changeToEmployeePanelPage;
+            this.changeToUserPanelPage = changeToUserPanelPage;
         }
 
         private void signInButton_Click(object sender, RoutedEventArgs e)

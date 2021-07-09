@@ -21,83 +21,41 @@ namespace LibraryManagement
     /// </summary>
     public partial class MainWindow : Window
     {
-        FirstPage firstPage;
-        LoginPage loginPage;
-        SignUpPage signUpPage;
-        AdminPanelPage adminPanelPage;
-        EmployeePanelPage employeePanelPage;
-        UserPanelPage userPanelPage;
-
         public MainWindow()
         {
             InitializeComponent();
-
-            firstPage = new FirstPage();
-            loginPage = new LoginPage();
-            signUpPage = new SignUpPage();
-            adminPanelPage = new AdminPanelPage();
-            employeePanelPage = new EmployeePanelPage();
-            userPanelPage = new UserPanelPage();
-
             goToFirstPage();
-
-            subscribeToFirstPageEvents();
-            subscribeToLoginPageEvents();
-            subscribeToSignUpPageEvents();
-            subscribeToAdminPanelPageEvents();
-        }
-
-        void subscribeToFirstPageEvents()
-        {
-            firstPage.changeToLoginPage += goToLoginPage;
-        }
-
-        void subscribeToLoginPageEvents()
-        {
-            loginPage.changeToAdminPanelPage += goToAdminPanelPage;
-            loginPage.changeToEmployeePanelPage += goToEmployeePanelPage;
-            loginPage.changeToUserPanelPage += goToUserPanelPage;
-            loginPage.changeToSignUpPage += goToSignUpPage;
-        }
-
-        void subscribeToSignUpPageEvents()
-        {
-            signUpPage.changeToLoginPage += goToLoginPage;
-        }
-
-        void subscribeToAdminPanelPageEvents()
-        {
-            adminPanelPage.changeToLoginPage += goToLoginPage;
         }
 
         void goToFirstPage()
         {
-            MainWindowFrame.Content = firstPage;
+            MainWindowFrame.Content = new FirstPage(goToLoginPage);
         }
 
         void goToLoginPage()
         {
-            MainWindowFrame.Content = loginPage;
+            MainWindowFrame.Content = new LoginPage(goToSignUpPage, goToAdminPanelPage,
+                                                    goToEmployeePanelPage, goToUserPanelPage);
         }
 
         void goToSignUpPage()
         {
-            MainWindowFrame.Content = signUpPage;
+            MainWindowFrame.Content = new SignUpPage(goToLoginPage);
         }
 
         void goToAdminPanelPage()
         {
-            MainWindowFrame.Content = adminPanelPage;
+            MainWindowFrame.Content = new AdminPanelPage(goToLoginPage);
         }
 
         void goToEmployeePanelPage()
         {
-            MainWindowFrame.Content = employeePanelPage;
+            MainWindowFrame.Content = new EmployeePanelPage(goToLoginPage);
         }
 
         void goToUserPanelPage()
-        {
-            MainWindowFrame.Content = userPanelPage;
+        { 
+            MainWindowFrame.Content = new UserPanelPage();
         }   
     }
 }

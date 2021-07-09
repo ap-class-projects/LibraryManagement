@@ -22,9 +22,10 @@ namespace LibraryManagement.Pages
     {
         public event PageChanger changeToLoginPage;
 
-        public AdminPanelPage()
+        public AdminPanelPage(PageChanger changeToLoginPage)
         {
             InitializeComponent();
+            this.changeToLoginPage = changeToLoginPage;
         }
 
         private void logOutbutton_Click(object sender, RoutedEventArgs e)

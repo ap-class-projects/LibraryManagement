@@ -22,9 +22,10 @@ namespace LibraryManagement.Pages
     {
         public event PageChanger changeToLoginPage;
 
-        public FirstPage()
+        public FirstPage(PageChanger changeToLoginPage)
         {
             InitializeComponent();
+            this.changeToLoginPage = changeToLoginPage;
         }
 
         private void continueButton_Click(object sender, RoutedEventArgs e)
