@@ -67,7 +67,23 @@ namespace LibraryManagement
                                     person.phoneNumber, person.email,
                                     person.password, person.moneyBag);
 
-            MainWindowFrame.Content = new AdminPanelPage(goToLoginPage, goToAddEmployeePage, goToPaymentPage, goToAddBookPage, admin);
+            MainWindowFrame.Content = new AdminPanelPage(goToLoginPage, goToAddEmployeePage, 
+                                                        goToIncreaseBudgetPage, goToPayEmployeePage,
+                                                        goToAddBookPage, admin);
+        }
+
+        void goToIncreaseBudgetPage(Admin admin, double increaseMoney)
+        {
+            MainWindowFrame.Content = new increaseBudgetPage(goToAdminPanelPage, admin, increaseMoney);
+        }
+
+        void goToPayEmployeePage(Person person)
+        {
+            Admin admin = new Admin(person.userName, person.firstName,
+                                    person.lastName, person.role,
+                                    person.phoneNumber, person.email,
+                                    person.password, person.moneyBag);
+            MainWindowFrame.Content = new payEmployeePage(goToAdminPanelPage, admin);
         }
 
         void goToAddEmployeePage(Person person)

@@ -96,6 +96,21 @@ namespace LibraryManagement.Classes
             sqlCommand.BeginExecuteNonQuery();
             sqlConnection.delayedClose();
         }
+
+        /// <summary>
+        /// updates moneyBag
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="money"></param>
+        public static void updateMoneyBag(string userName, double money)
+        {
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            string command = "update People SET   moneyBag = '" + money + "' where userName ='" + userName + "' ";
+            SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
+            sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.delayedClose();
+        }
     }
 
     /// <summary>
