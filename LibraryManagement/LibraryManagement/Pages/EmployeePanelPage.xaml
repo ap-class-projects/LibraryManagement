@@ -183,31 +183,124 @@
                      FontWeight="Bold">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
+                        <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="3*"/>
                             </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0"
+                            <Grid Grid.Column="1" HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="1"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right">
+                                    <TextBlock Text="Username :" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left">
+                                    <TextBox Width="150" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right">
+                                    <TextBlock Text="First name :" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left">
+                                    <TextBox Width="150" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="3"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right">
+                                    <TextBlock Text="Last name :" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="3"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left">
+                                    <TextBox Width="150" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="4"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right">
+                                    <TextBlock Text="Phone number :" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="4"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left">
+                                    <TextBox Width="150" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="5"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right">
+                                    <TextBlock Text="Email :" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="5"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left">
+                                    <TextBox Width="150" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="6"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right">
+                                    <TextBlock Text="Password :" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="6"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left">
+                                    <TextBox Width="150" Margin="10,0"/>
+                                </StackPanel>
+                            </Grid>
+                            <StackPanel VerticalAlignment="Center">
+
+                                <Image x:Name="image"
+                                       Width="100"
+                                       Height="100"
+                                       Stretch="Fill"/>
+                                <Button x:Name="uploadButton"
+                                        Click="uploadButton_Click"
+                                        Width="100"
+                                        Height="30"
+                                        Margin="0,10"
+                                        Content="Upload"/>
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel Grid.Row="1"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center">
-                                <Image Source="/Images/moneyBag.png" 
-                               Width="120"/>
-                                <TextBlock Text="Budget"
-                                       Margin="0,1,0,0"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       FontSize="20"/>
-                            </StackPanel>
-                            <TextBlock Grid.Column="1"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   FontSize="40"
-                                   >1000 $</TextBlock>
-                        </Grid>
+                            <Button Width="100"
+                                    Height="35"
+                                    Content="Submit Changes"/>
+                        </StackPanel>
                     </Grid>
+                    
                 </TabItem>
             </TabControl>
         </Border>
