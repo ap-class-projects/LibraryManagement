@@ -124,62 +124,151 @@ namespace LibraryManagement.Classes
             }
             return book;
         }
-       /* public ObservableCollection<Book> borrowBook()
+        /// <summary>
+        /// qarz dadan false:shart ha barqarar nis true:okaye
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        public bool borrowBook(Book m)
         {
-            ObservableCollection<Book> book = new ObservableCollection<Book>();
+            
+            int t = count(m);
+            if(t==5)
+            {
+                return false;
+            }
             DataTable datatable1 = UsersInfos.read();
             for (int i = 0; i < datatable1.Rows.Count; i++)
             {
-                Book a = new Book(datatable1.Rows[i][BooksTable.indexName].ToString(), datatable1.Rows[i][BooksTable.indexWriter].ToString(), datatable1.Rows[i][BooksTable.indexGenre].ToString(), (int)datatable1.Rows[i][BooksTable.indexPrintingNumber], (int)datatable1.Rows[i][BooksTable.indexcount]);
-                book.Add(a);
+                if (datatable1.Rows[i][UsersInfos.indexUserName].ToString() == this.userName)
+                {
+                    if (DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfos.indexExpireDate1], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfos.indexExpireDate2], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfos.indexExpireDate3], DateTime.Today) < 0 ||
+                        DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfos.indexExpireDate4], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfos.indexExpireDate5], DateTime.Today) < 0)
+                    {
+                        return false;
+                    }
+                    DateTime n =(DateTime) datatable1.Rows[i][UsersInfos.indexExpireDateTime];
+                    TimeSpan q = n.Subtract((DateTime)datatable1.Rows[i][UsersInfos.indexRenewalDate]);
+                    int q1 = int.Parse(q.ToString());
+                    if (q1<7)
+                    {
+                        return false;
+                    }
+                    if(m.count==0)
+                    {
+                        return false;
+                    }
+                }
             }
-            return book;
+            m.count--;
+            return true;
         }
-       */
+       public int count(Book a)
+        {
+            int tedad = 0;
+            DataTable b = UsersInfos.read();
+            for(int i=0;i<b.Rows.Count;i++)
+            {
+                if(b.Rows[i][UsersInfos.indexBook1]!=null)
+                {
+                    tedad++;
+                }
+                if (b.Rows[i][UsersInfos.indexBook2] != null)
+                {
+                    tedad++;
+                }
+                if (b.Rows[i][UsersInfos.indexBook3] != null)
+                {
+                    tedad++;
+                }
+                if (b.Rows[i][UsersInfos.indexBook4] != null)
+                {
+                    tedad++;
+                }
+                if (b.Rows[i][UsersInfos.indexBook5] != null)
+                {
+                    tedad++;
+                }
+            }
+            return tedad;
+        }
+
 
 
        /// <summary>
-       /// bargardondan ketab adadmanfi:mojoodi nakafi 1:kar anjam shode;
+       /// bargardondan ketab adadmanfi:mojoodi nakafi 0:kar anjam shode 1:aslan mojood nabood:|
        /// </summary>
        /// <param name="bookname"></param>
        /// <returns></returns>
         public double  giveBackBbook(string bookname)
         {
+            int penalty = 0;
             DataTable data2 = PeopleTable.read();
             DataTable datatable = UsersInfos.read() ;
             for(int i=0;i<datatable.Rows.Count;i++)
             {
-                //bayad baraye har 5 ta seri ketab copy she;
-                if(datatable.Rows[i][UsersInfos.indexBook1].ToString()==bookname)
+                
+                
+                if (datatable.Rows[i][UsersInfos.indexBook1].ToString()==bookname)
                 {
-                    if((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate1]>=DateTime.Today)
+                    if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate1], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate2], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate3], DateTime.Today) < 0 ||
+                        DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate4], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate5], DateTime.Today) < 0)
                     {
-                        //moshkel//
-                        //int printingNum=datatable.Rows[i][UsersInfos.index]
-                    }
-                    DateTime a = (DateTime)datatable.Rows[i][UsersInfos.indexExpireDate1];
-                    TimeSpan b = a.Subtract(DateTime.Today);
-                    int c = int.Parse(b.ToString());
-                    double paypenalty = c * 100;
-                    for(int j=0;j<data2.Rows.Count;j++)
-                    {
-                        if(data2.Rows[j][PeopleTable.indexUserName].ToString()==this.userName)
+                        if(DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate1], DateTime.Today) < 0)
                         {
-                            if(paypenalty<(double)data2.Rows[j][PeopleTable.indexMoneyBag])
-                            {
-                                double m = paypenalty - (double)data2.Rows[j][PeopleTable.indexMoneyBag];
-                                return m;
-                            }
-                            else
-                            {
-                                //remove bayad beshe//
-                                data2.Rows[j][PeopleTable.indexMoneyBag] = (double)data2.Rows[j][PeopleTable.indexMoneyBag] - paypenalty;
-                            }
+                            DateTime n = (DateTime)datatable.Rows[i][UsersInfos.indexExpireDate1];
+                            TimeSpan q = n.Subtract(DateTime.Today);
+                            int q1 = int.Parse(q.ToString());
+                            penalty += q1 * 100;
+                        }
+                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate2], DateTime.Today) < 0)
+                        {
+                            DateTime n = (DateTime)datatable.Rows[i][UsersInfos.indexExpireDate2];
+                            TimeSpan q = n.Subtract(DateTime.Today);
+                            int q1 = int.Parse(q.ToString());
+                            penalty += q1 * 100;
+                        }
+                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate3], DateTime.Today) < 0)
+                        {
+                            DateTime n = (DateTime)datatable.Rows[i][UsersInfos.indexExpireDate3];
+                            TimeSpan q = n.Subtract(DateTime.Today);
+                            int q1 = int.Parse(q.ToString());
+                            penalty += q1 * 100;
+                        }
+                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate4], DateTime.Today) < 0)
+                        {
+                            DateTime n = (DateTime)datatable.Rows[i][UsersInfos.indexExpireDate4];
+                            TimeSpan q = n.Subtract(DateTime.Today);
+                            int q1 = int.Parse(q.ToString());
+                            penalty += q1 * 100;
+                        }
+                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate5], DateTime.Today) < 0)
+                        {
+                            DateTime n = (DateTime)datatable.Rows[i][UsersInfos.indexExpireDate5];
+                            TimeSpan q = n.Subtract(DateTime.Today);
+                            int q1 = int.Parse(q.ToString());
+                            penalty += q1 * 100;
                         }
                     }
                 }
             }
-            return 1;
+            for(int i=0;i<data2.Rows.Count;i++)
+            {
+                if(data2.Rows[i][PeopleTable.indexUserName].ToString()==this.userName)
+                {
+                    double cash = (double)data2.Rows[i][PeopleTable.indexMoneyBag];
+                    if(cash<penalty)
+                    {
+                        return cash - penalty;
+                    }
+                    else
+                    {
+                        data2.Rows[i][PeopleTable.indexMoneyBag]= (double)data2.Rows[i][PeopleTable.indexMoneyBag]-penalty;
+                        return 0;
+                    }
+                }
+            }
+            return -1;
         }
 
         /// <summary>
