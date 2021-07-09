@@ -6,7 +6,7 @@ namespace LibraryManagement.Classes
         public string writer { get; }
         public string genre { get; }
         public int printingNumber  { get; }
-        public int count { get; }
+        public int count { get; set; }
         public Book(string name, string writer,string genre,int printingNumber,int count)
         {
             this.name = name;
