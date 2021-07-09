@@ -1,6 +1,6 @@
 namespace LibraryManagement.Classes
 {
-    class Employee : Person
+    public class Employee : Person
     {
         public Employee(string userName, string firstName, string lastName,
             Role role, string phoneNumber, string email, string password,double moneyBag)

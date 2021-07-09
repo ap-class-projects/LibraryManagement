@@ -1,4 +1,5 @@
-﻿using LibraryManagement.Pages;
+﻿using LibraryManagement.Classes;
+using LibraryManagement.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,19 +44,34 @@ namespace LibraryManagement
             MainWindowFrame.Content = new SignUpPage(goToLoginPage);
         }
 
-        void goToAdminPanelPage()
+        void goToAdminPanelPage(Person person)
         {
-            MainWindowFrame.Content = new AdminPanelPage(goToLoginPage);
+            Admin admin = new Admin(person.userName, person.firstName,
+                                    person.lastName, person.role,
+                                    person.phoneNumber, person.email,
+                                    person.password, person.moneyBag);
+
+            MainWindowFrame.Content = new AdminPanelPage(goToLoginPage, admin);
         }
 
-        void goToEmployeePanelPage()
+        void goToEmployeePanelPage(Person person)
         {
-            MainWindowFrame.Content = new EmployeePanelPage(goToLoginPage);
+            Employee employee = new Employee(person.userName, person.firstName,
+                                             person.lastName, person.role,
+                                             person.phoneNumber, person.email,
+                                             person.password, person.moneyBag);
+
+            MainWindowFrame.Content = new EmployeePanelPage(goToLoginPage, employee);
         }
 
-        void goToUserPanelPage()
-        { 
-            MainWindowFrame.Content = new UserPanelPage();
-        }   
+        void goToUserPanelPage(Person person)
+        {
+            User user = new User(person.userName, person.firstName,
+                                 person.lastName, person.role,
+                                 person.phoneNumber, person.email,
+                                 person.password, person.moneyBag);
+
+            MainWindowFrame.Content = new UserPanelPage(goToLoginPage, user);
+        }
     }
 }

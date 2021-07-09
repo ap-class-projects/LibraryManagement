@@ -1,6 +1,6 @@
 ﻿namespace LibraryManagement.Classes
 {
-    class Book
+    public class Book
     {
     }
 }

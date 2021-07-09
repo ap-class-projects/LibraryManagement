@@ -3,7 +3,7 @@ using System.Data;
 using System.Globalization;
 namespace LibraryManagement.Classes
 {
-    class User : Person
+    public class User : Person
     {
         int daysleft = 0;
         DateTime registerdate = DateTime.Today;

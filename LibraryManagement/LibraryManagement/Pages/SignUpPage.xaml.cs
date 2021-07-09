@@ -10,9 +10,9 @@ namespace LibraryManagement.Pages
     /// </summary>
     public partial class SignUpPage : Page
     {
-        public PageChanger changeToLoginPage;
+        public PageChangerNoArg changeToLoginPage;
 
-        public SignUpPage(PageChanger changeToLoginPage)
+        public SignUpPage(PageChangerNoArg changeToLoginPage)
         {
             InitializeComponent();
             this.changeToLoginPage = changeToLoginPage;

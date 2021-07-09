@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using LibraryManagement.Classes;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,13 +10,16 @@ namespace LibraryManagement.Pages
     /// </summary>
     public partial class EmployeePanelPage : Page
     {
-        public PageChanger changeToLoginPage;
+        public PageChangerNoArg changeToLoginPage;
+        Employee employee;
         public ObservableCollection<string> collection { get; set; }
 
-        public EmployeePanelPage(PageChanger changeToLoginPage)
+        public EmployeePanelPage(PageChangerNoArg changeToLoginPage, Employee employee)
         {
             InitializeComponent();
             this.changeToLoginPage = changeToLoginPage;
+            this.employee = employee;
+
             collection = new ObservableCollection<string>();
             collection.Add($"Book name \t Count");
             this.DataContext = this;

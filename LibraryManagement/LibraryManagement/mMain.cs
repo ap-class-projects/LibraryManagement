@@ -1,6 +1,8 @@
-﻿namespace LibraryManagement
+﻿using LibraryManagement.Classes;
+
+namespace LibraryManagement
 {
-    enum Role
+    public enum Role
     {
         Admin,
         Employee,
@@ -8,5 +10,6 @@
         Unknown
     }
 
-    public delegate void PageChanger();
+    public delegate void PageChangerNoArg();
+    public delegate void PageChanger(Person person);
 }
