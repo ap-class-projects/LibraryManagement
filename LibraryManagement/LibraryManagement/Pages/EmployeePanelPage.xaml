@@ -279,11 +279,12 @@
                                 </StackPanel>
                             </Grid>
                             <StackPanel VerticalAlignment="Center">
-
-                                <Image x:Name="image"
+                                <StackPanel Background="Gray">
+                                    <Image x:Name="image"
                                        Width="100"
                                        Height="100"
                                        Stretch="Fill"/>
+                                </StackPanel>
                                 <Button x:Name="uploadButton"
                                         Click="uploadButton_Click"
                                         Width="100"

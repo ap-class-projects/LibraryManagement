@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace LibraryManagement.Classes
 {
@@ -128,6 +129,64 @@ namespace LibraryManagement.Classes
                 else
                 {
                     return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// year : ^\d{4}$
+        /// month : ^\d{2}$
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public static bool expireDateIsValid(string year, string month)
+        {
+            string patternYear = @"^\d{4}$";
+            string patternMonth = @"^\d{1,2}$";
+
+            Regex regexYear = new Regex(patternYear);
+            Regex regexMonth= new Regex(patternMonth);
+
+            if (regexYear.IsMatch(year) && regexMonth.IsMatch(month))
+            {
+                if(int.Parse(year) < int.Parse(DateTime.Now.Year.ToString()))
+                {
+                    return false;
+                }
+                else if(int.Parse(year) == int.Parse(DateTime.Now.Year.ToString()))
+                {
+                    if (int.Parse(month) - int.Parse(DateTime.Now.Month.ToString()) >= 3)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    // dar in halat hastim : int.Parse(year) > int.Parse(DateTime.Now.Year.ToString())
+                    if (int.Parse(year) - 1 == int.Parse(DateTime.Now.Year.ToString()))
+                    {
+                        if (int.Parse(month) + ( 12 - int.Parse(DateTime.Now.Month.ToString()) ) >= 3)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
             }
             else
