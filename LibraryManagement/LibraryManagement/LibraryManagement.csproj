@@ -78,11 +78,20 @@
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="mMain.cs" />
+    <Compile Include="Pages\addBookPage.xaml.cs">
+      <DependentUpon>addBookPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\addEmployeePage.xaml.cs">
+      <DependentUpon>addEmployeePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AdminPanelPage.xaml.cs">
       <DependentUpon>AdminPanelPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\EmployeePanelPage.xaml.cs">
       <DependentUpon>EmployeePanelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstPage.xaml.cs">
+      <DependentUpon>FirstPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -99,11 +108,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\addBookPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\addEmployeePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AdminPanelPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\EmployeePanelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\FirstPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -175,6 +196,20 @@
     <Folder Include="UserControls\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\moneyBag.png" />
+    <Resource Include="Images\book1.png" />
+    <Resource Include="Images\study.png" />
+    <Resource Include="Images\read.png" />
+    <Resource Include="Images\books.png" />
+    <Resource Include="Images\book.png" />
+    <Resource Include="Images\addBook.png" />
+    <Resource Include="Images\bookShelf.png" />
+    <Resource Include="Images\pay.png" />
+    <Resource Include="Images\list.png" />
+    <Resource Include="Images\removePerson.png" />
+    <Resource Include="Images\addPerson.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Database\db.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -182,12 +217,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>db.mdf</DependentUpon>
     </Content>
-    <Resource Include="Images\addBook.png" />
-    <Resource Include="Images\bookShelf.png" />
-    <Resource Include="Images\payPerson.png" />
-    <Resource Include="Images\list.png" />
-    <Resource Include="Images\removePerson.png" />
-    <Resource Include="Images\addPerson.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

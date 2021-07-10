@@ -28,3 +28,9 @@ D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pa
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\UserPanelPage.g.cs
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\EmployeePanelPage.baml
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\UserPanelPage.baml
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\FirstPage.g.cs
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\FirstPage.baml
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\addEmployeePage.g.cs
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\addEmployeePage.baml
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\addBookPage.g.cs
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\addBookPage.baml

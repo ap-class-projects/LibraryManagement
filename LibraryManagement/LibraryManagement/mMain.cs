@@ -1,6 +1,11 @@
-﻿namespace LibraryManagement
+﻿using LibraryManagement.Classes;
+
+namespace LibraryManagement
 {
-    enum Role
+    // user sign up cost : 100
+    // user monthly sub cost : 20
+    // employee salary : 50 
+    public enum Role
     {
         Admin,
         Employee,
@@ -8,5 +13,6 @@
         Unknown
     }
 
-    public delegate void PageChanger();
+    public delegate void PageChangerNoArg();
+    public delegate void PageChanger(Person person);
 }

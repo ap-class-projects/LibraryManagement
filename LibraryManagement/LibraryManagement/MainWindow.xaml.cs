@@ -1,4 +1,5 @@
-﻿using LibraryManagement.Pages;
+﻿using LibraryManagement.Classes;
+using LibraryManagement.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,64 +22,92 @@ namespace LibraryManagement
     /// </summary>
     public partial class MainWindow : Window
     {
-        LoginPage loginPage;
-        SignUpPage signUpPage;
-        AdminPanelPage adminPanelPage;
-        EmployeePanelPage employeePanelPage;
-        UserPanelPage userPanelPage;
-
         public MainWindow()
         {
             InitializeComponent();
-
-            loginPage = new LoginPage();
-            signUpPage = new SignUpPage();
-            adminPanelPage = new AdminPanelPage();
-            employeePanelPage = new EmployeePanelPage();
-            userPanelPage = new UserPanelPage();
-
-            goToLoginPage();
-
-            subscribeToLoginPageEvents();
-            subscribeToSignUpPageEvents();
+            goToFirstPage();
         }
 
-        void subscribeToLoginPageEvents()
+        void goToFirstPage()
         {
-            loginPage.changeToAdminPanelPage += goToAdminPanelPage;
-            loginPage.changeToEmployeePanelPage += goToEmployeePanelPage;
-            loginPage.changeToUserPanelPage += goToUserPanelPage;
-            loginPage.changeToSignUpPage += goToSignUpPage;
-        }
-
-        void subscribeToSignUpPageEvents()
-        {
-            signUpPage.changeToLoginPage += goToLoginPage;
+            MainWindowFrame.Content = new FirstPage(goToLoginPage);
         }
 
         void goToLoginPage()
         {
-            MainWindowFrame.Content = loginPage;
+            MainWindowFrame.Content = new LoginPage(goToSignUpPage, goToAdminPanelPage,
+                                                    goToEmployeePanelPage, goToUserPanelPage);
         }
 
         void goToSignUpPage()
         {
-            MainWindowFrame.Content = signUpPage;
+            MainWindowFrame.Content = new SignUpPage(goToLoginPage, goToPaymentPage);
         }
 
-        void goToAdminPanelPage()
+        void goToPaymentPage(Person person)
         {
-            MainWindowFrame.Content = adminPanelPage;
+            double money;
+            if (person is User)
+            {
+                money = 100;
+            }
+            else
+            {
+                //person is admin
+                money = 0;
+            }
+            
+            MainWindowFrame.Content = new PaymentPage(goToLoginPage, goToSignUpPage, goToAdminPanelPage,person, money);
         }
 
-        void goToEmployeePanelPage()
+        void goToAdminPanelPage(Person person)
         {
-            MainWindowFrame.Content = employeePanelPage;
+            Admin admin = new Admin(person.userName, person.firstName,
+                                    person.lastName, person.role,
+                                    person.phoneNumber, person.email,
+                                    person.password, person.moneyBag);
+
+            MainWindowFrame.Content = new AdminPanelPage(goToLoginPage, goToAddEmployeePage, goToPaymentPage, goToAddBookPage, admin);
         }
 
-        void goToUserPanelPage()
+        void goToAddEmployeePage(Person person)
         {
-            MainWindowFrame.Content = userPanelPage;
-        }   
+            Admin admin = new Admin(person.userName, person.firstName,
+                                    person.lastName, person.role,
+                                    person.phoneNumber, person.email,
+                                    person.password, person.moneyBag);
+
+            MainWindowFrame.Content = new addEmployeePage(goToAdminPanelPage, admin);
+        }
+
+        void goToAddBookPage(Person person)
+        {
+            Admin admin = new Admin(person.userName, person.firstName,
+                                    person.lastName, person.role,
+                                    person.phoneNumber, person.email,
+                                    person.password, person.moneyBag);
+
+            MainWindowFrame.Content = new addBookPage(goToAdminPanelPage, admin);
+        }
+
+        void goToEmployeePanelPage(Person person)
+        {
+            Employee employee = new Employee(person.userName, person.firstName,
+                                             person.lastName, person.role,
+                                             person.phoneNumber, person.email,
+                                             person.password, person.moneyBag);
+
+            MainWindowFrame.Content = new EmployeePanelPage(goToLoginPage, employee);
+        }
+
+        void goToUserPanelPage(Person person)
+        {
+            User user = new User(person.userName, person.firstName,
+                                 person.lastName, person.role,
+                                 person.phoneNumber, person.email,
+                                 person.password, person.moneyBag);
+
+            MainWindowFrame.Content = new UserPanelPage(goToLoginPage, user);
+        }
     }
 }

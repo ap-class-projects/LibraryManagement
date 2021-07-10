@@ -2,6 +2,9 @@
 using System.Windows.Controls;
 using System.Data;
 using LibraryManagement.Classes;
+using Microsoft.Win32;
+using System.Windows.Media.Imaging;
+using System;
 
 namespace LibraryManagement.Pages
 {
@@ -10,11 +13,14 @@ namespace LibraryManagement.Pages
     /// </summary>
     public partial class SignUpPage : Page
     {
-        public PageChanger changeToLoginPage;
+        public PageChangerNoArg changeToLoginPage;
+        public PageChanger changeToPaymentPage;
 
-        public SignUpPage()
+        public SignUpPage(PageChangerNoArg changeToLoginPage, PageChanger changeToPaymentPage)
         {
             InitializeComponent();
+            this.changeToLoginPage = changeToLoginPage;
+            this.changeToPaymentPage = changeToPaymentPage;
         }
 
         private void signInButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -153,9 +159,8 @@ namespace LibraryManagement.Pages
                                                  Role.User,
                                                  phoneNumberBox.Text,
                                                  emailBox.Text,
-                                                 passwordBox.Password);
-                            PeopleTable.write(user);
-                            MessageBox.Show("Sign up was successful!");
+                                                 passwordBox.Password, 0);
+                            changeToPaymentPage(user);
                         }
                     }
                     else
@@ -195,6 +200,19 @@ namespace LibraryManagement.Pages
         private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             passwordRegexWarn.Visibility = Visibility.Hidden;
+        }
+
+        private void uploadButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Select a picture";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                image.Source = new BitmapImage(new Uri(op.FileName));
+            }
         }
     }
 }

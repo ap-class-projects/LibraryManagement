@@ -63,7 +63,7 @@ namespace LibraryManagement.Classes
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-            string command = "insert into People values ('" + person.userName + "', '" + person.firstName + "', '" + person.lastName + "', '" + person.role.ToString() + "', '" + person.phoneNumber + "', '" + person.email + "', '" + person.password + "','" + person.moneyBag + "', '" + null + "')";
+            string command = "insert into People values ('"+ person.userName +"', '"+ person.firstName +"', '"+ person.lastName +"', '"+ person.role.ToString() +"', '"+ person.phoneNumber +"', '"+ person.email +"', '"+ person.password +"','"+person.moneyBag+"', '"+null+"')";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
             sqlConnection.delayedClose();
@@ -127,16 +127,39 @@ namespace LibraryManagement.Classes
             return dataTable;
         }
 
+        public const int indexName = 0;
+        public const int indexWriter = 1;
+        public const int indexGenre = 2;
+        public const int indexPrintingNumber = 3;
+        public const int indexcount = 4;
+
+        public static DataTable read()
+        {
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            string command = "select * from Books";
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command, sqlConnection);
+            DataTable dataTable = new DataTable();
+            sqlDataAdapter.Fill(dataTable);
+            sqlConnection.delayedClose();
+            return dataTable;
+        }
+
         public static void write(Book book)
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
-            string command = "insert into Books values ('" + book.name + "', '" + book.writer + "', '" + book.genre + "', '" + book.printingNumber + "', '" + book.count + "', '" + null + "')";
+            string command = "insert into Books values ('" + book.name + "', '" + book.writer + "', '" + book.genre + "', '" + book.printingNumber + "', '" + book.count + "')";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
             sqlConnection.delayedClose();
         }
 
+
+        /// <summary>
+        /// delete by printing number
+        /// </summary>
+        /// <param name="printingNumber"></param>
         public static void delete(string printingNumber)
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
@@ -147,15 +170,6 @@ namespace LibraryManagement.Classes
             sqlConnection.delayedClose();
         }
 
-        public static void update(string oldBookId, Book book)
-        {
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
-            string command = "update People SET name = '" + book.name + "', writer = '" + book.writer + "', genre = '" + book.genre + "', printingNumber = '" + book.printingNumber + "', count = '" + book.count + "' ";
-            SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
-            sqlCommand.BeginExecuteNonQuery();
-            sqlConnection.delayedClose();
-        }
     }
     static class UsersInfos
     {
@@ -214,24 +228,17 @@ namespace LibraryManagement.Classes
             SqlConnection sqlConnection = new SqlConnection(connectionstring);
             sqlConnection.Open();
             string command = "delete from UsersInfos where userName = '" + userName + "'";
+
+
+        public static void update(string oldBookName, Book book)
+        {
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            string command = "update Books SET name = '" + book.name + "', writer = '" + book.writer + "', genre = '" + book.genre + "', printingNumber = '" + book.printingNumber + "', count = '" + book.count + "' where name ='" + oldBookName + "' ";
+
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
             sqlConnection.delayedClose();
         }
-
-        /// <summary>
-        /// !before update check person exists!
-        /// </summary>
-        /// <param name="person"></param>
-        /*    public static void update(string oldUserName, Person person)
-            {
-                SqlConnection sqlConnection = new SqlConnection(connectionstring);
-                sqlConnection.Open();
-                string command = "update People SET userName = '" + person.userName + "', firstName = '" + person.firstName + "', lastName = '" + person.lastName + "', role = '" + person.role.ToString() + "', phoneNumber = '" + person.phoneNumber + "', email = '" + person.email + "', password = '" + person.password + "',moneyBag = '" + person.moneyBag + "' where name ='" + oldUserName + "' ";
-                SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
-                sqlCommand.BeginExecuteNonQuery();
-                sqlConnection.delayedClose();
-            }
-        */
     }
 }

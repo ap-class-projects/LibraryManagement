@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\App.xaml
-7-1643108601
+11-8991479
 21416626884
-201897332105
+24641636231
 13-1505183044
-MainWindow.xaml;Pages\AdminPanelPage.xaml;Pages\EmployeePanelPage.xaml;Pages\LoginPage.xaml;Pages\PaymentPage.xaml;Pages\SignUpPage.xaml;Pages\UserPanelPage.xaml;
+MainWindow.xaml;Pages\addBookPage.xaml;Pages\addEmployeePage.xaml;Pages\AdminPanelPage.xaml;Pages\EmployeePanelPage.xaml;Pages\FirstPage.xaml;Pages\increaseBudgetPage.xaml;Pages\LoginPage.xaml;Pages\PaymentPage.xaml;Pages\SignUpPage.xaml;Pages\UserPanelPage.xaml;
 
 True
 
