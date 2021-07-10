@@ -9,7 +9,7 @@ namespace LibraryManagement.Classes
         public string phoneNumber { get; }
         public string email { get; }
         public string password { get; }
-        public double moneyBag { get; }
+        public double moneyBag { get; set; }
 
         public Person(string userName, string firstName, string lastName, 
                       Role role, string phoneNumber, string email, string password,double moneyBag)

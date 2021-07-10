@@ -10,6 +10,7 @@ namespace LibraryManagement.Classes
         : base(userName, firstName, lastName, role, phoneNumber, email, password, moneyBag)
         {
         }
+        
         /// <summary>
         /// kol ketab haro barmigardone
         /// </summary>
@@ -139,6 +140,8 @@ namespace LibraryManagement.Classes
         public ObservableCollection<User> seeDelayGiveBackMan()
         {
             DataTable dataTable = UsersInfos.read();
+
+
             DataTable data = PeopleTable.read();
             ObservableCollection<User> users = new ObservableCollection<User>();
             for (int i = 0; i < data.Rows.Count; i++)
@@ -162,15 +165,18 @@ namespace LibraryManagement.Classes
                             }
                         }
                     }
+
                 }
             }
             return users;
         }
+
         /// <summary>
         /// user haii ke haq ozviat nadadan ro bar migardoone
         /// </summary>
         /// <returns></returns>
         public ObservableCollection<User> seeDelayPayMan()
+
         {
             DataTable dataTable = UsersInfos.read();
             DataTable data = PeopleTable.read();
@@ -196,12 +202,14 @@ namespace LibraryManagement.Classes
             }
             return users;
         }
+        
         /// <summary>
         /// didan etalaat yek fard khas ba search kardan esmesh null:yani fardi ba oon esm nis  dar qeir in soorat:avalin nafarr ba oon username ro bar migardone
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public User seePerson(string  name)
+
+        public User seePerson(string name)
         {
             DataTable data = PeopleTable.read();
             for (int i = 0; i < data.Rows.Count; i++)
@@ -226,6 +234,7 @@ namespace LibraryManagement.Classes
             for(int i=0;i<data.Rows.Count;i++)
             {
                 if(data.Rows[i][PeopleTable.indexUserName].ToString()==this.userName)
+
                 {
                     return (double)data.Rows[i][PeopleTable.indexMoneyBag];
                 }
@@ -251,4 +260,6 @@ namespace LibraryManagement.Classes
             PeopleTable.update(oldUserName, jadid as Employee);
         }
     }
+
 }
+

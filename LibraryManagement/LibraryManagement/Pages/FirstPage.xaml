@@ -25,6 +25,8 @@
         </StackPanel>
         <Button 
             x:Name="continueButton"
+            BorderThickness="0"
+            Background="Transparent"
             Grid.Row="1" Height="150" Width="300" Click="continueButton_Click">
             <StackPanel>
                 <Image Source="/Images/study.png" HorizontalAlignment="Center"

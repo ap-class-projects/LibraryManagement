@@ -15,4 +15,5 @@ namespace LibraryManagement
 
     public delegate void PageChangerNoArg();
     public delegate void PageChanger(Person person);
+    public delegate void ChangeAdminPageToIncreaseBudgetPage(Admin admin, double increaseMoney);
 }

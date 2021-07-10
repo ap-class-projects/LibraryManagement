@@ -1,0 +1,108 @@
+﻿<Page x:Class="LibraryManagement.Pages.payEmployeePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LibraryManagement.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="payEmployeePage"
+      Background="#f0ecec">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock
+                FontWeight="ExtraBold"
+                FontSize="20"
+                >Pay salaries page</TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" 
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <TextBlock x:Name="moneyToPay"
+                       FontWeight="Bold"
+                       FontSize="20">Money to pay :</TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" VerticalAlignment="Center" Width="500">
+            <TextBlock Text="Card number :"
+                       FontWeight="Bold"
+                       Margin="0,5"
+                       />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column ="0"
+                         x:Name="cardNumber0"
+                         Width="100" HorizontalAlignment="Left"/>
+                <TextBox Grid.Column ="1"
+                         x:Name="cardNumber1"
+                         Width="100" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBox Grid.Column ="2"
+                         x:Name="cardNumber2"
+                         Width="100" HorizontalAlignment="Center" Margin="10,0,0,0"/>
+
+                <TextBox Grid.Column ="3"
+                         x:Name="cardNumber3"
+                         Width="100" HorizontalAlignment="Right"/>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" VerticalAlignment="Center" Width="500">
+            <TextBlock Text="CVV :"
+                       FontWeight="Bold"
+                       />
+            <TextBox x:Name="cvv" Width="100" HorizontalAlignment="Left"></TextBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Width="500" VerticalAlignment="Center">
+            <TextBlock FontWeight="Bold">Expiration date :</TextBlock>
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock FontWeight="Bold">Year :</TextBlock>
+                    <TextBox x:Name="year"
+                             Width="100" HorizontalAlignment="Left"></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock FontWeight="Bold">Month :</TextBlock>
+                    <TextBox x:Name="month"
+                             Width="100" HorizontalAlignment="Left"></TextBox>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Row="5" VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <TextBlock Text="Password :" FontWeight="Bold" Width="150" Margin="0,5"/>
+            <PasswordBox x:Name="passwordBox"/>
+        </StackPanel>
+        <StackPanel Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+            <Button x:Name="submitButton"
+                    Click="submitButton_Click"
+                    Margin="0,5"
+                    Height="30" Width="200"  Content="Submit payment"/>
+            <Button x:Name="cancelButton"
+                    Click="cancelButton_Click"
+                    Margin="0,5"
+                    Height="30" Width="200"  Content="Cancel"/>
+        </StackPanel>
+    </Grid>
+</Page>

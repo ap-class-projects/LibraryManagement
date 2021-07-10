@@ -46,18 +46,8 @@ namespace LibraryManagement
 
         void goToPaymentPage(Person person)
         {
-            double money;
-            if (person is User)
-            {
-                money = 100;
-            }
-            else
-            {
-                //person is admin
-                money = 0;
-            }
-            
-            MainWindowFrame.Content = new PaymentPage(goToLoginPage, goToSignUpPage, goToAdminPanelPage,person, money);
+            //person is user   
+            MainWindowFrame.Content = new PaymentPage(goToLoginPage, goToSignUpPage, person);
         }
 
         void goToAdminPanelPage(Person person)
@@ -67,7 +57,23 @@ namespace LibraryManagement
                                     person.phoneNumber, person.email,
                                     person.password, person.moneyBag);
 
-            MainWindowFrame.Content = new AdminPanelPage(goToLoginPage, goToAddEmployeePage, goToPaymentPage, goToAddBookPage, admin);
+            MainWindowFrame.Content = new AdminPanelPage(goToLoginPage, goToAddEmployeePage, 
+                                                        goToIncreaseBudgetPage, goToPayEmployeePage,
+                                                        goToAddBookPage, admin);
+        }
+
+        void goToIncreaseBudgetPage(Admin admin, double increaseMoney)
+        {
+            MainWindowFrame.Content = new increaseBudgetPage(goToAdminPanelPage, admin, increaseMoney);
+        }
+
+        void goToPayEmployeePage(Person person)
+        {
+            Admin admin = new Admin(person.userName, person.firstName,
+                                    person.lastName, person.role,
+                                    person.phoneNumber, person.email,
+                                    person.password, person.moneyBag);
+            MainWindowFrame.Content = new payEmployeePage(goToAdminPanelPage, admin);
         }
 
         void goToAddEmployeePage(Person person)

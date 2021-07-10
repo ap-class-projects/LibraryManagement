@@ -1,4 +1,5 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
 using System.Collections.ObjectModel;
@@ -10,7 +11,7 @@ namespace LibraryManagement.Classes
         //DateTime registerdate = DateTime.Today;
         //DateTime renewaldate=DateTime.Today;
         public User(string userName, string firstName, string lastName,
-                    Role role, string phoneNumber, string email, string password,double moneyBag)
+                    Role role, string phoneNumber, string email, string password, double moneyBag)
                 : base(userName, firstName, lastName, role, phoneNumber, email, password, moneyBag)
         {
             //tarikh  sakht accaunt ro sabt kon//
@@ -60,6 +61,7 @@ namespace LibraryManagement.Classes
                 {
                     DateTime a = (DateTime)datatable2.Rows[i][UsersInfos.indexExpireDateTime];
                     TimeSpan b =a.Subtract(DateTime.Today);
+
                     int c = int.Parse(b.ToString());
                     return c;
                 }
@@ -100,6 +102,7 @@ namespace LibraryManagement.Classes
                                 {
                                     datatable.Rows[j][UsersInfos.indexRenewalDate] = DateTime.Today;
                                     DateTime a =(DateTime) datatable.Rows[j][UsersInfos.indexRenewalDate];
+
                                     datatable.Rows[j][UsersInfos.indexExpireDateTime] = a.AddDays(10);
                                 }
                             }
@@ -120,6 +123,7 @@ namespace LibraryManagement.Classes
             for(int i=0;i<datatable1.Rows.Count;i++)
             {
                 Book a = new Book(datatable1.Rows[i][BooksTable.indexName].ToString(), datatable1.Rows[i][BooksTable.indexWriter].ToString(), datatable1.Rows[i][BooksTable.indexGenre].ToString(),(int)datatable1.Rows[i][BooksTable.indexPrintingNumber],(int) datatable1.Rows[i][BooksTable.indexcount]);
+
                 book.Add(a);
             }
             return book;
@@ -131,9 +135,9 @@ namespace LibraryManagement.Classes
         /// <returns></returns>
         public bool borrowBook(Book m)
         {
-            
             int t = count(m);
             if(t==5)
+
             {
                 return false;
             }
@@ -163,6 +167,7 @@ namespace LibraryManagement.Classes
             m.count--;
             return true;
         }
+
        public int count(Book a)
         {
             int tedad = 0;
@@ -306,6 +311,7 @@ namespace LibraryManagement.Classes
                     TimeSpan e2 = DateTime.Today.Subtract(e1);
                     int adad5 = int.Parse(e2.ToString());
                     adad5= adad5 * 100;
+
                     sum = sum + adad5;
                 }
             }

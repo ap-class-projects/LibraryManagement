@@ -14,28 +14,31 @@ namespace LibraryManagement.Pages
     {
         public event PageChangerNoArg changeToLoginPage;
         public event PageChanger changeToAddEmployeePage;
-        public event PageChanger changeToPaymentPage;
+        public event PageChanger changeToPayEmployeePage;
         public event PageChanger changeToAddBookPage;
+        public event ChangeAdminPageToIncreaseBudgetPage changeAdminPageToIncreaseBudgetPage;
 
         public ObservableCollection<string> employeesList {get;set;}
         public ObservableCollection<string> booksList { get; set; }
         Admin admin;
 
         public AdminPanelPage(PageChangerNoArg changeToLoginPage, PageChanger changeToAddEmployeePage,
-            PageChanger changeToPaymentPage, PageChanger changeToAddBookPage, Admin admin)
+            ChangeAdminPageToIncreaseBudgetPage changeAdminPageToIncreaseBudgetPage, PageChanger changeToPayEmployeePage,
+            PageChanger changeToAddBookPage, Admin admin)
         {
             InitializeComponent();
             this.changeToLoginPage = changeToLoginPage;
             this.admin = admin;
             this.changeToAddEmployeePage = changeToAddEmployeePage;
-            this.changeToPaymentPage = changeToPaymentPage;
+            this.changeToPayEmployeePage = changeToPayEmployeePage;
             this.changeToAddBookPage = changeToAddBookPage;
+            this.changeAdminPageToIncreaseBudgetPage = changeAdminPageToIncreaseBudgetPage;
             employeesList = new ObservableCollection<string>();
             booksList = new ObservableCollection<string>();
             this.DataContext = this;
             updateEmployeeList();
             updateBooksList();
-            updateBudget();
+            budgetText.Text = this.admin.moneyBag.ToString();
         }
 
         private void updateEmployeeList()
@@ -89,6 +92,7 @@ namespace LibraryManagement.Pages
                     {
                         isValid = true;
                         PeopleTable.delete(deleteEmployeeBox.Text);
+                        deleteEmployeeBox.Text = "";
                         break;
                     }
                 }
@@ -107,7 +111,7 @@ namespace LibraryManagement.Pages
 
         private void payEmployeeButton_Click(object sender, RoutedEventArgs e)
         {
-            changeToPaymentPage(this.admin);
+            changeToPayEmployeePage(this.admin);
         }
 
         private void addBookButton_Click(object sender, RoutedEventArgs e)
@@ -115,19 +119,23 @@ namespace LibraryManagement.Pages
             changeToAddBookPage(this.admin);
         }
 
-        private void updateBudget()
+        private void increaseBudgetButton_Click(object sender, RoutedEventArgs e)
         {
-            DataTable dataTable = PeopleTable.read();
-            double money = 0;
-            for(int i = 0; i < dataTable.Rows.Count; i++)
+            try
             {
-                if(dataTable.Rows[i][PeopleTable.indexRole].ToString() == Role.Admin.ToString())
+                double money = double.Parse(increaseBudgetBox.Text);
+                if(money <= 0)
                 {
-                    money = double.Parse(dataTable.Rows[i][PeopleTable.indexMoneyBag].ToString());
-                    break;
+                    MessageBox.Show("Money must be positive");
+                    return;
                 }
+                changeAdminPageToIncreaseBudgetPage(this.admin, money);
             }
-            budgetText.Text = money.ToString();
+            catch
+            {
+                MessageBox.Show("Entered money must be float!");
+            }
+
         }
     }
 }

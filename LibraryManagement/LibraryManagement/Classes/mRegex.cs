@@ -151,9 +151,14 @@ namespace LibraryManagement.Classes
 
             Regex regexYear = new Regex(patternYear);
             Regex regexMonth= new Regex(patternMonth);
-
+            
             if (regexYear.IsMatch(year) && regexMonth.IsMatch(month))
             {
+                if(int.Parse(month) > 11)
+                {
+                    return false;
+                }
+
                 if(int.Parse(year) < int.Parse(DateTime.Now.Year.ToString()))
                 {
                     return false;

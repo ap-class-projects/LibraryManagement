@@ -31,7 +31,7 @@
                     HorizontalAlignment="Center">
             <TextBlock x:Name="moneyToPay"
                        FontWeight="Bold"
-                       FontSize="20">Money to pay :</TextBlock>
+                       FontSize="20">Money to pay : 100</TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="2" VerticalAlignment="Center" Width="500">
