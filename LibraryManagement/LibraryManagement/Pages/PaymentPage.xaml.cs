@@ -1,6 +1,7 @@
 ﻿using LibraryManagement.Classes;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,7 +57,21 @@ namespace LibraryManagement.Pages
                     {
                         if (mRegex.expireDateIsValid(year.Text, month.Text))
                         {
-                            PeopleTable.write(person);
+                            //sign up User
+                            SqlConnection sqlConnection1 = new SqlConnection(projectInfo.connectionString);
+                            sqlConnection1.Open();
+                            string command1 = "insert into People values ('" + person.userName + "', '" + person.firstName + "', '" + person.lastName + "', '" + person.role.ToString() + "', '" + person.phoneNumber + "', '" + person.email + "', '" + person.password + "','" + person.moneyBag + "', '" + null + "')";
+                            SqlCommand sqlCommand1 = new SqlCommand(command1, sqlConnection1);
+                            sqlCommand1.BeginExecuteNonQuery();
+                            sqlConnection1.delayedClose();
+
+                            //SqlConnection sqlConnection2 = new SqlConnection(projectInfo.connectionString);
+                            //sqlConnection2.Open();
+                            //string command2 = "insert into UsersInfos values ('" + person.userName + "', '" + null + "', '" + null + "', '" + null + "', '" + null + "', '" + null + "', '" + null + "','" + null + "', '" + null + "', '"+ null +"', '"+ null +"', '"+ DateTime.Now +"', '"+ DateTime.Now +"', '"+ DateTime.Now 8+ "' )";
+                            //SqlCommand sqlCommand2 = new SqlCommand(command2, sqlConnection2);
+                            //sqlCommand2.BeginExecuteNonQuery();
+                            //sqlConnection2.delayedClose();
+
                             MessageBox.Show("Sign up was successful! - going to login page");
                             changeToLoginPage();
                         }

@@ -4,9 +4,16 @@ namespace LibraryManagement.Classes
 {
     public class Admin : Person
     {
-        public Admin(string userName, string firstName, string lastName,
-             Role role, string phoneNumber, string email, string password, double moneyBag)
-         : base(userName, firstName, lastName, role, phoneNumber, email, password, moneyBag)
+        public Admin(
+                    string userName,
+                    string firstName,
+                    string lastName,
+                    string phoneNumber,
+                    string email,
+                    string password,
+                    double moneyBag,
+                    string imageAddress)
+         : base(userName, firstName, lastName, Role.Admin, phoneNumber, email, password, moneyBag, imageAddress)
         {
 
         }
@@ -35,7 +42,7 @@ namespace LibraryManagement.Classes
                 if(dataTable.Rows[i][BooksTable.indexName].ToString() == book.name)
                 {
                     exists = true;
-                    count = int.Parse(dataTable.Rows[i][BooksTable.indexcount].ToString());
+                    count = int.Parse(dataTable.Rows[i][BooksTable.indexCount].ToString());
                     break;
                 }
             }

@@ -13,18 +13,21 @@ namespace LibraryManagement.Pages
     /// </summary>
     public partial class EmployeePanelPage : Page
     {
-        public PageChangerNoArg changeToLoginPage;
+        public event PageChangerNoArg changeToLoginPage;
+        public event ChangeEmployeePageToUserInfoPage changeEmployeePageToUserInfoPage;
+
         Employee employee;
         public ObservableCollection<string> booksCollection { get; set; }
         public ObservableCollection<string> usersCollection { get; set; }
         string placeHolderBook = "name - writer - genre - printingNumber - count";
-        string placeHolderUser = "firstName - lastName - phoneNumber - email";
+        string placeHolderUser = "userName - firstName - lastName - phoneNumber - email";
 
-        public EmployeePanelPage(PageChangerNoArg changeToLoginPage, Employee employee)
+        public EmployeePanelPage(PageChangerNoArg changeToLoginPage, Employee employee, ChangeEmployeePageToUserInfoPage changeEmployeePageToUserInfoPage)
         {
             InitializeComponent();
             this.changeToLoginPage = changeToLoginPage;
             this.employee = employee;
+            this.changeEmployeePageToUserInfoPage = changeEmployeePageToUserInfoPage;
             booksCollection = new ObservableCollection<string>();
             usersCollection = new ObservableCollection<string>();
             this.DataContext = this;
@@ -98,8 +101,8 @@ namespace LibraryManagement.Pages
             ObservableCollection<User> tempCollection = employee.seeUsers();
             for (int i = 0; i < tempCollection.Count; i++)
             {
-                string bookInfo = $"{tempCollection[i].firstName} - {tempCollection[i].lastName} - {tempCollection[i].phoneNumber} - {tempCollection[i].email}";
-                usersCollection.Add(bookInfo);
+                string userInfo = $"{tempCollection[i].userName} - {tempCollection[i].firstName} - {tempCollection[i].lastName} - {tempCollection[i].phoneNumber} - {tempCollection[i].email}";
+                usersCollection.Add(userInfo);
             }
         }
 
@@ -115,8 +118,8 @@ namespace LibraryManagement.Pages
             ObservableCollection<User> tempCollection = employee.seeDelayGiveBackMan();
             for (int i = 0; i < tempCollection.Count; i++)
             {
-                string bookInfo = $"{tempCollection[i].firstName} - {tempCollection[i].lastName} - {tempCollection[i].phoneNumber} - {tempCollection[i].email}";
-                usersCollection.Add(bookInfo);
+                string userInfo = $"{tempCollection[i].userName} - {tempCollection[i].firstName} - {tempCollection[i].lastName} - {tempCollection[i].phoneNumber} - {tempCollection[i].email}";
+                usersCollection.Add(userInfo);
             }
         }
 
@@ -127,14 +130,29 @@ namespace LibraryManagement.Pages
             ObservableCollection<User> tempCollection = employee.seeDelayPayMan();
             for (int i = 0; i < tempCollection.Count; i++)
             {
-                string bookInfo = $"{tempCollection[i].firstName} - {tempCollection[i].lastName} - {tempCollection[i].phoneNumber} - {tempCollection[i].email}";
-                usersCollection.Add(bookInfo);
+                string userInfo = $"{tempCollection[i].userName} - {tempCollection[i].firstName} - {tempCollection[i].lastName} - {tempCollection[i].phoneNumber} - {tempCollection[i].email}";
+                usersCollection.Add(userInfo);
             }
         }
 
         private void showUserInfoButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (showUserInfoBox.Text == "")
+            {
+                MessageBox.Show("Please type an user name");
+            }
+            else
+            {
+                User user = employee.seePerson(showUserInfoBox.Text);
+                if(user == null)
+                {
+                    MessageBox.Show("No one found!");
+                }
+                else
+                {
+                    changeEmployeePageToUserInfoPage(employee, user);
+                }
+            }
         }
     }
 }

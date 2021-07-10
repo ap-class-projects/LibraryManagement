@@ -1,19 +1,88 @@
 using System;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
+using System.Collections.ObjectModel;
 namespace LibraryManagement.Classes
 {
     public class User : Person
     {
-        //int daysleft = 0;
-        //DateTime registerdate = DateTime.Today;
-        //DateTime renewaldate=DateTime.Today;
-        public User(string userName, string firstName, string lastName,
-                    Role role, string phoneNumber, string email, string password, double moneyBag)
-                : base(userName, firstName, lastName, role, phoneNumber, email, password, moneyBag)
+        DateTime subRegisterDate;
+        DateTime subRenewalDate;
+        DateTime subExpireDate;
+
+        public User(string userName, 
+                    string firstName, 
+                    string lastName,
+                    string phoneNumber,
+                    string email,
+                    string password,
+                    double moneyBag,
+                    string imageAddress,
+                    DateTime subRegisterDate,
+                    DateTime subRenewalDate,
+                    DateTime subExpireDate)
+                : base(userName, firstName, lastName, Role.User, phoneNumber, email, password, moneyBag, imageAddress)
         {
-            //tarikh  sakht accaunt ro sabt kon//
+            this.subRegisterDate = subRegisterDate;
+            this.subRenewalDate = subRenewalDate;
+            this.subExpireDate = subExpireDate;
+        }
+
+        /// <summary>
+        /// returns register date as string
+        /// </summary>
+        /// <returns></returns>
+        public string registerDate()
+        {
+            DataTable datatable = UsersInfosTable.read();
+            for (int i = 0; i < datatable.Rows.Count; i++)
+            {
+                if (datatable.Rows[i][UsersInfosTable.indexUserName].ToString() == this.userName)
+                {
+                    DateTime registerDate = (DateTime)datatable.Rows[i][UsersInfosTable.indexSubRegisterDate];
+                    return registerDate.ToString();
+                }
+            }
+            return "";
+        }
+
+
+        /// <summary>
+        /// returns renewal date as string
+        /// </summary>
+        /// <returns></returns>
+        public string renewalDate()
+        {
+            DataTable datatable = UsersInfosTable.read();
+            for (int i = 0; i < datatable.Rows.Count; i++)
+            {
+                if (datatable.Rows[i][UsersInfosTable.indexUserName].ToString() == this.userName)
+                {
+                    DateTime registerDate = (DateTime)datatable.Rows[i][UsersInfosTable.indexSubRenewalDate];
+                    return registerDate.ToString();
+                }
+            }
+            return "";
+        }
+
+        /// <summary>
+        /// returns remaining days as int
+        /// </summary>
+        /// <returns></returns>
+        public int remainingDays()
+        {
+            DataTable datatable = UsersInfosTable.read();
+            for (int i = 0; i < datatable.Rows.Count; i++)
+            {
+                if (datatable.Rows[i][UsersInfosTable.indexUserName].ToString() == this.userName)
+                {
+                    DateTime registerDate = (DateTime)datatable.Rows[i][UsersInfosTable.indexSubRenewalDate];
+                    DateTime ExpireDate = (DateTime)datatable.Rows[i][UsersInfosTable.indexSubExpireDate];
+                    TimeSpan t = ExpireDate.Subtract(registerDate);
+                    return t.Days;
+                }
+            }
+            return 0;
         }
 
         /// <summary>
@@ -47,25 +116,8 @@ namespace LibraryManagement.Classes
                 }
             }
         }
-        /// <summary>
-        /// baraye namayesh eshterak.mosabat sabz,manfi qermez -100:yani mojood nis;
-        /// </summary>
-        /// <returns></returns>
-        public int seeEshterak()
-        {
-            DataTable datatable2 = UsersInfos.read();
-            for (int i = 0; i < datatable2.Rows.Count; i++)
-            {
-                if (datatable2.Rows[i][UsersInfos.indexUserName].ToString() == this.userName)
-                {
-                    DateTime a = (DateTime)datatable2.Rows[i][UsersInfos.indexExpireDateTime];
-                    TimeSpan b = a.Subtract(DateTime.Today);
-                    int c = int.Parse(b.ToString());
-                    return c;
-                }
-            }
-            return -100;
-        }
+
+
         /// <summary>
         /// baraye tamdid eshterak, 0:kar anjam shode -1:money null boode -2:karbari ba oon esm nist   adadmosbat:meqdar money kam oomade+bayad mojodi kafi nis chap she
         /// </summary>
@@ -73,7 +125,7 @@ namespace LibraryManagement.Classes
         {
             double t = 0, adad = 0;
             DataTable datatable = PeopleTable.read();
-            DataTable dataTable2 = UsersInfos.read();
+            DataTable dataTable2 = UsersInfosTable.read();
             for (int i = 0; i < datatable.Rows.Count; i++)
             {
                 if (datatable.Rows[i][PeopleTable.indexUserName].ToString() == this.userName)
@@ -96,11 +148,11 @@ namespace LibraryManagement.Classes
                             adad = t - 1000;
                             for (int j = 0; j < dataTable2.Rows.Count; j++)
                             {
-                                if (dataTable2.Rows[j][UsersInfos.indexUserName].ToString() == this.userName)
+                                if (dataTable2.Rows[j][UsersInfosTable.indexUserName].ToString() == this.userName)
                                 {
-                                    datatable.Rows[j][UsersInfos.indexRenewalDate] = DateTime.Today;
-                                    DateTime a = (DateTime)datatable.Rows[j][UsersInfos.indexRenewalDate];
-                                    datatable.Rows[j][UsersInfos.indexExpireDateTime] = a.AddDays(10);
+                                    datatable.Rows[j][UsersInfosTable.indexSubRenewalDate] = DateTime.Today;
+                                    DateTime a = (DateTime)datatable.Rows[j][UsersInfosTable.indexSubRenewalDate];
+                                    datatable.Rows[j][UsersInfosTable.indexSubExpireDate] = a.AddDays(10);
                                 }
                             }
                         }
@@ -113,17 +165,26 @@ namespace LibraryManagement.Classes
             return -2;
 
         }
+
+        /// <summary>
+        /// borrowed books of this user
+        /// </summary>
+        /// <returns></returns>
         public ObservableCollection<Book> seeBook()
         {
             ObservableCollection<Book> book = new ObservableCollection<Book>();
             DataTable datatable1 = BooksTable.read();
             for (int i = 0; i < datatable1.Rows.Count; i++)
             {
-                Book a = new Book(datatable1.Rows[i][BooksTable.indexName].ToString(), datatable1.Rows[i][BooksTable.indexWriter].ToString(), datatable1.Rows[i][BooksTable.indexGenre].ToString(), (int)datatable1.Rows[i][BooksTable.indexPrintingNumber], (int)datatable1.Rows[i][BooksTable.indexcount]);
-                book.Add(a);
+                if(datatable1.Rows[i][BooksTable.indexName] != null)
+                {
+                    Book a = new Book(datatable1.Rows[i][BooksTable.indexName].ToString(), datatable1.Rows[i][BooksTable.indexWriter].ToString(), datatable1.Rows[i][BooksTable.indexGenre].ToString(), (int)datatable1.Rows[i][BooksTable.indexPrintingNumber], (int)datatable1.Rows[i][BooksTable.indexCount]);
+                    book.Add(a);
+                }
             }
             return book;
         }
+
         /// <summary>
         /// qarz dadan false:shart ha barqarar nis true:okaye
         /// </summary>
@@ -137,18 +198,18 @@ namespace LibraryManagement.Classes
             {
                 return false;
             }
-            DataTable datatable1 = UsersInfos.read();
+            DataTable datatable1 = UsersInfosTable.read();
             for (int i = 0; i < datatable1.Rows.Count; i++)
             {
-                if (datatable1.Rows[i][UsersInfos.indexUserName].ToString() == this.userName)
+                if (datatable1.Rows[i][UsersInfosTable.indexUserName].ToString() == this.userName)
                 {
-                    if (DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfos.indexExpireDate1], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfos.indexExpireDate2], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfos.indexExpireDate3], DateTime.Today) < 0 ||
-                        DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfos.indexExpireDate4], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfos.indexExpireDate5], DateTime.Today) < 0)
+                    if (DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfosTable.indexExpireDate1], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfosTable.indexExpireDate2], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfosTable.indexExpireDate3], DateTime.Today) < 0 ||
+                        DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfosTable.indexExpireDate4], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable1.Rows[i][UsersInfosTable.indexExpireDate5], DateTime.Today) < 0)
                     {
                         return false;
                     }
-                    DateTime n = (DateTime)datatable1.Rows[i][UsersInfos.indexExpireDateTime];
-                    TimeSpan q = n.Subtract((DateTime)datatable1.Rows[i][UsersInfos.indexRenewalDate]);
+                    DateTime n = (DateTime)datatable1.Rows[i][UsersInfosTable.indexSubExpireDate];
+                    TimeSpan q = n.Subtract((DateTime)datatable1.Rows[i][UsersInfosTable.indexSubRenewalDate]);
                     int q1 = int.Parse(q.ToString());
                     if (q1 < 7)
                     {
@@ -163,36 +224,36 @@ namespace LibraryManagement.Classes
             m.count--;
             return true;
         }
+
         public int count(Book a)
         {
             int tedad = 0;
-            DataTable b = UsersInfos.read();
+            DataTable b = UsersInfosTable.read();
             for (int i = 0; i < b.Rows.Count; i++)
             {
-                if (b.Rows[i][UsersInfos.indexBook1] != null)
+                if (b.Rows[i][UsersInfosTable.indexBook1] != null)
                 {
                     tedad++;
                 }
-                if (b.Rows[i][UsersInfos.indexBook2] != null)
+                if (b.Rows[i][UsersInfosTable.indexBook2] != null)
                 {
                     tedad++;
                 }
-                if (b.Rows[i][UsersInfos.indexBook3] != null)
+                if (b.Rows[i][UsersInfosTable.indexBook3] != null)
                 {
                     tedad++;
                 }
-                if (b.Rows[i][UsersInfos.indexBook4] != null)
+                if (b.Rows[i][UsersInfosTable.indexBook4] != null)
                 {
                     tedad++;
                 }
-                if (b.Rows[i][UsersInfos.indexBook5] != null)
+                if (b.Rows[i][UsersInfosTable.indexBook5] != null)
                 {
                     tedad++;
                 }
             }
             return tedad;
         }
-
 
 
         /// <summary>
@@ -204,47 +265,47 @@ namespace LibraryManagement.Classes
         {
             int penalty = 0;
             DataTable data2 = PeopleTable.read();
-            DataTable datatable = UsersInfos.read();
+            DataTable datatable = UsersInfosTable.read();
             for (int i = 0; i < datatable.Rows.Count; i++)
             {
 
 
-                if (datatable.Rows[i][UsersInfos.indexBook1].ToString() == bookname)
+                if (datatable.Rows[i][UsersInfosTable.indexBook1].ToString() == bookname)
                 {
-                    if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate1], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate2], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate3], DateTime.Today) < 0 ||
-                        DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate4], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate5], DateTime.Today) < 0)
+                    if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate1], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate2], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate3], DateTime.Today) < 0 ||
+                        DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate4], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate5], DateTime.Today) < 0)
                     {
-                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate1], DateTime.Today) < 0)
+                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate1], DateTime.Today) < 0)
                         {
-                            DateTime n = (DateTime)datatable.Rows[i][UsersInfos.indexExpireDate1];
+                            DateTime n = (DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate1];
                             TimeSpan q = n.Subtract(DateTime.Today);
                             int q1 = int.Parse(q.ToString());
                             penalty += q1 * 100;
                         }
-                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate2], DateTime.Today) < 0)
+                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate2], DateTime.Today) < 0)
                         {
-                            DateTime n = (DateTime)datatable.Rows[i][UsersInfos.indexExpireDate2];
+                            DateTime n = (DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate2];
                             TimeSpan q = n.Subtract(DateTime.Today);
                             int q1 = int.Parse(q.ToString());
                             penalty += q1 * 100;
                         }
-                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate3], DateTime.Today) < 0)
+                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate3], DateTime.Today) < 0)
                         {
-                            DateTime n = (DateTime)datatable.Rows[i][UsersInfos.indexExpireDate3];
+                            DateTime n = (DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate3];
                             TimeSpan q = n.Subtract(DateTime.Today);
                             int q1 = int.Parse(q.ToString());
                             penalty += q1 * 100;
                         }
-                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate4], DateTime.Today) < 0)
+                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate4], DateTime.Today) < 0)
                         {
-                            DateTime n = (DateTime)datatable.Rows[i][UsersInfos.indexExpireDate4];
+                            DateTime n = (DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate4];
                             TimeSpan q = n.Subtract(DateTime.Today);
                             int q1 = int.Parse(q.ToString());
                             penalty += q1 * 100;
                         }
-                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfos.indexExpireDate5], DateTime.Today) < 0)
+                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate5], DateTime.Today) < 0)
                         {
-                            DateTime n = (DateTime)datatable.Rows[i][UsersInfos.indexExpireDate5];
+                            DateTime n = (DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate5];
                             TimeSpan q = n.Subtract(DateTime.Today);
                             int q1 = int.Parse(q.ToString());
                             penalty += q1 * 100;
@@ -276,33 +337,33 @@ namespace LibraryManagement.Classes
         /// </summary>
         public int payPenalty()
         {
-            DataTable data = UsersInfos.read();
+            DataTable data = UsersInfosTable.read();
             int sum = 0;
             for (int i = 0; i < data.Rows.Count; i++)
             {
-                if (data.Rows[i][UsersInfos.indexUserName].ToString() == this.userName)
+                if (data.Rows[i][UsersInfosTable.indexUserName].ToString() == this.userName)
                 {
-                    DateTime a1 = (DateTime)data.Rows[i][UsersInfos.indexExpireDate1];
+                    DateTime a1 = (DateTime)data.Rows[i][UsersInfosTable.indexExpireDate1];
                     TimeSpan a2 = DateTime.Today.Subtract(a1);
                     int adad1 = int.Parse(a2.ToString());
                     adad1 = adad1 * 100;
                     sum = sum + adad1;
-                    DateTime b1 = (DateTime)data.Rows[i][UsersInfos.indexExpireDate2];
+                    DateTime b1 = (DateTime)data.Rows[i][UsersInfosTable.indexExpireDate2];
                     TimeSpan b2 = DateTime.Today.Subtract(b1);
                     int adad2 = int.Parse(b2.ToString());
                     adad2 = adad2 * 100;
                     sum = sum + adad2;
-                    DateTime c1 = (DateTime)data.Rows[i][UsersInfos.indexExpireDate3];
+                    DateTime c1 = (DateTime)data.Rows[i][UsersInfosTable.indexExpireDate3];
                     TimeSpan c2 = DateTime.Today.Subtract(c1);
                     int adad3 = int.Parse(c2.ToString());
                     adad3 = adad3 * 100;
                     sum = sum + adad3;
-                    DateTime d1 = (DateTime)data.Rows[i][UsersInfos.indexExpireDate4];
+                    DateTime d1 = (DateTime)data.Rows[i][UsersInfosTable.indexExpireDate4];
                     TimeSpan d2 = DateTime.Today.Subtract(d1);
                     int adad4 = int.Parse(d2.ToString());
                     adad4 = adad4 * 100;
                     sum = sum + adad4;
-                    DateTime e1 = (DateTime)data.Rows[i][UsersInfos.indexExpireDate5];
+                    DateTime e1 = (DateTime)data.Rows[i][UsersInfosTable.indexExpireDate5];
                     TimeSpan e2 = DateTime.Today.Subtract(e1);
                     int adad5 = int.Parse(e2.ToString());
                     adad5 = adad5 * 100;
@@ -336,6 +397,7 @@ namespace LibraryManagement.Classes
             return 0;
 
         }
+
         /// <summary>
         /// charge hesab true:charge anjam mishe   false:karbar mojood nis ya hesabesh null ast
         /// </summary>
@@ -375,11 +437,11 @@ namespace LibraryManagement.Classes
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <param name="moneyBag1"></param>
-        public void changeInfo(string oldUserName, string userName, string firstName, string lastName,
-                      Role role1, string phoneNumber, string email, string password, double moneyBag1)
-        {
-            Person jadid = new User(userName, firstName, lastName, this.role, phoneNumber, email, password, this.moneyBag);
-            PeopleTable.update(oldUserName, jadid as User);
-        }
+        //public void changeInfo(string oldUserName, string userName, string firstName, string lastName,
+        //              Role role1, string phoneNumber, string email, string password, double moneyBag1)
+        //{
+        //    Person jadid = new User(userName, firstName, lastName, this.role, phoneNumber, email, password, this.moneyBag);
+        //    PeopleTable.update(oldUserName, jadid as User);
+        //}
     }
 }

@@ -2,6 +2,7 @@
 using LibraryManagement.Pages;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,13 @@ namespace LibraryManagement
         {
             InitializeComponent();
             goToFirstPage();
+
+            //SqlConnection sqlConnection2 = new SqlConnection(projectInfo.connectionString);
+            //sqlConnection2.Open();
+            //string command2 = "insert into UsersInfos values ('" + "hamed" + "', '" + null + "', '" + null + "', '" + null + "', '" + null + "', '" + null + "', '" + null + "','" + null + "', '" + null + "', '" + null + "', '" + null + "', '" + DateTime.Now + "', '" + DateTime.Now + "' )";
+            //SqlCommand sqlCommand2 = new SqlCommand(command1, sqlConnection2);
+            //sqlCommand2.BeginExecuteNonQuery();
+            //sqlConnection2.delayedClose();
         }
 
         void goToFirstPage()
@@ -52,11 +60,7 @@ namespace LibraryManagement
 
         void goToAdminPanelPage(Person person)
         {
-            Admin admin = new Admin(person.userName, person.firstName,
-                                    person.lastName, person.role,
-                                    person.phoneNumber, person.email,
-                                    person.password, person.moneyBag);
-
+            Admin admin = person as Admin;
             MainWindowFrame.Content = new AdminPanelPage(goToLoginPage, goToAddEmployeePage, 
                                                         goToIncreaseBudgetPage, goToPayEmployeePage,
                                                         goToAddBookPage, admin);
@@ -69,50 +73,36 @@ namespace LibraryManagement
 
         void goToPayEmployeePage(Person person)
         {
-            Admin admin = new Admin(person.userName, person.firstName,
-                                    person.lastName, person.role,
-                                    person.phoneNumber, person.email,
-                                    person.password, person.moneyBag);
+            Admin admin = person as Admin;
             MainWindowFrame.Content = new payEmployeePage(goToAdminPanelPage, admin);
         }
 
         void goToAddEmployeePage(Person person)
         {
-            Admin admin = new Admin(person.userName, person.firstName,
-                                    person.lastName, person.role,
-                                    person.phoneNumber, person.email,
-                                    person.password, person.moneyBag);
-
+            Admin admin = person as Admin;
             MainWindowFrame.Content = new addEmployeePage(goToAdminPanelPage, admin);
         }
 
         void goToAddBookPage(Person person)
         {
-            Admin admin = new Admin(person.userName, person.firstName,
-                                    person.lastName, person.role,
-                                    person.phoneNumber, person.email,
-                                    person.password, person.moneyBag);
-
+            Admin admin = person as Admin;
             MainWindowFrame.Content = new addBookPage(goToAdminPanelPage, admin);
         }
 
         void goToEmployeePanelPage(Person person)
         {
-            Employee employee = new Employee(person.userName, person.firstName,
-                                             person.lastName, person.role,
-                                             person.phoneNumber, person.email,
-                                             person.password, person.moneyBag);
+            Employee employee = person as Employee;
+            MainWindowFrame.Content = new EmployeePanelPage(goToLoginPage, employee, goToUserInfoPage);
+        }
 
-            MainWindowFrame.Content = new EmployeePanelPage(goToLoginPage, employee);
+        void goToUserInfoPage(Employee employee, User user)
+        {
+            MainWindowFrame.Content = new userInfoPage(employee, user, goToEmployeePanelPage);
         }
 
         void goToUserPanelPage(Person person)
         {
-            User user = new User(person.userName, person.firstName,
-                                 person.lastName, person.role,
-                                 person.phoneNumber, person.email,
-                                 person.password, person.moneyBag);
-
+            User user = person as User;
             MainWindowFrame.Content = new UserPanelPage(goToLoginPage, user);
         }
     }

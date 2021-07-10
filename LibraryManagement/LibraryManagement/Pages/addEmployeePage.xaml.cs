@@ -162,10 +162,11 @@ namespace LibraryManagement.Pages
                                                 (userNameBox.Text,
                                                  firstNameBox.Text,
                                                  lastNameBox.Text,
-                                                 Role.Employee,
                                                  phoneNumberBox.Text,
                                                  emailBox.Text,
-                                                 passwordBox.Password, 0);
+                                                 passwordBox.Password,
+                                                 0,
+                                                 "");
                             PeopleTable.write(employee);
                             MessageBox.Show("Employee added successfully! - returning to admin panel");
                             changeToAdminPanelPage(admin);

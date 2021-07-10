@@ -19,7 +19,7 @@
                     Margin="30,0">
             <Button Width="50" Height="30"
                     x:Name="goBack"
-                    Click="logOutbutton_Click">Go Back</Button>
+                    Click="goBack_Click">Go Back</Button>
         </StackPanel>
         <Border Padding="20,0" Grid.Row="1">
             <TabControl TabStripPlacement="Top"
@@ -52,43 +52,69 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                     <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="3*"/>
                                 </Grid.RowDefinitions>
-                                <StackPanel Grid.Row="1"
+                                <StackPanel Grid.Row="0"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right">
                                     <TextBlock Text="Username :" Margin="10,0"/>
                                 </StackPanel>
-                                <StackPanel Grid.Row="1"
+                                <StackPanel Grid.Row="0"
                                     Grid.Column="1"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Left">
-                                    <TextBox Width="150" Margin="10,0"/>
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="userNameTextBlock"
+                                               Width="150" Margin="10,0" Text="hamed"/>
                                 </StackPanel>
-                                <StackPanel Grid.Row="2"
+                                
+                                <StackPanel Grid.Row="1"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right">
                                     <TextBlock Text="First name :" Margin="10,0"/>
                                 </StackPanel>
-                                <StackPanel Grid.Row="2"
+                                <StackPanel Grid.Row="1"
                                     Grid.Column="1"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Left">
-                                    <TextBox Width="150" Margin="10,0"/>
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="firstNameTextBlock"
+                                               Width="150" Margin="10,0" Text="hamed"/>
                                 </StackPanel>
-                                <StackPanel Grid.Row="3"
+                                
+                                <StackPanel Grid.Row="2"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right">
                                     <TextBlock Text="Last name :" Margin="10,0"/>
                                 </StackPanel>
+                                <StackPanel Grid.Row="2"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left">
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="lastNameTextBlock"
+                                               Width="150" Margin="10,0" Text="hamed"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="3"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right">
+                                    <TextBlock Text="Email :" Margin="10,0"/>
+                                </StackPanel>
                                 <StackPanel Grid.Row="3"
                                     Grid.Column="1"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Left">
-                                    <TextBox Width="150" Margin="10,0"/>
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="emailTextBlock"
+                                               Width="150" Margin="10,0" Text="hamed@mail.com" />
                                 </StackPanel>
+
                                 <StackPanel Grid.Row="4"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
@@ -99,54 +125,106 @@
                                     Grid.Column="1"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Left">
-                                    <TextBox Width="150" Margin="10,0"/>
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="phoneNumberTextBlock"
+                                               Width="150" Margin="10,0" Text="0933"/>
                                 </StackPanel>
+                                
                                 <StackPanel Grid.Row="5"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right">
-                                    <TextBlock Text="Email :" Margin="10,0"/>
+                                    <TextBlock Text="Register date :" Margin="10,0"/>
                                 </StackPanel>
                                 <StackPanel Grid.Row="5"
                                     Grid.Column="1"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Left">
-                                    <TextBox Width="150" Margin="10,0"/>
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="registerDateTextBlock"
+                                               Width="150" Margin="10,0" Text="2021/1/10"/>
                                 </StackPanel>
+
                                 <StackPanel Grid.Row="6"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right">
-                                    <TextBlock Text="Password :" Margin="10,0"/>
+                                    <TextBlock Text="Renewal date :" Margin="10,0"/>
                                 </StackPanel>
                                 <StackPanel Grid.Row="6"
                                     Grid.Column="1"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Left">
-                                    <TextBox Width="150" Margin="10,0"/>
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="renewalDateTextBlock"
+                                               Width="150" Margin="10,0" Text="2021/1/10"/>
                                 </StackPanel>
+
+                                <StackPanel Grid.Row="7"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right">
+                                    <TextBlock Text="Remaining days :" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="7"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left">
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="remainingDaysTextBlock"
+                                               Width="150" Margin="10,0" Text="40"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="8"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right">
+                                    <TextBlock Text="Borrowed Books :" Margin="10,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="8"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left">
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="book1TextBlock"
+                                               Width="150" Margin="10,0" Text="book - date"/>
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="book2TextBlock"
+                                               Width="150" Margin="10,0" Text="book - date"/>
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="book3TextBlock"
+                                               Width="150" Margin="10,0" Text="book - date"/>
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="book4TextBlock"
+                                               Width="150" Margin="10,0" Text="book - date"/>
+                                    <TextBlock TextAlignment="Center"
+                                               x:Name="book5TextBlock"
+                                               Width="150" Margin="10,0" Text="book - date"/>
+                                </StackPanel>
+
                             </Grid>
                             <StackPanel VerticalAlignment="Center">
-                                <StackPanel Background="Gray">
+                                <StackPanel Background="Gray"
+                                            Width="100">
                                     <Image x:Name="image"
                                        Width="100"
                                        Height="100"
                                        Stretch="Fill"/>
                                 </StackPanel>
-                                <Button x:Name="uploadButton"
-                                        Click="uploadButton_Click"
-                                        Width="100"
-                                        Height="30"
-                                        Margin="0,10"
-                                        Content="Upload"/>
                             </StackPanel>
                         </Grid>
                         <StackPanel Grid.Row="1"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center">
+                            <TextBlock Margin="0,5">Password : </TextBlock>
+                            <PasswordBox Margin="0"
+                                         x:Name="passwordBox"></PasswordBox>
                             <Button Width="100"
                                     Height="35"
-                                    Content="Submit Changes"/>
+                                    Margin="0,5"
+                                    x:Name="deleteUser"
+                                    Click="deleteUser_Click"
+                                    Content="Delete user"/>
                         </StackPanel>
                     </Grid>
 

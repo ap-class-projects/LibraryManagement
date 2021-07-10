@@ -1,5 +1,7 @@
 ﻿using LibraryManagement.Classes;
+using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -38,7 +40,9 @@ namespace LibraryManagement.Pages
             {
                 bool loggedIn = false;
                 Role role = Role.Unknown;
+
                 DataTable dataTable = PeopleTable.read();
+
                 //check data
                 Person person = null;
                 for (int i = 0; i < dataTable.Rows.Count; i++)
@@ -58,35 +62,55 @@ namespace LibraryManagement.Pages
                                 person = new Admin(dataTable.Rows[i][PeopleTable.indexUserName].ToString(),
                                                    dataTable.Rows[i][PeopleTable.indexFirstName].ToString(),
                                                    dataTable.Rows[i][PeopleTable.indexLastName].ToString(),
-                                                   role,
                                                    dataTable.Rows[i][PeopleTable.indexPhoneNumber].ToString(),
                                                    dataTable.Rows[i][PeopleTable.indexEmail].ToString(),
                                                    dataTable.Rows[i][PeopleTable.indexPassword].ToString(),
-                                                   double.Parse(dataTable.Rows[i][PeopleTable.indexMoneyBag].ToString()));
+                                                   (double)dataTable.Rows[i][PeopleTable.indexMoneyBag],
+                                                   dataTable.Rows[i][PeopleTable.indexImageAddress].ToString());
                             }
                             else if(dataTable.Rows[i][PeopleTable.indexRole].ToString() == Role.Employee.ToString())
                             {
                                 role = Role.Employee;
-                                person = new Admin(dataTable.Rows[i][PeopleTable.indexUserName].ToString(),
-                                                   dataTable.Rows[i][PeopleTable.indexFirstName].ToString(),
-                                                   dataTable.Rows[i][PeopleTable.indexLastName].ToString(),
-                                                   role,
-                                                   dataTable.Rows[i][PeopleTable.indexPhoneNumber].ToString(),
-                                                   dataTable.Rows[i][PeopleTable.indexEmail].ToString(),
-                                                   dataTable.Rows[i][PeopleTable.indexPassword].ToString(),
-                                                   double.Parse(dataTable.Rows[i][PeopleTable.indexMoneyBag].ToString()));
+                                person = new Employee(dataTable.Rows[i][PeopleTable.indexUserName].ToString(),
+                                                      dataTable.Rows[i][PeopleTable.indexFirstName].ToString(),
+                                                      dataTable.Rows[i][PeopleTable.indexLastName].ToString(),
+                                                      dataTable.Rows[i][PeopleTable.indexPhoneNumber].ToString(),
+                                                      dataTable.Rows[i][PeopleTable.indexEmail].ToString(),
+                                                      dataTable.Rows[i][PeopleTable.indexPassword].ToString(),
+                                                      (double)dataTable.Rows[i][PeopleTable.indexMoneyBag],
+                                                      dataTable.Rows[i][PeopleTable.indexImageAddress].ToString());
                             }
                             else if(dataTable.Rows[i][PeopleTable.indexRole].ToString() == Role.User.ToString())
                             {
                                 role = Role.User;
-                                person = new Admin(dataTable.Rows[i][PeopleTable.indexUserName].ToString(),
+
+                                DataTable dataTable1 = UsersInfosTable.read();
+                                DateTime? subRegisterDate = null;
+                                DateTime? subRenewalDate = null;
+                                DateTime? subExpireDate = null;
+
+                                for(int j = 0; j < dataTable1.Rows.Count; j++)
+                                {
+                                    if(dataTable.Rows[i][PeopleTable.indexUserName].ToString() == dataTable1.Rows[j][UsersInfosTable.indexUserName].ToString())
+                                    {
+                                        subRegisterDate = (DateTime)dataTable1.Rows[j][UsersInfosTable.indexSubRegisterDate];
+                                        subRenewalDate = (DateTime)dataTable1.Rows[j][UsersInfosTable.indexSubRenewalDate];
+                                        subExpireDate = (DateTime)dataTable1.Rows[j][UsersInfosTable.indexSubExpireDate];
+                                        break;
+                                    }
+                                }
+
+                                person = new User( dataTable.Rows[i][PeopleTable.indexUserName].ToString(),
                                                    dataTable.Rows[i][PeopleTable.indexFirstName].ToString(),
                                                    dataTable.Rows[i][PeopleTable.indexLastName].ToString(),
-                                                   role,
                                                    dataTable.Rows[i][PeopleTable.indexPhoneNumber].ToString(),
                                                    dataTable.Rows[i][PeopleTable.indexEmail].ToString(),
                                                    dataTable.Rows[i][PeopleTable.indexPassword].ToString(),
-                                                   double.Parse(dataTable.Rows[i][PeopleTable.indexMoneyBag].ToString()));
+                                                   (double)dataTable.Rows[i][PeopleTable.indexMoneyBag],
+                                                   dataTable.Rows[i][PeopleTable.indexImageAddress].ToString(),
+                                                   (DateTime)subRegisterDate,
+                                                   (DateTime)subRenewalDate,
+                                                   (DateTime)subExpireDate);
                             }
                         }
                     }

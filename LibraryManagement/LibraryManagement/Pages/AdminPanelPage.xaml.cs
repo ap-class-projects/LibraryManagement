@@ -61,14 +61,17 @@ namespace LibraryManagement.Pages
             DataTable dataTable = BooksTable.read();
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                string BookInfo = $"{dataTable.Rows[i][BooksTable.indexName].ToString()} - {dataTable.Rows[i][BooksTable.indexWriter].ToString()} - {dataTable.Rows[i][BooksTable.indexGenre].ToString()} - {dataTable.Rows[i][BooksTable.indexPrintingNumber].ToString()} - {dataTable.Rows[i][BooksTable.indexcount].ToString()}";
+                string BookInfo = $"{dataTable.Rows[i][BooksTable.indexName].ToString()} - {dataTable.Rows[i][BooksTable.indexWriter].ToString()} - {dataTable.Rows[i][BooksTable.indexGenre].ToString()} - {dataTable.Rows[i][BooksTable.indexPrintingNumber].ToString()} - {dataTable.Rows[i][BooksTable.indexCount].ToString()}";
                 booksList.Add(BookInfo);
             }
         }
 
         private void logOutbutton_Click(object sender, RoutedEventArgs e)
         {
-            changeToLoginPage();
+            MessageBoxResult messageBoxResult = MessageBox.Show("are you sure?", "exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if(messageBoxResult == MessageBoxResult.Yes)
+                changeToLoginPage();
+            
         }
 
         private void addEmployeeButton_Click(object sender, RoutedEventArgs e)

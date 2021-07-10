@@ -18,6 +18,7 @@
             <Image Source="/Images/read.png" />
             <TextBlock VerticalAlignment="Center"
                        Grid.Column="0"
+                       x:Name="welcomeTextBlock"
                        HorizontalAlignment="Center"
                        FontWeight="UltraBold"
                        FontSize="30"

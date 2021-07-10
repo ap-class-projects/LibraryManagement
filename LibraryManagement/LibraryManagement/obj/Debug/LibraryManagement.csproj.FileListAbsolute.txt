@@ -38,3 +38,5 @@ D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pa
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\increaseBudgetPage.baml
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\payEmployeePage.g.cs
 D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\payEmployeePage.baml
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\userInfoPage.g.cs
+D:\MyProjects\LibraryManagement\LibraryManagement\LibraryManagement\obj\Debug\Pages\userInfoPage.baml
