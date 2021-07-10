@@ -92,6 +92,7 @@ namespace LibraryManagement.Pages
                     {
                         isValid = true;
                         PeopleTable.delete(deleteEmployeeBox.Text);
+                        deleteEmployeeBox.Text = "";
                         break;
                     }
                 }

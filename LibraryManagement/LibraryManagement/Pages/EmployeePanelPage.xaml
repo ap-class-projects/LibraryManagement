@@ -67,7 +67,7 @@
                             <ListBox Width="400"
                                      Height="400"
                                      Padding="10"
-                                     ItemsSource="{Binding collection}">
+                                     ItemsSource="{Binding booksCollection}">
                                 
                             </ListBox>
                         </StackPanel>
@@ -91,19 +91,22 @@
                             <StackPanel Grid.Row="0"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center">
-                                <Button 
+                                <Button x:Name="allMembersButton"
+                                        Click="allMembersButton_Click"
                                         Height="50" Width="110">All members</Button>
                             </StackPanel>
                             <StackPanel Grid.Row="1"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center">
-                                <Button 
-                                        Height="50" Width="110">Delayed returns</Button>
+                                <Button x:Name="delayedReturnersButton"
+                                        Click="delayedReturnersButton_Click"
+                                        Height="50" Width="110">Delayed returners</Button>
                             </StackPanel>
                             <StackPanel Grid.Row="2"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center">
-                                <Button Height="50" Width="110">
+                                <Button Height="50" Width="110" x:Name="delayedSubButton"
+                                        Click="delayedSubButton_Click">
                                     <TextBlock TextWrapping="WrapWithOverflow" TextAlignment="Center">Delayed subscription pays</TextBlock>
                                 </Button>
                             </StackPanel>
@@ -119,7 +122,7 @@
                                 <ListBox Width="400"
                                      Height="400"
                                      Padding="10"
-                                     ItemsSource="{Binding collection}">
+                                     ItemsSource="{Binding usersCollection}">
 
                                 </ListBox>
                             </StackPanel>
@@ -133,9 +136,12 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center">
                                     <TextBlock Margin="10,0" FontSize="15">Enter username :</TextBlock>
-                                    <TextBox Width="100"></TextBox>
+                                    <TextBox Width="100"
+                                             x:Name="showUserInfoBox"></TextBox>
                                 </StackPanel>
                                 <Button Grid.Row="1"
+                                        x:Name="showUserInfoButton"
+                                        Click="showUserInfoButton_Click"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Width="100"

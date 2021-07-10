@@ -23,20 +23,16 @@ namespace LibraryManagement.Pages
     {
         public event PageChangerNoArg changeToLoginPage;
         public event PageChangerNoArg changeToSignUpPage;
-        public event PageChanger changeToAdminPanelPage;
 
         Person person;
-        double money;
 
-        public PaymentPage(PageChangerNoArg changeToLoginPage, PageChangerNoArg changeToSignUpPage, PageChanger changeToAdminPanelPage, Person person, double moneyToPay)
+
+        public PaymentPage(PageChangerNoArg changeToLoginPage, PageChangerNoArg changeToSignUpPage, Person person)
         {
             InitializeComponent();
             this.changeToLoginPage = changeToLoginPage;
             this.changeToSignUpPage = changeToSignUpPage;
             this.person = person;
-            this.money = moneyToPay;
-            this.changeToAdminPanelPage = changeToAdminPanelPage;
-            this.moneyToPay.Text = $"Money to pay : {money}";
         }
 
         private void submitButton_Click(object sender, RoutedEventArgs e)
@@ -60,17 +56,9 @@ namespace LibraryManagement.Pages
                     {
                         if (mRegex.expireDateIsValid(year.Text, month.Text))
                         {
-                            if (person is User)
-                            {
-                                PeopleTable.write(person);
-                                MessageBox.Show("Sign up was successful! - going to login page");
-                                changeToLoginPage();
-                            }
-                            else if (person is Admin)
-                            {
-                                MessageBox.Show("Salaries paid - returning to admin panel");
-                                changeToAdminPanelPage(person);
-                            }
+                            PeopleTable.write(person);
+                            MessageBox.Show("Sign up was successful! - going to login page");
+                            changeToLoginPage();
                         }
                         else
                         {
@@ -91,14 +79,7 @@ namespace LibraryManagement.Pages
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
-            if(person is User)
-            {
-                changeToSignUpPage();
-            }
-            else if(person is Admin)
-            {
-                changeToAdminPanelPage(person);
-            }
+            changeToSignUpPage();
         }
     }
 }

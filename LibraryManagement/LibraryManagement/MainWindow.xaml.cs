@@ -46,18 +46,8 @@ namespace LibraryManagement
 
         void goToPaymentPage(Person person)
         {
-            double money;
-            if (person is User)
-            {
-                money = 100;
-            }
-            else
-            {
-                //person is admin
-                money = 0;
-            }
-            
-            MainWindowFrame.Content = new PaymentPage(goToLoginPage, goToSignUpPage, goToAdminPanelPage,person, money);
+            //person is user   
+            MainWindowFrame.Content = new PaymentPage(goToLoginPage, goToSignUpPage, person);
         }
 
         void goToAdminPanelPage(Person person)
