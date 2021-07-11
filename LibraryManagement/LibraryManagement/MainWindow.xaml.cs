@@ -113,7 +113,7 @@ namespace LibraryManagement
 
         void goToUserPaymentPage(User user, double money)
         {
-            MainWindowFrame.Content = new UserPaymentPage();
+            MainWindowFrame.Content = new UserPaymentPage(user, money, goToUserPanelPage);
         }
     }
 }

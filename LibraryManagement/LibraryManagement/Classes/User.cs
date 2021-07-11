@@ -290,7 +290,17 @@ namespace LibraryManagement.Classes
             PeopleTable.update(this.userName, this);
         }
 
-
+        public void increaseBudget(double money)
+        {
+            SqlConnection sqlConnection = new SqlConnection(projectInfo.connectionString);
+            sqlConnection.Open();
+            money += this.moneyBag;
+            this.moneyBag = money;
+            string command = "update People SET moneyBag = '" + this.moneyBag + "' where userName ='" + this.userName + "' ";
+            SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
+            sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.delayedClose();
+        }
 
 
 
@@ -303,50 +313,50 @@ namespace LibraryManagement.Classes
         /// <summary>
         /// baraye tamdid eshterak, 0:kar anjam shode -1:money null boode -2:karbari ba oon esm nist   adadmosbat:meqdar money kam oomade+bayad mojodi kafi nis chap she
         /// </summary>
-        public double tamdidEshterak()
-        {
-            double t = 0, adad = 0;
-            DataTable datatable = PeopleTable.read();
-            DataTable dataTable2 = UsersInfosTable.read();
-            for (int i = 0; i < datatable.Rows.Count; i++)
-            {
-                if (datatable.Rows[i][PeopleTable.indexUserName].ToString() == this.userName)
-                {
-                    if (datatable.Rows[i][PeopleTable.indexMoneyBag] == null)
-                    {
-                        t = 0;
-                        return -1;
-                    }
-                    else
-                    {
-                        t = (double)datatable.Rows[i][PeopleTable.indexMoneyBag];
-                        if (t < 1000)
-                        {
-                            adad = 1000 - t;
-                            return adad;
-                        }
-                        if (t >= 1000)
-                        {
-                            adad = t - 1000;
-                            for (int j = 0; j < dataTable2.Rows.Count; j++)
-                            {
-                                if (dataTable2.Rows[j][UsersInfosTable.indexUserName].ToString() == this.userName)
-                                {
-                                    datatable.Rows[j][UsersInfosTable.indexSubRenewalDate] = DateTime.Today;
-                                    DateTime a = (DateTime)datatable.Rows[j][UsersInfosTable.indexSubRenewalDate];
-                                    datatable.Rows[j][UsersInfosTable.indexSubExpireDate] = a.AddDays(10);
-                                }
-                            }
-                        }
-                        datatable.Rows[i][PeopleTable.indexMoneyBag] = adad;
-                        return 0;
-                    }
-                }
+        //public double tamdidEshterak()
+        //{
+        //    double t = 0, adad = 0;
+        //    DataTable datatable = PeopleTable.read();
+        //    DataTable dataTable2 = UsersInfosTable.read();
+        //    for (int i = 0; i < datatable.Rows.Count; i++)
+        //    {
+        //        if (datatable.Rows[i][PeopleTable.indexUserName].ToString() == this.userName)
+        //        {
+        //            if (datatable.Rows[i][PeopleTable.indexMoneyBag] == null)
+        //            {
+        //                t = 0;
+        //                return -1;
+        //            }
+        //            else
+        //            {
+        //                t = (double)datatable.Rows[i][PeopleTable.indexMoneyBag];
+        //                if (t < 1000)
+        //                {
+        //                    adad = 1000 - t;
+        //                    return adad;
+        //                }
+        //                if (t >= 1000)
+        //                {
+        //                    adad = t - 1000;
+        //                    for (int j = 0; j < dataTable2.Rows.Count; j++)
+        //                    {
+        //                        if (dataTable2.Rows[j][UsersInfosTable.indexUserName].ToString() == this.userName)
+        //                        {
+        //                            datatable.Rows[j][UsersInfosTable.indexSubRenewalDate] = DateTime.Today;
+        //                            DateTime a = (DateTime)datatable.Rows[j][UsersInfosTable.indexSubRenewalDate];
+        //                            datatable.Rows[j][UsersInfosTable.indexSubExpireDate] = a.AddDays(10);
+        //                        }
+        //                    }
+        //                }
+        //                datatable.Rows[i][PeopleTable.indexMoneyBag] = adad;
+        //                return 0;
+        //            }
+        //        }
 
-            }
-            return -2;
+        //    }
+        //    return -2;
 
-        }
+        //}
 
 
 
@@ -379,83 +389,6 @@ namespace LibraryManagement.Classes
         //    }
         //    return tedad;
         //}
-
-
-        /// <summary>
-        /// bargardondan ketab adadmanfi:mojoodi nakafi 0:kar anjam shode 1:aslan mojood nabood:|
-        /// </summary>
-        /// <param name="bookname"></param>
-        /// <returns></returns>
-        public double giveBackBbook(string bookname)
-        {
-            int penalty = 0;
-            DataTable data2 = PeopleTable.read();
-            DataTable datatable = UsersInfosTable.read();
-            for (int i = 0; i < datatable.Rows.Count; i++)
-            {
-
-
-                if (datatable.Rows[i][UsersInfosTable.indexBook1].ToString() == bookname)
-                {
-                    if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate1], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate2], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate3], DateTime.Today) < 0 ||
-                        DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate4], DateTime.Today) < 0 || DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate5], DateTime.Today) < 0)
-                    {
-                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate1], DateTime.Today) < 0)
-                        {
-                            DateTime n = (DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate1];
-                            TimeSpan q = n.Subtract(DateTime.Today);
-                            int q1 = int.Parse(q.ToString());
-                            penalty += q1 * 100;
-                        }
-                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate2], DateTime.Today) < 0)
-                        {
-                            DateTime n = (DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate2];
-                            TimeSpan q = n.Subtract(DateTime.Today);
-                            int q1 = int.Parse(q.ToString());
-                            penalty += q1 * 100;
-                        }
-                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate3], DateTime.Today) < 0)
-                        {
-                            DateTime n = (DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate3];
-                            TimeSpan q = n.Subtract(DateTime.Today);
-                            int q1 = int.Parse(q.ToString());
-                            penalty += q1 * 100;
-                        }
-                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate4], DateTime.Today) < 0)
-                        {
-                            DateTime n = (DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate4];
-                            TimeSpan q = n.Subtract(DateTime.Today);
-                            int q1 = int.Parse(q.ToString());
-                            penalty += q1 * 100;
-                        }
-                        if (DateTime.Compare((DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate5], DateTime.Today) < 0)
-                        {
-                            DateTime n = (DateTime)datatable.Rows[i][UsersInfosTable.indexExpireDate5];
-                            TimeSpan q = n.Subtract(DateTime.Today);
-                            int q1 = int.Parse(q.ToString());
-                            penalty += q1 * 100;
-                        }
-                    }
-                }
-            }
-            for (int i = 0; i < data2.Rows.Count; i++)
-            {
-                if (data2.Rows[i][PeopleTable.indexUserName].ToString() == this.userName)
-                {
-                    double cash = (double)data2.Rows[i][PeopleTable.indexMoneyBag];
-                    if (cash < penalty)
-                    {
-                        return cash - penalty;
-                    }
-                    else
-                    {
-                        data2.Rows[i][PeopleTable.indexMoneyBag] = (double)data2.Rows[i][PeopleTable.indexMoneyBag] - penalty;
-                        return 0;
-                    }
-                }
-            }
-            return -1;
-        }
 
         /// <summary>
         /// mohasebe jarime takhir va bargardandanesh
@@ -497,76 +430,5 @@ namespace LibraryManagement.Classes
             }
             return sum;
         }
-
-        /// <summary>
-        /// chap money 0:null ya mojood nabashe qeir sefr:meqdar money mojood
-        /// </summary>
-        /// <returns></returns>
-        public double seeCash()
-        {
-            DataTable datatable = PeopleTable.read();
-            for (int i = 0; i < datatable.Rows.Count; i++)
-            {
-                if (datatable.Rows[i][PeopleTable.indexUserName].ToString() == this.userName)
-                {
-                    if (datatable.Rows[i][PeopleTable.indexMoneyBag] == null)
-                    {
-                        return 0;
-                    }
-                    else
-                    {
-                        return (double)datatable.Rows[i][PeopleTable.indexMoneyBag];
-                    }
-                }
-            }
-            return 0;
-
-        }
-
-        /// <summary>
-        /// charge hesab true:charge anjam mishe   false:karbar mojood nis ya hesabesh null ast
-        /// </summary>
-        /// <param name="a"></param>
-        /// <returns></returns>
-        public bool increaseCash(double a)
-        {
-            //aval hedayat be safhe pardakht//
-            DataTable datatable = PeopleTable.read();
-            for (int i = 0; i < datatable.Rows.Count; i++)
-            {
-                if (datatable.Rows[i][PeopleTable.indexUserName].ToString() == this.userName)
-                {
-                    if (datatable.Rows[i][PeopleTable.indexMoneyBag] == null)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        datatable.Rows[i][PeopleTable.indexMoneyBag] = (double)datatable.Rows[i][PeopleTable.indexMoneyBag] + a;
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// taqir etelaat shakhs user
-        /// </summary>
-        /// <param name="oldUserName"></param>
-        /// <param name="userName"></param>
-        /// <param name="firstName"></param>
-        /// <param name="lastName"></param>
-        /// <param name="role1"></param>
-        /// <param name="phoneNumber"></param>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
-        /// <param name="moneyBag1"></param>
-        //public void changeInfo(string oldUserName, string userName, string firstName, string lastName,
-        //              Role role1, string phoneNumber, string email, string password, double moneyBag1)
-        //{
-        //    Person jadid = new User(userName, firstName, lastName, this.role, phoneNumber, email, password, this.moneyBag);
-        //    PeopleTable.update(oldUserName, jadid as User);
-        //}
     }
 }
