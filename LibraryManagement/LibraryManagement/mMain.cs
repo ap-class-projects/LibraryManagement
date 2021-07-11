@@ -19,13 +19,16 @@ namespace LibraryManagement
     public delegate void PageChanger(Person person);
     public delegate void ChangeAdminPageToIncreaseBudgetPage(Admin admin, double increaseMoney);
     public delegate void ChangeEmployeePageToUserInfoPage(Employee employee, User user);
+    public delegate void ChangeUserPageToUserPaymentPage(User user, double money);
 
     public static class projectInfo
     {
+        //yek user nmitavand az yek ketab 2 bar amanat bgirad
+
         public static string connectionString;
         public const double userSignUpCost = 100;
         //zaman sabt nam user be andaze yek mah esterak migirad
-        public const double monthlySubCost = 20;
+        public const double monthlySubCost = 30;
         public const double salaryPerEmployee = 50;
         public static DateTime dateTimeMinValue;
 

@@ -106,7 +106,14 @@ namespace LibraryManagement
         void goToUserPanelPage(Person person)
         {
             User user = person as User;
-            MainWindowFrame.Content = new UserPanelPage(goToLoginPage, user);
+            MainWindowFrame.Content = new UserPanelPage(goToLoginPage,
+                                                        user,
+                                                        goToUserPaymentPage);
+        }
+
+        void goToUserPaymentPage(User user, double money)
+        {
+            MainWindowFrame.Content = new UserPaymentPage();
         }
     }
 }

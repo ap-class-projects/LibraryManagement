@@ -159,6 +159,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\UserPaymentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\payEmployeePage.xaml.cs">
@@ -175,6 +179,9 @@
     </Compile>
     <Compile Include="Pages\UserPanelPage.xaml.cs">
       <DependentUpon>UserPanelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UserPaymentPage.xaml.cs">
+      <DependentUpon>UserPaymentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

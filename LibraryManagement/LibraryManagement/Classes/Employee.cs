@@ -473,6 +473,11 @@ namespace LibraryManagement.Classes
             sqlConnection2.delayedClose();
         }
 
+        /// <summary>
+        /// returns book count
+        /// </summary>
+        /// <param name="bookName"></param>
+        /// <returns></returns>
         private int bookCount(string bookName)
         {
             DataTable booksData = BooksTable.read();
