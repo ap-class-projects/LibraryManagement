@@ -78,8 +78,9 @@ namespace LibraryManagement.Pages
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("are you sure?", "exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if(messageBoxResult == MessageBoxResult.Yes)
+            {
                 changeToLoginPage();
-            
+            }
         }
 
         private void addEmployeeButton_Click(object sender, RoutedEventArgs e)

@@ -88,13 +88,14 @@ namespace LibraryManagement.Classes
         /// !before update check person exists!
         /// </summary>
         /// <param name="person"></param>
-        public static void update(string oldUserName, Person person)
+        public static void update(string userName, Person person)
         {
             SqlConnection sqlConnection = new SqlConnection(projectInfo.connectionString);
             sqlConnection.Open();
-            string command = "update People SET userName = '"+ person.userName +"', firstName = '"+ person.firstName +"', lastName = '"+ person.lastName +"', role = '"+ person.role.ToString() +"', phoneNumber = '"+ person.phoneNumber +"', email = '"+ person.email +"', password = '"+ person.password +"',moneyBag = '"+person.moneyBag+ "' where userName ='" + oldUserName +"' ";
+            string command = "update People SET firstName = '" + person.firstName + "', lastName = '" + person.lastName + "', role = '" + person.role.ToString() + "', phoneNumber = '" + person.phoneNumber + "', email = '" + person.email + "', password = '" + person.password + "',moneyBag = '" + person.moneyBag + "', imageAddress = '" + person.imageAddress + "' where userName ='" + userName + "' ";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.delayedClose();
         }
     }
 

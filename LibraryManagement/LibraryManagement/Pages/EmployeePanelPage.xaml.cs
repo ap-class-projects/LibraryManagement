@@ -21,6 +21,7 @@ namespace LibraryManagement.Pages
         public ObservableCollection<string> usersCollection { get; set; }
         string placeHolderBook = "name - writer - genre - printingNumber - count";
         string placeHolderUser = "userName - firstName - lastName - phoneNumber - email";
+        string newImageAddress = "";
 
         public EmployeePanelPage(PageChangerNoArg changeToLoginPage, Employee employee, ChangeEmployeePageToUserInfoPage changeEmployeePageToUserInfoPage)
         {
@@ -33,18 +34,49 @@ namespace LibraryManagement.Pages
             this.DataContext = this;
             showBorrowedBooks();
             showDelayedReturners();
+            employeeBudgetTextBlock.Text = employee.moneyBag.ToString();
+            initializeEditTabInfos();
+        }
+
+        private void initializeEditTabInfos()
+        {
+            if (employee.imageAddress == "")
+            {
+                imageBox.Source = new BitmapImage(new Uri(@"/LibraryManagement;component/Images/no-image.jpg", UriKind.Relative));
+            }
+            else
+            {
+                try
+                {
+                    imageBox.Source = new BitmapImage(new Uri(employee.imageAddress));
+                }
+                catch
+                {
+                    imageBox.Source = new BitmapImage(new Uri(@"/LibraryManagement;component/Images/no-image.jpg", UriKind.Relative));
+                }
+            }
+            userNameTextBlock.Text = employee.userName;
+            firstNameBox.Text = employee.firstName;
+            lastNameBox.Text = employee.lastName;
+            phoneNumberBox.Text = employee.phoneNumber;
+            emailBox.Text = employee.email;
+            passwordBox.Password = "";
         }
 
         private void logOutbutton_Click(object sender, RoutedEventArgs e)
         {
-            changeToLoginPage();
+            MessageBoxResult messageBoxResult = MessageBox.Show("are you sure?", "exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                changeToLoginPage();
+            }
         }
 
         private void showAllBooksButton_Click(object sender, RoutedEventArgs e)
         {
             booksCollection.Clear();
             booksCollection.Add(placeHolderBook);
-            ObservableCollection<Book> tempCollection = employee.seeBook();
+            ObservableCollection<Book> tempCollection = employee.showAllBooks();
             for (int i = 0; i < tempCollection.Count; i++)
             {
                 string bookInfo = $"{tempCollection[i].name} - {tempCollection[i].writer} - {tempCollection[i].genre} - {tempCollection[i].printingNumber} - {tempCollection[i].count}";
@@ -61,7 +93,7 @@ namespace LibraryManagement.Pages
         {
             booksCollection.Clear();
             booksCollection.Add(placeHolderBook);
-            ObservableCollection<Book> tempCollection = employee.seeBorrowBook();
+            ObservableCollection<Book> tempCollection = employee.showBorrowedBooks();
             for (int i = 0; i < tempCollection.Count; i++)
             {
                 string bookInfo = $"{tempCollection[i].name} - {tempCollection[i].writer} - {tempCollection[i].genre} - {tempCollection[i].printingNumber} - {tempCollection[i].count}";
@@ -73,7 +105,7 @@ namespace LibraryManagement.Pages
         {
             booksCollection.Clear();
             booksCollection.Add(placeHolderBook);
-            ObservableCollection<Book> tempCollection = employee.seeAvailableBook();
+            ObservableCollection<Book> tempCollection = employee.showAvailableBooks();
             for (int i = 0; i < tempCollection.Count; i++)
             {
                 string bookInfo = $"{tempCollection[i].name} - {tempCollection[i].writer} - {tempCollection[i].genre} - {tempCollection[i].printingNumber} - {tempCollection[i].count}";
@@ -90,7 +122,8 @@ namespace LibraryManagement.Pages
               "Portable Network Graphic (*.png)|*.png";
             if (op.ShowDialog() == true)
             {
-                image.Source = new BitmapImage(new Uri(op.FileName));
+                imageBox.Source = new BitmapImage(new Uri(op.FileName));
+                newImageAddress = op.FileName;
             }
         }
 
@@ -98,7 +131,7 @@ namespace LibraryManagement.Pages
         {
             usersCollection.Clear();
             usersCollection.Add(placeHolderUser);
-            ObservableCollection<User> tempCollection = employee.seeUsers();
+            ObservableCollection<User> tempCollection = employee.showAllUsers();
             for (int i = 0; i < tempCollection.Count; i++)
             {
                 string userInfo = $"{tempCollection[i].userName} - {tempCollection[i].firstName} - {tempCollection[i].lastName} - {tempCollection[i].phoneNumber} - {tempCollection[i].email}";
@@ -115,7 +148,7 @@ namespace LibraryManagement.Pages
         {
             usersCollection.Clear();
             usersCollection.Add(placeHolderUser);
-            ObservableCollection<User> tempCollection = employee.seeDelayGiveBackMan();
+            ObservableCollection<User> tempCollection = employee.showDelayedReturners();
             for (int i = 0; i < tempCollection.Count; i++)
             {
                 string userInfo = $"{tempCollection[i].userName} - {tempCollection[i].firstName} - {tempCollection[i].lastName} - {tempCollection[i].phoneNumber} - {tempCollection[i].email}";
@@ -127,7 +160,7 @@ namespace LibraryManagement.Pages
         {
             usersCollection.Clear();
             usersCollection.Add(placeHolderUser);
-            ObservableCollection<User> tempCollection = employee.seeDelayPayMan();
+            ObservableCollection<User> tempCollection = employee.showDelaySubUsers();
             for (int i = 0; i < tempCollection.Count; i++)
             {
                 string userInfo = $"{tempCollection[i].userName} - {tempCollection[i].firstName} - {tempCollection[i].lastName} - {tempCollection[i].phoneNumber} - {tempCollection[i].email}";
@@ -143,7 +176,7 @@ namespace LibraryManagement.Pages
             }
             else
             {
-                User user = employee.seePerson(showUserInfoBox.Text);
+                User user = employee.showUserInfo(showUserInfoBox.Text);
                 if(user == null)
                 {
                     MessageBox.Show("No one found!");
@@ -153,6 +186,68 @@ namespace LibraryManagement.Pages
                     changeEmployeePageToUserInfoPage(employee, user);
                 }
             }
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            initializeEditTabInfos();
+        }
+
+        private void submitButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(mRegex.nameIsValid(firstNameBox.Text))
+            {
+                if(mRegex.nameIsValid(lastNameBox.Text))
+                {
+                    if(mRegex.phoneNumberIsValid(phoneNumberBox.Text))
+                    {
+                        if(mRegex.emailIsValid(emailBox.Text))
+                        {
+                            if(passwordBox.Password == employee.password)
+                            {
+                                string temp = newImageAddress == "" ? employee.imageAddress : newImageAddress;
+
+                                Employee employeeTemp = new Employee(employee.userName,
+                                                                    firstNameBox.Text,
+                                                                    lastNameBox.Text,
+                                                                    phoneNumberBox.Text,
+                                                                    emailBox.Text,
+                                                                    employee.password,
+                                                                    employee.moneyBag,
+                                                                    temp);
+                                employee.editInfo(employeeTemp);
+                                initializeEditTabInfos();
+                                MessageBox.Show("Infos changed successfully!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Wrong password!");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Email is not valid!");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Phone number is not valid!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Last name is not valid!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("First name is not valid!");
+            }
+        }
+
+        private void resetFields_Click(object sender, RoutedEventArgs e)
+        {
+            initializeEditTabInfos();
         }
     }
 }

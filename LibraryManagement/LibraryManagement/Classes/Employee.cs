@@ -21,116 +21,189 @@ namespace LibraryManagement.Classes
         }
 
         /// <summary>
-        /// kol ketab haro barmigardone
+        /// returns all of the books
         /// </summary>
         /// <returns></returns>
-        public ObservableCollection<Book> seeBook()
+        public ObservableCollection<Book> showAllBooks()
         {
-            ObservableCollection<Book> book = new ObservableCollection<Book>();
-            DataTable datatable1 = BooksTable.read();
-            for (int i = 0; i < datatable1.Rows.Count; i++)
+            ObservableCollection<Book> books = new ObservableCollection<Book>();
+            DataTable dataTable = BooksTable.read();
+            for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                Book a = new Book(datatable1.Rows[i][BooksTable.indexName].ToString(), datatable1.Rows[i][BooksTable.indexWriter].ToString(), datatable1.Rows[i][BooksTable.indexGenre].ToString(), (int)datatable1.Rows[i][BooksTable.indexPrintingNumber], (int)datatable1.Rows[i][BooksTable.indexCount]);
-                book.Add(a);
+                Book book = new Book(
+                                dataTable.Rows[i][BooksTable.indexName].ToString(),
+                                dataTable.Rows[i][BooksTable.indexWriter].ToString(),
+                                dataTable.Rows[i][BooksTable.indexGenre].ToString(),
+                                (int)dataTable.Rows[i][BooksTable.indexPrintingNumber],
+                                (int)dataTable.Rows[i][BooksTable.indexCount]);
+                books.Add(book);
             }
-            return book;
+            return books;
         }
 
         /// <summary>
         /// ketab haye qarzi ro barmigardoone
         /// </summary>
         /// <returns></returns>
-        public ObservableCollection<Book> seeBorrowBook()
+        public ObservableCollection<Book> showBorrowedBooks()
         {
-            ObservableCollection<Book> listbook = new ObservableCollection<Book>();
-            DataTable data1 = UsersInfosTable.read();
-            DataTable data2 = BooksTable.read();
-            for (int i = 0; i < data1.Rows.Count; i++)
+            ObservableCollection<Book> borrowedBooks = new ObservableCollection<Book>();
+            DataTable usersInfosTable = UsersInfosTable.read();
+            DataTable booksTable = BooksTable.read();
+
+            for (int i = 0; i < usersInfosTable.Rows.Count; i++)
             {
-                if (data1.Rows[i][UsersInfosTable.indexBook1].ToString() != null)
+                if (usersInfosTable.Rows[i][UsersInfosTable.indexBook1].ToString() != "")
                 {
-                    for (int j = 0; j < data2.Rows.Count; j++)
+                    for (int j = 0; j < booksTable.Rows.Count; j++)
                     {
-                        if (data1.Rows[i][UsersInfosTable.indexBook1].ToString() == data2.Rows[j][BooksTable.indexName].ToString())
+                        if (usersInfosTable.Rows[i][UsersInfosTable.indexBook1].ToString() == booksTable.Rows[j][BooksTable.indexName].ToString())
                         {
-                            Book book = new Book(data2.Rows[j][BooksTable.indexName].ToString(), data2.Rows[j][BooksTable.indexWriter].ToString(), data2.Rows[j][BooksTable.indexGenre].ToString(), (int)data2.Rows[j][BooksTable.indexPrintingNumber], (int)data2.Rows[j][BooksTable.indexCount]);
-                            listbook.Add(book);
+                            if(!bookExistInList(borrowedBooks, booksTable.Rows[j][BooksTable.indexName].ToString()))
+                            {
+                                Book book = new Book(
+                                            booksTable.Rows[j][BooksTable.indexName].ToString(),
+                                            booksTable.Rows[j][BooksTable.indexWriter].ToString(),
+                                            booksTable.Rows[j][BooksTable.indexGenre].ToString(),
+                                            (int)booksTable.Rows[j][BooksTable.indexPrintingNumber],
+                                            (int)booksTable.Rows[j][BooksTable.indexCount]);
+                                borrowedBooks.Add(book);
+                            }
+                            break;
                         }
                     }
                 }
-                if (data1.Rows[i][UsersInfosTable.indexBook2].ToString() != null)
+
+                if (usersInfosTable.Rows[i][UsersInfosTable.indexBook2].ToString() != "")
                 {
-                    for (int j = 0; j < data2.Rows.Count; j++)
+                    for (int j = 0; j < booksTable.Rows.Count; j++)
                     {
-                        if (data1.Rows[i][UsersInfosTable.indexBook2].ToString() == data2.Rows[j][BooksTable.indexName].ToString())
+                        if (usersInfosTable.Rows[i][UsersInfosTable.indexBook2].ToString() == booksTable.Rows[j][BooksTable.indexName].ToString())
                         {
-                            Book book = new Book(data2.Rows[j][BooksTable.indexName].ToString(), data2.Rows[j][BooksTable.indexWriter].ToString(), data2.Rows[j][BooksTable.indexGenre].ToString(), (int)data2.Rows[j][BooksTable.indexPrintingNumber], (int)data2.Rows[j][BooksTable.indexCount]);
-                            listbook.Add(book);
+                            if (!bookExistInList(borrowedBooks, booksTable.Rows[j][BooksTable.indexName].ToString()))
+                            {
+                                Book book = new Book(
+                                            booksTable.Rows[j][BooksTable.indexName].ToString(),
+                                            booksTable.Rows[j][BooksTable.indexWriter].ToString(),
+                                            booksTable.Rows[j][BooksTable.indexGenre].ToString(),
+                                            (int)booksTable.Rows[j][BooksTable.indexPrintingNumber],
+                                            (int)booksTable.Rows[j][BooksTable.indexCount]);
+                                borrowedBooks.Add(book);
+                            }
+                            break;
                         }
                     }
                 }
-                if (data1.Rows[i][UsersInfosTable.indexBook3].ToString() != null)
+
+                if (usersInfosTable.Rows[i][UsersInfosTable.indexBook3].ToString() != "")
                 {
-                    for (int j = 0; j < data2.Rows.Count; j++)
+                    for (int j = 0; j < booksTable.Rows.Count; j++)
                     {
-                        if (data1.Rows[i][UsersInfosTable.indexBook3].ToString() == data2.Rows[j][BooksTable.indexName].ToString())
+                        if (usersInfosTable.Rows[i][UsersInfosTable.indexBook3].ToString() == booksTable.Rows[j][BooksTable.indexName].ToString())
                         {
-                            Book book = new Book(data2.Rows[j][BooksTable.indexName].ToString(), data2.Rows[j][BooksTable.indexWriter].ToString(), data2.Rows[j][BooksTable.indexGenre].ToString(), (int)data2.Rows[j][BooksTable.indexPrintingNumber], (int)data2.Rows[j][BooksTable.indexCount]);
-                            listbook.Add(book);
+                            if (!bookExistInList(borrowedBooks, booksTable.Rows[j][BooksTable.indexName].ToString()))
+                            {
+                                Book book = new Book(
+                                            booksTable.Rows[j][BooksTable.indexName].ToString(),
+                                            booksTable.Rows[j][BooksTable.indexWriter].ToString(),
+                                            booksTable.Rows[j][BooksTable.indexGenre].ToString(),
+                                            (int)booksTable.Rows[j][BooksTable.indexPrintingNumber],
+                                            (int)booksTable.Rows[j][BooksTable.indexCount]);
+                                borrowedBooks.Add(book);
+                            }
+                            break;
                         }
                     }
                 }
-                if (data1.Rows[i][UsersInfosTable.indexBook4].ToString() != null)
+
+                if (usersInfosTable.Rows[i][UsersInfosTable.indexBook4].ToString() != "")
                 {
-                    for (int j = 0; j < data2.Rows.Count; j++)
+                    for (int j = 0; j < booksTable.Rows.Count; j++)
                     {
-                        if (data1.Rows[i][UsersInfosTable.indexBook4].ToString() == data2.Rows[j][BooksTable.indexName].ToString())
+                        if (usersInfosTable.Rows[i][UsersInfosTable.indexBook4].ToString() == booksTable.Rows[j][BooksTable.indexName].ToString())
                         {
-                            Book book = new Book(data2.Rows[j][BooksTable.indexName].ToString(), data2.Rows[j][BooksTable.indexWriter].ToString(), data2.Rows[j][BooksTable.indexGenre].ToString(), (int)data2.Rows[j][BooksTable.indexPrintingNumber], (int)data2.Rows[j][BooksTable.indexCount]);
-                            listbook.Add(book);
+                            if (!bookExistInList(borrowedBooks, booksTable.Rows[j][BooksTable.indexName].ToString()))
+                            {
+                                Book book = new Book(
+                                            booksTable.Rows[j][BooksTable.indexName].ToString(),
+                                            booksTable.Rows[j][BooksTable.indexWriter].ToString(),
+                                            booksTable.Rows[j][BooksTable.indexGenre].ToString(),
+                                            (int)booksTable.Rows[j][BooksTable.indexPrintingNumber],
+                                            (int)booksTable.Rows[j][BooksTable.indexCount]);
+                                borrowedBooks.Add(book);
+                            }
+                            break;
                         }
                     }
                 }
-                if (data1.Rows[i][UsersInfosTable.indexBook5].ToString() != null)
+
+                if (usersInfosTable.Rows[i][UsersInfosTable.indexBook5].ToString() != "")
                 {
-                    for (int j = 0; j < data2.Rows.Count; j++)
+                    for (int j = 0; j < booksTable.Rows.Count; j++)
                     {
-                        if (data1.Rows[i][UsersInfosTable.indexBook5].ToString() == data2.Rows[j][BooksTable.indexName].ToString())
+                        if (usersInfosTable.Rows[i][UsersInfosTable.indexBook5].ToString() == booksTable.Rows[j][BooksTable.indexName].ToString())
                         {
-                            Book book = new Book(data2.Rows[j][BooksTable.indexName].ToString(), data2.Rows[j][BooksTable.indexWriter].ToString(), data2.Rows[j][BooksTable.indexGenre].ToString(), (int)data2.Rows[j][BooksTable.indexPrintingNumber], (int)data2.Rows[j][BooksTable.indexCount]);
-                            listbook.Add(book);
+                            if (!bookExistInList(borrowedBooks, booksTable.Rows[j][BooksTable.indexName].ToString()))
+                            {
+                                Book book = new Book(
+                                            booksTable.Rows[j][BooksTable.indexName].ToString(),
+                                            booksTable.Rows[j][BooksTable.indexWriter].ToString(),
+                                            booksTable.Rows[j][BooksTable.indexGenre].ToString(),
+                                            (int)booksTable.Rows[j][BooksTable.indexPrintingNumber],
+                                            (int)booksTable.Rows[j][BooksTable.indexCount]);
+                                borrowedBooks.Add(book);
+                            }
+                            break;
                         }
                     }
                 }
             }
-            return listbook;
+
+            return borrowedBooks;
         }
+
+        private bool bookExistInList(ObservableCollection<Book> books, string bookName)
+        {
+            for(int i = 0; i < books.Count; i++)
+            {
+                if(bookName == books[i].name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         /// <summary>
         /// ketabaye mojood ro barmigardoone
         /// </summary>
         /// <returns></returns>
-        public ObservableCollection<Book> seeAvailableBook()
+        public ObservableCollection<Book> showAvailableBooks()
         {
-            ObservableCollection<Book> listbook = new ObservableCollection<Book>();
-            DataTable data2 = BooksTable.read();
-            for (int j = 0; j < data2.Rows.Count; j++)
+            ObservableCollection<Book> books = new ObservableCollection<Book>();
+            DataTable dataTable = BooksTable.read();
+            for (int j = 0; j < dataTable.Rows.Count; j++)
             {
-                if ((int)data2.Rows[j][BooksTable.indexCount] > 0)
+                if ((int)dataTable.Rows[j][BooksTable.indexCount] > 0)
                 {
-                    Book book = new Book(data2.Rows[j][BooksTable.indexName].ToString(), data2.Rows[j][BooksTable.indexWriter].ToString(), data2.Rows[j][BooksTable.indexGenre].ToString(),
-                        (int)data2.Rows[j][BooksTable.indexPrintingNumber], (int)data2.Rows[j][BooksTable.indexCount]);
-                    listbook.Add(book);
+                    Book book = new Book(
+                                    dataTable.Rows[j][BooksTable.indexName].ToString(),
+                                    dataTable.Rows[j][BooksTable.indexWriter].ToString(),
+                                    dataTable.Rows[j][BooksTable.indexGenre].ToString(),
+                                    (int)dataTable.Rows[j][BooksTable.indexPrintingNumber],
+                                    (int)dataTable.Rows[j][BooksTable.indexCount]);
+                    books.Add(book);
                 }
             }
-            return listbook;
+            return books;
         }
 
         /// <summary>
         /// kol karbaraye az noe user ro bar migardoone
         /// </summary>
         /// <returns></returns>
-        public ObservableCollection<User> seeUsers()
+        public ObservableCollection<User> showAllUsers()
         {
             DataTable people = PeopleTable.read();
 
@@ -178,10 +251,10 @@ namespace LibraryManagement.Classes
         /// user haii ke hadaqal yek ketab ba time expire darand ro namayesh mide
         /// </summary>
         /// <returns></returns>
-        public ObservableCollection<User> seeDelayGiveBackMan()
+        public ObservableCollection<User> showDelayedReturners()
         {
             DataTable peopleData = PeopleTable.read();
-            DataTable usersInfoData = UsersInfosTable.read();
+            DataTable usersInfosData = UsersInfosTable.read();
             
             ObservableCollection<User> users = new ObservableCollection<User>();
 
@@ -189,15 +262,41 @@ namespace LibraryManagement.Classes
             {
                 if (peopleData.Rows[i][PeopleTable.indexRole].ToString() == Role.User.ToString())
                 {
-                    for (int j = 0; j < usersInfoData.Rows.Count; j++)
+                    for (int j = 0; j < usersInfosData.Rows.Count; j++)
                     {
-                        if (peopleData.Rows[i][PeopleTable.indexUserName].ToString() == usersInfoData.Rows[j][UsersInfosTable.indexUserName].ToString())
+                        if (peopleData.Rows[i][PeopleTable.indexUserName].ToString() == usersInfosData.Rows[j][UsersInfosTable.indexUserName].ToString())
                         {
-                            int compare1 = DateTime.Compare((DateTime)usersInfoData.Rows[j][UsersInfosTable.indexExpireDate1], DateTime.Today);
-                            int compare2 = DateTime.Compare((DateTime)usersInfoData.Rows[j][UsersInfosTable.indexExpireDate2], DateTime.Today);
-                            int compare3 = DateTime.Compare((DateTime)usersInfoData.Rows[j][UsersInfosTable.indexExpireDate3], DateTime.Today);
-                            int compare4 = DateTime.Compare((DateTime)usersInfoData.Rows[j][UsersInfosTable.indexExpireDate4], DateTime.Today);
-                            int compare5 = DateTime.Compare((DateTime)usersInfoData.Rows[j][UsersInfosTable.indexExpireDate5], DateTime.Today);
+                            int compare1 = 0;
+                            int compare2 = 0;
+                            int compare3 = 0;
+                            int compare4 = 0;
+                            int compare5 = 0;
+
+                            if(usersInfosData.Rows[j][UsersInfosTable.indexBook1].ToString() != "")
+                            {
+                                compare1 = DateTime.Compare((DateTime)usersInfosData.Rows[j][UsersInfosTable.indexExpireDate1], DateTime.Today);
+                            }
+
+                            if (usersInfosData.Rows[j][UsersInfosTable.indexBook2].ToString() != "")
+                            {
+                                compare2 = DateTime.Compare((DateTime)usersInfosData.Rows[j][UsersInfosTable.indexExpireDate2], DateTime.Today);
+                            }
+
+                            if (usersInfosData.Rows[j][UsersInfosTable.indexBook3].ToString() != "")
+                            {
+                                compare3 = DateTime.Compare((DateTime)usersInfosData.Rows[j][UsersInfosTable.indexExpireDate3], DateTime.Today);
+                            }
+
+                            if (usersInfosData.Rows[j][UsersInfosTable.indexBook1].ToString() != "")
+                            {
+                                compare4 = DateTime.Compare((DateTime)usersInfosData.Rows[j][UsersInfosTable.indexExpireDate4], DateTime.Today);
+                            }
+
+                            if (usersInfosData.Rows[j][UsersInfosTable.indexBook1].ToString() != "")
+                            {
+                                compare5 = DateTime.Compare((DateTime)usersInfosData.Rows[j][UsersInfosTable.indexExpireDate5], DateTime.Today);
+                            }
+                           
 
                             if (compare1 < 0 || compare2 < 0 || compare3 < 0 || compare4 < 0 || compare5 < 0)
                             {
@@ -209,9 +308,9 @@ namespace LibraryManagement.Classes
                                                         peopleData.Rows[i][PeopleTable.indexPassword].ToString(),
                                                         (double)peopleData.Rows[i][PeopleTable.indexMoneyBag],
                                                         peopleData.Rows[i][PeopleTable.indexImageAddress].ToString(),
-                                                        (DateTime)usersInfoData.Rows[j][UsersInfosTable.indexSubRegisterDate],
-                                                        (DateTime)usersInfoData.Rows[j][UsersInfosTable.indexSubRenewalDate],
-                                                        (DateTime)usersInfoData.Rows[j][UsersInfosTable.indexSubExpireDate]);
+                                                        (DateTime)usersInfosData.Rows[j][UsersInfosTable.indexSubRegisterDate],
+                                                        (DateTime)usersInfosData.Rows[j][UsersInfosTable.indexSubRenewalDate],
+                                                        (DateTime)usersInfosData.Rows[j][UsersInfosTable.indexSubExpireDate]);
                                 users.Add(user);
                             }
                         }
@@ -225,7 +324,7 @@ namespace LibraryManagement.Classes
         /// user haii ke haq ozviat nadadan ro bar migardoone
         /// </summary>
         /// <returns></returns>
-        public ObservableCollection<User> seeDelayPayMan()
+        public ObservableCollection<User> showDelaySubUsers()
         {
             DataTable people = PeopleTable.read();
             DataTable usersInfos = UsersInfosTable.read();
@@ -271,13 +370,13 @@ namespace LibraryManagement.Classes
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public User seePerson(string name)
+        public User showUserInfo(string userName)
         {
             DataTable people = PeopleTable.read();
 
             for (int i = 0; i < people.Rows.Count; i++)
             {
-                if (people.Rows[i][PeopleTable.indexUserName].ToString() == name)
+                if (people.Rows[i][PeopleTable.indexUserName].ToString() == userName)
                 {
                     DataTable usersInfos = UsersInfosTable.read();
                     DateTime? subRegisterDate = null;
@@ -313,41 +412,16 @@ namespace LibraryManagement.Classes
             return null;
         }
 
-
-        /// <summary>
-        /// namayesh money employee -1:agar chenin shakhsi nabashe baqieadad:meqdar money fard
-        /// </summary>
-        /// <returns></returns>
-        public double seeCash()
+        public void editInfo(Employee employee)
         {
-            DataTable data = PeopleTable.read();
-            for (int i = 0; i < data.Rows.Count; i++)
-            {
-                if (data.Rows[i][PeopleTable.indexUserName].ToString() == this.userName)
-                {
-                    return (double)data.Rows[i][PeopleTable.indexMoneyBag];
-                }
-            }
-            return -1;
+            //same usernames
+            PeopleTable.update(this.userName, employee);
+            this.firstName = employee.firstName;
+            this.lastName = employee.lastName;
+            this.phoneNumber = employee.phoneNumber;
+            this.email = employee.email;
+            this.imageAddress = employee.imageAddress;
         }
-        /// <summary>
-        /// taqiir etelaat fard ro namayesh mide
-        /// </summary>
-        /// <param name="oldUserName"></param>
-        /// <param name="userName"></param>
-        /// <param name="firstName"></param>
-        /// <param name="lastName"></param>
-        /// <param name="role1"></param>
-        /// <param name="phoneNumber"></param>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
-        /// <param name="moneyBag1"></param>
-        //public void changeInfo(string oldUserName, string userName, string firstName, string lastName,
-        //               Role role1, string phoneNumber, string email, string password, double moneyBag1)
-        //{
-        //    Person jadid = new User(userName, firstName, lastName, this.role, phoneNumber, email, password, this.moneyBag);
-        //    PeopleTable.update(oldUserName, jadid as Employee);
-        //}
     }
 
 }
