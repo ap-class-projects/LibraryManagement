@@ -58,8 +58,7 @@ namespace LibraryManagement.Pages
                         {
                             if(adminPasswordBox.Password == this.admin.password)
                             {
-                                PeopleTable.updateMoneyBag(this.admin.userName, this.money + admin.moneyBag);
-                                this.admin.moneyBag = this.money + admin.moneyBag;
+                                this.admin.updateLibraryBudget(money);
                                 MessageBox.Show("Budget updated! - returning to admin panel");
                                 changeToAdminPanelPage(this.admin);
                             }

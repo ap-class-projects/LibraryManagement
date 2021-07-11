@@ -96,20 +96,6 @@ namespace LibraryManagement.Classes
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
         }
-
-        /// <summary>
-        /// updates moneyBag
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="money"></param>
-        public static void updateMoneyBag(string userName, double money)
-        {
-            SqlConnection sqlConnection = new SqlConnection(projectInfo.connectionString);
-            sqlConnection.Open();
-            string command = "update People SET   moneyBag = '" + money + "' where userName ='" + userName + "' ";
-            SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
-            sqlCommand.BeginExecuteNonQuery();
-        }
     }
 
     /// <summary>

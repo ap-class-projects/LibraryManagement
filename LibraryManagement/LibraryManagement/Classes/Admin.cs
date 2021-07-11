@@ -101,5 +101,21 @@ namespace LibraryManagement.Classes
             }
         }
 
+        /// <summary>
+        /// money : money to add
+        /// </summary>
+        /// <param name="money"></param>
+        public void updateLibraryBudget(double money)
+        {
+            SqlConnection sqlConnection = new SqlConnection(projectInfo.connectionString);
+            sqlConnection.Open();
+            money += this.moneyBag;
+            this.moneyBag = money;
+            string command = "update People SET moneyBag = '" + this.moneyBag + "' where userName ='" + this.userName + "' ";
+            SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
+            sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.delayedClose();
+        }
+
     }
 }

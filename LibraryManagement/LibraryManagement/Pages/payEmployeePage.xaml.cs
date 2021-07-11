@@ -80,15 +80,15 @@ namespace LibraryManagement.Pages
                                 if(this.admin.moneyBag >= totalSalariesToPay)
                                 {
                                     this.admin.moneyBag -= totalSalariesToPay;
-                                    PeopleTable.updateMoneyBag(this.admin.userName, this.admin.moneyBag);
+                                    //PeopleTable.updateMoneyBag(this.admin.userName, this.admin.moneyBag);
                                     MessageBox.Show("Salaries paid - returning to admin panel");
                                     DataTable dataTable = PeopleTable.read();
                                     for(int i = 0; i < dataTable.Rows.Count; i++)
                                     {
                                         if(dataTable.Rows[i][PeopleTable.indexRole].ToString() == Role.Employee.ToString())
                                         {
-                                            PeopleTable.updateMoneyBag(dataTable.Rows[i][PeopleTable.indexUserName].ToString(),
-                                                double.Parse(dataTable.Rows[i][PeopleTable.indexMoneyBag].ToString()) + 50);
+                                            //PeopleTable.updateMoneyBag(dataTable.Rows[i][PeopleTable.indexUserName].ToString(),
+                                            //    double.Parse(dataTable.Rows[i][PeopleTable.indexMoneyBag].ToString()) + 50);
                                         }
                                     }
                                     changeToAdminPanelPage(this.admin);

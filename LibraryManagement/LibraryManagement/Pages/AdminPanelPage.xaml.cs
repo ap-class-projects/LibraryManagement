@@ -137,7 +137,7 @@ namespace LibraryManagement.Pages
                 double money = double.Parse(increaseBudgetBox.Text);
                 if(money <= 0)
                 {
-                    MessageBox.Show("Money must be positive");
+                    MessageBox.Show("Money must be positive!");
                     return;
                 }
                 else
