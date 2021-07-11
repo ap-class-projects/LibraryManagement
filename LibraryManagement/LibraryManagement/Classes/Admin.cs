@@ -102,6 +102,41 @@ namespace LibraryManagement.Classes
         }
 
         /// <summary>
+        /// pay salary of projectInfo.salaryPerEmployee * employees count
+        /// chech admin.moneyBag!
+        /// </summary>
+        public void paySalaries(double totalSalaries)
+        {
+            this.moneyBag -= totalSalaries;
+
+            //admin money update
+            SqlConnection sqlConnection = new SqlConnection(projectInfo.connectionString);
+            sqlConnection.Open();
+            string command = "update People SET moneyBag = '" + this.moneyBag + "' where userName ='" + this.userName + "' ";
+            SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
+            sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.delayedClose();
+
+            //employee money update
+            ObservableCollection<Employee> employees = this.showEmployees();
+            for(int i = 0; i < employees.Count; i++)
+            {
+                payEmployee(employees[i].userName, employees[i].moneyBag);
+            }
+        }
+
+        private void payEmployee(string userName, double pastMoney)
+        {
+            double currentMoney = pastMoney + projectInfo.salaryPerEmployee;
+            SqlConnection sqlConnection = new SqlConnection(projectInfo.connectionString);
+            sqlConnection.Open();
+            string command = "update People SET moneyBag = '" + currentMoney + "' where userName ='" + userName + "' ";
+            SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
+            sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.delayedClose();
+        }
+
+        /// <summary>
         /// money : money to add
         /// </summary>
         /// <param name="money"></param>
