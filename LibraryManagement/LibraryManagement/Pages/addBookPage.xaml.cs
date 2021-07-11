@@ -54,7 +54,6 @@ namespace LibraryManagement.Pages
         /// <param name="e"></param>
         private void addBookButton_Click(object sender, RoutedEventArgs e)
         {
-            Book book;
             if(fieldIsEmpty())
             {
                 MessageBox.Show("Please fill all of the given fields!");
@@ -64,7 +63,7 @@ namespace LibraryManagement.Pages
                 try
                 {
                     int printingNumber = int.Parse(printingNumberBox.Text);
-                    book = new Book(nameBox.Text, writerBox.Text, genreBox.Text, printingNumber, 1);
+                    Book book = new Book(nameBox.Text, writerBox.Text, genreBox.Text, printingNumber, 1);
                     this.admin.addBook(book);
                     MessageBox.Show("Book added successfully - returning to admin panel");
                     changeToAdminPanelPage(this.admin);

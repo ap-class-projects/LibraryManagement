@@ -85,7 +85,7 @@ namespace LibraryManagement.Classes
                 if(dataTable.Rows[i][BooksTable.indexName].ToString() == book.name)
                 {
                     exists = true;
-                    count = int.Parse(dataTable.Rows[i][BooksTable.indexCount].ToString());
+                    count = (int)dataTable.Rows[i][BooksTable.indexCount];
                     break;
                 }
             }

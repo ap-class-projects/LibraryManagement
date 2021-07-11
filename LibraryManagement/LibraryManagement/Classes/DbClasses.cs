@@ -123,6 +123,10 @@ namespace LibraryManagement.Classes
         public const int indexPrintingNumber = 3;
         public const int indexCount = 4;
 
+        /// <summary>
+        /// returns all books data
+        /// </summary>
+        /// <returns></returns>
         public static DataTable read()
         {
             SqlConnection sqlConnection = new SqlConnection(projectInfo.connectionString);
@@ -161,30 +165,7 @@ namespace LibraryManagement.Classes
         {
             SqlConnection sqlConnection = new SqlConnection(projectInfo.connectionString);
             sqlConnection.Open();
-            string command = "update Books SET name = '" + book.name + "', writer = '" + book.writer + "', genre = '" + book.genre + "', printingNumber = '" + book.printingNumber + "', count = '" + book.count + "' where name ='" + oldBookName + "' ";
-            SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
-            sqlCommand.BeginExecuteNonQuery();
-        }
-
-        /// <summary>
-        /// adds 1 to the count number
-        /// </summary>
-        /// <param name="bookName"></param>
-        public static void addOneToCount(string bookName)
-        {
-            DataTable dataTable = BooksTable.read();
-            int count = 0;
-            for(int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                if (dataTable.Rows[i][indexName].ToString() == bookName)
-                {
-                    count = (int)dataTable.Rows[i][indexCount] + 1;
-                }
-            }
-
-            SqlConnection sqlConnection = new SqlConnection(projectInfo.connectionString);
-            sqlConnection.Open();
-            string command = "update Books SET count = '" + count + "' where name ='" + bookName + "' ";
+            string command = "update Books SET count = '" + book.count + "' where name ='" + oldBookName + "' ";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
         }
@@ -222,17 +203,6 @@ namespace LibraryManagement.Classes
             sqlConnection.Close();
             return dataTable;
         }
-
-        /*
-        public static void write(Person person)
-        {
-            SqlConnection sqlConnection = new SqlConnection(connectionstring);
-            sqlConnection.Open();
-            string command = "insert into People values ('" + person.userName + "', '" + person.firstName + "', '" + person.lastName + "', '" + person.role.ToString() + "', '" + person.phoneNumber + "', '" + person.email + "', '" + person.password + "','" + person.moneyBag + "')";
-            SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
-            sqlCommand.BeginExecuteNonQuery();
-        }
-        */
 
         /// <summary>
         /// delete from UsersInfos table by userName
