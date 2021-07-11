@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LibraryManagement"
         mc:Ignorable="d"
         Title="Library Management"
-        MinHeight="600" MinWidth="800"
+        MinHeight="700" MinWidth="800"
         Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
         Background="#f0ecec" Icon="Images\book1.png">

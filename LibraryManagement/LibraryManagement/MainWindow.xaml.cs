@@ -54,8 +54,8 @@ namespace LibraryManagement
 
         void goToPaymentPage(Person person)
         {
-            //person is user   
-            MainWindowFrame.Content = new PaymentPage(goToLoginPage, goToSignUpPage, person);
+            User user = person as User;
+            MainWindowFrame.Content = new PaymentPage(goToLoginPage, goToSignUpPage, user);
         }
 
         void goToAdminPanelPage(Person person)

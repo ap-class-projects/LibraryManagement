@@ -6,9 +6,9 @@ namespace LibraryManagement.Classes
 {
     public class User : Person
     {
-        DateTime subRegisterDate;
-        DateTime subRenewalDate;
-        DateTime subExpireDate;
+        public DateTime subRegisterDate { get; set; }
+        public DateTime subRenewalDate { get; set; }
+        public DateTime subExpireDate { get; set; }
 
         public User(string userName, 
                     string firstName, 

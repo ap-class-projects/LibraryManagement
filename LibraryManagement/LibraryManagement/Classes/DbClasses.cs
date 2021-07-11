@@ -9,7 +9,8 @@ namespace LibraryManagement.Classes
     static class DbClasses
     {
         /// <summary>
-        /// Closes connection with 4 second delay
+        /// Closes connection with 4 second delay.
+        /// use this only after writing data
         /// </summary>
         /// <param name="sqlConnection"></param>
         public static void delayedClose(this SqlConnection sqlConnection)
@@ -52,6 +53,7 @@ namespace LibraryManagement.Classes
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command, sqlConnection);
             DataTable dataTable = new DataTable();
             sqlDataAdapter.Fill(dataTable);
+            sqlConnection.Close();
             return dataTable;
         }
 
@@ -124,6 +126,7 @@ namespace LibraryManagement.Classes
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command, sqlConnection);
             DataTable dataTable = new DataTable();
             sqlDataAdapter.Fill(dataTable);
+            sqlConnection.Close();
             return dataTable;
         }
 

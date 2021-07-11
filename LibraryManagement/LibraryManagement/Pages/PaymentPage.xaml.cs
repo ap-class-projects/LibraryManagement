@@ -25,15 +25,16 @@ namespace LibraryManagement.Pages
         public event PageChangerNoArg changeToLoginPage;
         public event PageChangerNoArg changeToSignUpPage;
 
-        Person person;
+        User user;
 
 
-        public PaymentPage(PageChangerNoArg changeToLoginPage, PageChangerNoArg changeToSignUpPage, Person person)
+        public PaymentPage(PageChangerNoArg changeToLoginPage, PageChangerNoArg changeToSignUpPage, User user)
         {
             InitializeComponent();
             this.changeToLoginPage = changeToLoginPage;
             this.changeToSignUpPage = changeToSignUpPage;
-            this.person = person;
+            this.user = user;
+            moneyToPayBox.Text = $"Money to pay : {projectInfo.userSignUpCost}";
         }
 
         private void submitButton_Click(object sender, RoutedEventArgs e)
@@ -60,17 +61,16 @@ namespace LibraryManagement.Pages
                             //sign up User
                             SqlConnection sqlConnection1 = new SqlConnection(projectInfo.connectionString);
                             sqlConnection1.Open();
-                            string command1 = "insert into People values ('" + person.userName + "', '" + person.firstName + "', '" + person.lastName + "', '" + person.role.ToString() + "', '" + person.phoneNumber + "', '" + person.email + "', '" + person.password + "','" + person.moneyBag + "', '" + null + "')";
+                            string command1 = "insert into People values ('" + user.userName + "', '" + user.firstName + "', '" + user.lastName + "', '" + user.role.ToString() + "', '" + user.phoneNumber + "', '" + user.email + "', '" + user.password + "','" + user.moneyBag + "', '" + user.imageAddress + "')";
                             SqlCommand sqlCommand1 = new SqlCommand(command1, sqlConnection1);
                             sqlCommand1.BeginExecuteNonQuery();
-                            sqlConnection1.delayedClose();
 
-                            //SqlConnection sqlConnection2 = new SqlConnection(projectInfo.connectionString);
-                            //sqlConnection2.Open();
-                            //string command2 = "insert into UsersInfos values ('" + person.userName + "', '" + null + "', '" + null + "', '" + null + "', '" + null + "', '" + null + "', '" + null + "','" + null + "', '" + null + "', '"+ null +"', '"+ null +"', '"+ DateTime.Now +"', '"+ DateTime.Now +"', '"+ DateTime.Now 8+ "' )";
-                            //SqlCommand sqlCommand2 = new SqlCommand(command2, sqlConnection2);
-                            //sqlCommand2.BeginExecuteNonQuery();
-                            //sqlConnection2.delayedClose();
+                            SqlConnection sqlConnection2 = new SqlConnection(projectInfo.connectionString);
+                            sqlConnection2.Open();
+                            string emptyString = "";
+                            string command2 = "insert into UsersInfos values ('" + user.userName + "', '" + emptyString + "', '" + projectInfo.dateTimeMinValue + "', '" + emptyString + "', '" + projectInfo.dateTimeMinValue + "', '" + emptyString + "', '" + projectInfo.dateTimeMinValue + "','" + emptyString + "', '" + projectInfo.dateTimeMinValue + "', '" + emptyString + "', '" + projectInfo.dateTimeMinValue + "', '" + DateTime.Now + "', '" + DateTime.Now + "', '" + DateTime.Now.AddDays(30) + "' )";
+                            SqlCommand sqlCommand2 = new SqlCommand(command2, sqlConnection2);
+                            sqlCommand2.BeginExecuteNonQuery();
 
                             MessageBox.Show("Sign up was successful! - going to login page");
                             changeToLoginPage();

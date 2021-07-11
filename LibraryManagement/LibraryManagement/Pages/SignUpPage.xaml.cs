@@ -13,8 +13,9 @@ namespace LibraryManagement.Pages
     /// </summary>
     public partial class SignUpPage : Page
     {
-        public PageChangerNoArg changeToLoginPage;
-        public PageChanger changeToPaymentPage;
+        public event PageChangerNoArg changeToLoginPage;
+        public event PageChanger changeToPaymentPage;
+        string imageAddress = "";
 
         public SignUpPage(PageChangerNoArg changeToLoginPage, PageChanger changeToPaymentPage)
         {
@@ -153,14 +154,18 @@ namespace LibraryManagement.Pages
                         }
                         else
                         {
-                            //User user = new User(userNameBox.Text,
-                            //                     firstNameBox.Text,
-                            //                     lastNameBox.Text,
-                            //                     Role.User,
-                            //                     phoneNumberBox.Text,
-                            //                     emailBox.Text,
-                            //                     passwordBox.Password, 0);
-                            //changeToPaymentPage(user);
+                            User user = new User(userNameBox.Text,
+                                                 firstNameBox.Text,
+                                                 lastNameBox.Text,
+                                                 phoneNumberBox.Text,
+                                                 emailBox.Text,
+                                                 passwordBox.Password,
+                                                 0,
+                                                 imageAddress,
+                                                 DateTime.MinValue,
+                                                 DateTime.MinValue,
+                                                 DateTime.MinValue);
+                            changeToPaymentPage(user);
                         }
                     }
                     else
@@ -212,8 +217,9 @@ namespace LibraryManagement.Pages
             if (op.ShowDialog() == true)
             {
                 image.Source = new BitmapImage(new Uri(op.FileName));
-                MessageBox.Show(op.FileName);
-                MessageBox.Show(new Uri(op.FileName).ToString());
+                //MessageBox.Show(op.FileName);
+                //MessageBox.Show(new Uri(op.FileName).ToString());
+                this.imageAddress = op.FileName;
             }
         }
     }
