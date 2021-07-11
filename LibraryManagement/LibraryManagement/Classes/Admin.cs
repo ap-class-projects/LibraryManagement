@@ -70,6 +70,11 @@ namespace LibraryManagement.Classes
             sqlConnection.delayedClose();
         }
 
+        public void addEmployee(Employee employee)
+        {
+            PeopleTable.write(employee);
+        }
+
         public void addBook(Book book)
         {
             DataTable dataTable = BooksTable.read();

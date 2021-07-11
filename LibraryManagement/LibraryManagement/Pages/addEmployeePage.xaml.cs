@@ -25,6 +25,7 @@ namespace LibraryManagement.Pages
     {
         public event PageChanger changeToAdminPanelPage;
         Admin admin;
+        string employeeImageAddress = "";
 
         public addEmployeePage(PageChanger changeToAdminPanelPage, Admin admin)
         {
@@ -166,8 +167,9 @@ namespace LibraryManagement.Pages
                                                  emailBox.Text,
                                                  passwordBox.Password,
                                                  0,
-                                                 "");
-                            PeopleTable.write(employee);
+                                                 this.employeeImageAddress);
+                            //PeopleTable.write(employee);
+                            this.admin.addEmployee(employee);
                             MessageBox.Show("Employee added successfully! - returning to admin panel");
                             changeToAdminPanelPage(admin);
                         }
@@ -221,6 +223,7 @@ namespace LibraryManagement.Pages
             if (op.ShowDialog() == true)
             {
                 image.Source = new BitmapImage(new Uri(op.FileName));
+                this.employeeImageAddress = op.FileName;
             }
         }
 

@@ -57,13 +57,18 @@ namespace LibraryManagement.Classes
             return dataTable;
         }
 
+        /// <summary>
+        /// use for employee and 1 table of user 
+        /// </summary>
+        /// <param name="person"></param>
         public static void write(Person person)
         {
             SqlConnection sqlConnection = new SqlConnection(projectInfo.connectionString);
             sqlConnection.Open();
-            string command = "insert into People values ('"+ person.userName +"', '"+ person.firstName +"', '"+ person.lastName +"', '"+ person.role.ToString() +"', '"+ person.phoneNumber +"', '"+ person.email +"', '"+ person.password +"','"+person.moneyBag+"', '"+null+"')";
+            string command = "insert into People values ('"+ person.userName +"', '"+ person.firstName +"', '"+ person.lastName +"', '"+ person.role.ToString() +"', '"+ person.phoneNumber +"', '"+ person.email +"', '"+ person.password +"','"+person.moneyBag+"', '"+person.imageAddress+"')";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.delayedClose();
         }
 
         /// <summary>

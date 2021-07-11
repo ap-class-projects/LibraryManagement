@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LibraryManagement.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
+      d:DesignHeight="700" d:DesignWidth="800"
       Title="addEmployeePage"
       Background="#f0ecec">
 
@@ -111,7 +111,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="7" VerticalAlignment="Center" Width="500">
-            <TextBlock Text="Password :"
+            <TextBlock Text="Employee password :"
                        FontWeight="Bold"
                        />
             <PasswordBox x:Name="passwordBox" PasswordChanged="passwordBox_PasswordChanged"></PasswordBox>
@@ -124,7 +124,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="8" VerticalAlignment="Center" Width="500">
-            <TextBlock Text="Confirm password :"
+            <TextBlock Text="Confirm employee password :"
                        FontWeight="Bold"
                        />
             <PasswordBox x:Name="confirmPasswordBox"></PasswordBox>
