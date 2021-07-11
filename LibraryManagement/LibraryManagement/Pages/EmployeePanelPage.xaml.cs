@@ -23,7 +23,9 @@ namespace LibraryManagement.Pages
         string placeHolderUser = "userName - firstName - lastName - phoneNumber - email";
         string newImageAddress = "";
 
-        public EmployeePanelPage(PageChangerNoArg changeToLoginPage, Employee employee, ChangeEmployeePageToUserInfoPage changeEmployeePageToUserInfoPage)
+        public EmployeePanelPage(PageChangerNoArg changeToLoginPage,
+                                Employee employee,
+                                ChangeEmployeePageToUserInfoPage changeEmployeePageToUserInfoPage)
         {
             InitializeComponent();
             this.changeToLoginPage = changeToLoginPage;
@@ -195,53 +197,60 @@ namespace LibraryManagement.Pages
 
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
-            if(mRegex.nameIsValid(firstNameBox.Text))
+            if (passwordBox.Password == "")
             {
-                if(mRegex.nameIsValid(lastNameBox.Text))
+                MessageBox.Show("Enter the password!");
+            }
+            else
+            {
+                if (mRegex.nameIsValid(firstNameBox.Text))
                 {
-                    if(mRegex.phoneNumberIsValid(phoneNumberBox.Text))
+                    if (mRegex.nameIsValid(lastNameBox.Text))
                     {
-                        if(mRegex.emailIsValid(emailBox.Text))
+                        if (mRegex.phoneNumberIsValid(phoneNumberBox.Text))
                         {
-                            if(passwordBox.Password == employee.password)
+                            if (mRegex.emailIsValid(emailBox.Text))
                             {
-                                string temp = newImageAddress == "" ? employee.imageAddress : newImageAddress;
+                                if (passwordBox.Password == employee.password)
+                                {
+                                    string temp = newImageAddress == "" ? employee.imageAddress : newImageAddress;
 
-                                Employee employeeTemp = new Employee(employee.userName,
-                                                                    firstNameBox.Text,
-                                                                    lastNameBox.Text,
-                                                                    phoneNumberBox.Text,
-                                                                    emailBox.Text,
-                                                                    employee.password,
-                                                                    employee.moneyBag,
-                                                                    temp);
-                                employee.editInfo(employeeTemp);
-                                initializeEditTabInfos();
-                                MessageBox.Show("Infos changed successfully!");
+                                    Employee employeeTemp = new Employee(employee.userName,
+                                                                        firstNameBox.Text,
+                                                                        lastNameBox.Text,
+                                                                        phoneNumberBox.Text,
+                                                                        emailBox.Text,
+                                                                        employee.password,
+                                                                        employee.moneyBag,
+                                                                        temp);
+                                    employee.editInfo(employeeTemp);
+                                    initializeEditTabInfos();
+                                    MessageBox.Show("Infos changed successfully!");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Wrong password!");
+                                }
                             }
                             else
                             {
-                                MessageBox.Show("Wrong password!");
+                                MessageBox.Show("Email is not valid!");
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Email is not valid!");
+                            MessageBox.Show("Phone number is not valid!");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Phone number is not valid!");
+                        MessageBox.Show("Last name is not valid!");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Last name is not valid!");
+                    MessageBox.Show("First name is not valid!");
                 }
-            }
-            else
-            {
-                MessageBox.Show("First name is not valid!");
             }
         }
 

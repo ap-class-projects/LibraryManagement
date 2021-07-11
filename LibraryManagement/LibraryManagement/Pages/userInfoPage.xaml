@@ -206,7 +206,8 @@
                             <StackPanel VerticalAlignment="Center">
                                 <StackPanel Background="Gray"
                                             Width="100">
-                                    <Image x:Name="image"
+                                    <Image 
+                                       x:Name="imageBox"
                                        Width="100"
                                        Height="100"
                                        Stretch="Fill"/>

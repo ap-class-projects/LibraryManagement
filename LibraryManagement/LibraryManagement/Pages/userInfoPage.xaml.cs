@@ -41,10 +41,12 @@ namespace LibraryManagement.Pages
             userNameTextBlock.Text = user.userName;
             firstNameTextBlock.Text = user.firstName;
             lastNameTextBlock.Text = user.lastName;
+
             emailTextBlock.Text = user.email;
             phoneNumberTextBlock.Text = user.phoneNumber;
-            registerDateTextBlock.Text = user.registerDate();
-            renewalDateTextBlock.Text = user.renewalDate();
+
+            registerDateTextBlock.Text = user.subRegisterDate.ToString();
+            renewalDateTextBlock.Text = user.subRenewalDate.ToString();
 
             int remainingDays = user.remainingDays();
             remainingDaysTextBlock.Text = remainingDays.ToString();
@@ -58,16 +60,27 @@ namespace LibraryManagement.Pages
             }
 
             DataTable dataTable = UsersInfosTable.read();
-            List<string> bookInfoCollection = new List<string>();
+            List<string> booksInfoCollection = new List<string>();
+            List<bool> isDelayed = new List<bool>();
             for(int i = 0; i < dataTable.Rows.Count; i++)
             {
                 if(dataTable.Rows[i][UsersInfosTable.indexUserName].ToString() == user.userName)
                 {
                     for(int j = 1; j < 10; j += 2)
                     {
-                        if(dataTable.Rows[i][j] != null)
+                        if( dataTable.Rows[i][j].ToString() != "" &&
+                            dataTable.Rows[i][j] != null)
                         {
-                            bookInfoCollection.Add($"{dataTable.Rows[i][j].ToString()} - {((DateTime)dataTable.Rows[i][j+1]).ToString()}");
+                            booksInfoCollection.Add($"{dataTable.Rows[i][j].ToString()} - {((DateTime)dataTable.Rows[i][j+1]).ToString()}");
+                            DateTime expireDate = (DateTime)dataTable.Rows[i][j + 1];
+                            if ( DateTime.Compare(expireDate, DateTime.Now) <= 0 )
+                            {
+                                isDelayed.Add(true);
+                            }
+                            else
+                            {
+                                isDelayed.Add(false);
+                            }
                         }
                     }
                     break;
@@ -84,12 +97,37 @@ namespace LibraryManagement.Pages
             for(int i = 0; i < textBlocks.Count; i++)
             {
                 textBlocks[i].Text = "";
+                textBlocks[i].Foreground = Brushes.Black;
             }
 
 
-            for (int i = 0; i < bookInfoCollection.Count; i++)
+            for (int i = 0; i < booksInfoCollection.Count; i++)
             {
-                textBlocks[i].Text = bookInfoCollection[i];
+                textBlocks[i].Text = booksInfoCollection[i];
+                if(isDelayed[i])
+                {
+                    textBlocks[i].Foreground = Brushes.Red;
+                }
+                else
+                {
+                    textBlocks[i].Foreground = Brushes.Green;
+                }
+            }
+
+            if (user.imageAddress == "")
+            {
+                imageBox.Source = new BitmapImage(new Uri(@"/LibraryManagement;component/Images/no-image.jpg", UriKind.Relative));
+            }
+            else
+            {
+                try
+                {
+                    imageBox.Source = new BitmapImage(new Uri(user.imageAddress));
+                }
+                catch
+                {
+                    imageBox.Source = new BitmapImage(new Uri(@"/LibraryManagement;component/Images/no-image.jpg", UriKind.Relative));
+                }
             }
         }
 
@@ -100,7 +138,7 @@ namespace LibraryManagement.Pages
 
         private void deleteUser_Click(object sender, RoutedEventArgs e)
         {
-            if(passwordBox.Password == "")
+            if (passwordBox.Password == "")
             {
                 MessageBox.Show("Enter the password!");
             }
@@ -108,9 +146,13 @@ namespace LibraryManagement.Pages
             {
                 if (passwordBox.Password == employee.password)
                 {
-                    //employee.removeUser(user.userName);
-                    MessageBox.Show("User deleted - returning to employee page");
-                    changeToEmployeePanelPage(employee);
+                    MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Delete user", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        employee.removeUser(user);
+                        MessageBox.Show("User deleted - returning to employee page");
+                        changeToEmployeePanelPage(employee);
+                    }
                 }
                 else
                 {

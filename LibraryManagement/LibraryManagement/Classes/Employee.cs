@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
@@ -59,7 +60,7 @@ namespace LibraryManagement.Classes
                     {
                         if (usersInfosTable.Rows[i][UsersInfosTable.indexBook1].ToString() == booksTable.Rows[j][BooksTable.indexName].ToString())
                         {
-                            if(!bookExistInList(borrowedBooks, booksTable.Rows[j][BooksTable.indexName].ToString()))
+                            if (!bookExistInList(borrowedBooks, booksTable.Rows[j][BooksTable.indexName].ToString()))
                             {
                                 Book book = new Book(
                                             booksTable.Rows[j][BooksTable.indexName].ToString(),
@@ -164,9 +165,9 @@ namespace LibraryManagement.Classes
 
         private bool bookExistInList(ObservableCollection<Book> books, string bookName)
         {
-            for(int i = 0; i < books.Count; i++)
+            for (int i = 0; i < books.Count; i++)
             {
-                if(bookName == books[i].name)
+                if (bookName == books[i].name)
                 {
                     return true;
                 }
@@ -235,7 +236,7 @@ namespace LibraryManagement.Classes
                                     people.Rows[i][PeopleTable.indexLastName].ToString(),
                                     people.Rows[i][PeopleTable.indexPhoneNumber].ToString(),
                                     people.Rows[i][PeopleTable.indexEmail].ToString(),
-                                    people.Rows[i][PeopleTable.indexPassword].ToString(), 
+                                    people.Rows[i][PeopleTable.indexPassword].ToString(),
                                     (double)people.Rows[i][PeopleTable.indexMoneyBag],
                                     people.Rows[i][PeopleTable.indexImageAddress].ToString(),
                                     (DateTime)subRegisterDate,
@@ -255,7 +256,7 @@ namespace LibraryManagement.Classes
         {
             DataTable peopleData = PeopleTable.read();
             DataTable usersInfosData = UsersInfosTable.read();
-            
+
             ObservableCollection<User> users = new ObservableCollection<User>();
 
             for (int i = 0; i < peopleData.Rows.Count; i++)
@@ -272,7 +273,7 @@ namespace LibraryManagement.Classes
                             int compare4 = 0;
                             int compare5 = 0;
 
-                            if(usersInfosData.Rows[j][UsersInfosTable.indexBook1].ToString() != "")
+                            if (usersInfosData.Rows[j][UsersInfosTable.indexBook1].ToString() != "")
                             {
                                 compare1 = DateTime.Compare((DateTime)usersInfosData.Rows[j][UsersInfosTable.indexExpireDate1], DateTime.Today);
                             }
@@ -296,11 +297,11 @@ namespace LibraryManagement.Classes
                             {
                                 compare5 = DateTime.Compare((DateTime)usersInfosData.Rows[j][UsersInfosTable.indexExpireDate5], DateTime.Today);
                             }
-                           
+
 
                             if (compare1 < 0 || compare2 < 0 || compare3 < 0 || compare4 < 0 || compare5 < 0)
                             {
-                                User user = new User(   peopleData.Rows[i][PeopleTable.indexUserName].ToString(),
+                                User user = new User(peopleData.Rows[i][PeopleTable.indexUserName].ToString(),
                                                         peopleData.Rows[i][PeopleTable.indexFirstName].ToString(),
                                                         peopleData.Rows[i][PeopleTable.indexLastName].ToString(),
                                                         peopleData.Rows[i][PeopleTable.indexPhoneNumber].ToString(),
@@ -333,17 +334,17 @@ namespace LibraryManagement.Classes
 
             for (int i = 0; i < people.Rows.Count; i++)
             {
-                if (people.Rows[i][PeopleTable.indexRole].ToString() == Role.User.ToString()) 
+                if (people.Rows[i][PeopleTable.indexRole].ToString() == Role.User.ToString())
                 {
                     for (int j = 0; j < usersInfos.Rows.Count; j++)
                     {
                         if (people.Rows[i][PeopleTable.indexUserName].ToString() == usersInfos.Rows[j][UsersInfosTable.indexUserName].ToString())
                         {
                             int compare = DateTime.Compare((DateTime)usersInfos.Rows[j][UsersInfosTable.indexSubExpireDate], DateTime.Today);
-                            
+
                             if (compare < 0)
                             {
-                                User user = new User(  
+                                User user = new User(
                                                     people.Rows[i][PeopleTable.indexUserName].ToString(),
                                                     people.Rows[i][PeopleTable.indexFirstName].ToString(),
                                                     people.Rows[i][PeopleTable.indexLastName].ToString(),
@@ -422,7 +423,68 @@ namespace LibraryManagement.Classes
             this.email = employee.email;
             this.imageAddress = employee.imageAddress;
         }
+
+        public void removeUser(User user)
+        {
+            //delete from People Table
+            SqlConnection sqlConnection = new SqlConnection(projectInfo.connectionString);
+            sqlConnection.Open();
+            string command = "delete from People where userName = '" + user.userName + "'";
+            SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
+            sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.delayedClose();
+
+            //update Books Table
+            DataTable dataTable = UsersInfosTable.read();
+            List<string> bookNames = new List<string>();
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                if (dataTable.Rows[i][UsersInfosTable.indexUserName].ToString() == user.userName)
+                {
+                    for(int j = 1; j < 10; j += 2)
+                    {
+                        if (dataTable.Rows[i][j].ToString() != "" &&
+                            dataTable.Rows[i][j] != null)
+                        {
+                            bookNames.Add(dataTable.Rows[i][j].ToString());
+                        }
+                    }
+                    break;
+                }
+            }
+
+            for(int i = 0; i < bookNames.Count;i++)
+            {
+                SqlConnection sqlConnection1 = new SqlConnection(projectInfo.connectionString);
+                sqlConnection1.Open();
+                string command1 = "update Books SET count = '" + (bookCount(bookNames[i]) + 1) + "' where name ='" + bookNames[i] + "' ";
+                SqlCommand sqlCommand1 = new SqlCommand(command1, sqlConnection1);
+                sqlCommand1.BeginExecuteNonQuery();
+                sqlConnection1.delayedClose();
+            }
+
+            //delete from UsersInfos Table
+            SqlConnection sqlConnection2 = new SqlConnection(projectInfo.connectionString);
+            sqlConnection2.Open();
+            string command2 = "delete from UsersInfos where userName = '" + user.userName + "'";
+            SqlCommand sqlCommand2 = new SqlCommand(command2, sqlConnection2);
+            sqlCommand2.BeginExecuteNonQuery();
+            sqlConnection2.delayedClose();
+        }
+
+        private int bookCount(string bookName)
+        {
+            DataTable booksData = BooksTable.read();
+            for (int i = 0; i < booksData.Rows.Count; i++)
+            {
+                if (booksData.Rows[i][BooksTable.indexName].ToString() == bookName)
+                {
+                    return (int)booksData.Rows[i][BooksTable.indexCount];
+                }
+            }
+            return 0;
+        }
     }
 
 }
-

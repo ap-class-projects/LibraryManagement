@@ -82,6 +82,7 @@ namespace LibraryManagement.Classes
             string command = "delete from People where userName = '"+ userName +"'";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.delayedClose();
         }
 
         /// <summary>
@@ -133,6 +134,7 @@ namespace LibraryManagement.Classes
             string command = "insert into Books values ('" + book.name + "', '" + book.writer + "', '" + book.genre + "', '" + book.printingNumber + "', '" + book.count + "')";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.delayedClose();
         }
 
         /// <summary>
@@ -146,6 +148,7 @@ namespace LibraryManagement.Classes
             string command = "delete from Books where printingNumber = '" + printingNumber + "'";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.delayedClose();
         }
 
         public static void update(string oldBookName, Book book)
@@ -155,6 +158,7 @@ namespace LibraryManagement.Classes
             string command = "update Books SET count = '" + book.count + "' where name ='" + oldBookName + "' ";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
+            sqlConnection.delayedClose();
         }
     }
 

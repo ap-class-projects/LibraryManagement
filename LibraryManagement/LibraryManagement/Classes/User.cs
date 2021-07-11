@@ -29,60 +29,13 @@ namespace LibraryManagement.Classes
         }
 
         /// <summary>
-        /// returns register date as string
-        /// </summary>
-        /// <returns></returns>
-        public string registerDate()
-        {
-            DataTable datatable = UsersInfosTable.read();
-            for (int i = 0; i < datatable.Rows.Count; i++)
-            {
-                if (datatable.Rows[i][UsersInfosTable.indexUserName].ToString() == this.userName)
-                {
-                    DateTime registerDate = (DateTime)datatable.Rows[i][UsersInfosTable.indexSubRegisterDate];
-                    return registerDate.ToString();
-                }
-            }
-            return "";
-        }
-
-
-        /// <summary>
-        /// returns renewal date as string
-        /// </summary>
-        /// <returns></returns>
-        public string renewalDate()
-        {
-            DataTable datatable = UsersInfosTable.read();
-            for (int i = 0; i < datatable.Rows.Count; i++)
-            {
-                if (datatable.Rows[i][UsersInfosTable.indexUserName].ToString() == this.userName)
-                {
-                    DateTime registerDate = (DateTime)datatable.Rows[i][UsersInfosTable.indexSubRenewalDate];
-                    return registerDate.ToString();
-                }
-            }
-            return "";
-        }
-
-        /// <summary>
         /// returns remaining days as int
         /// </summary>
         /// <returns></returns>
         public int remainingDays()
         {
-            DataTable datatable = UsersInfosTable.read();
-            for (int i = 0; i < datatable.Rows.Count; i++)
-            {
-                if (datatable.Rows[i][UsersInfosTable.indexUserName].ToString() == this.userName)
-                {
-                    DateTime registerDate = (DateTime)datatable.Rows[i][UsersInfosTable.indexSubRenewalDate];
-                    DateTime ExpireDate = (DateTime)datatable.Rows[i][UsersInfosTable.indexSubExpireDate];
-                    TimeSpan t = ExpireDate.Subtract(registerDate);
-                    return t.Days;
-                }
-            }
-            return 0;
+            TimeSpan timeSpan = subExpireDate.Subtract(subRegisterDate);
+            return timeSpan.Days;
         }
 
         /// <summary>
