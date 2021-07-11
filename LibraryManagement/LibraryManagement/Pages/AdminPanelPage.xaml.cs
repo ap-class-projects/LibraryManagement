@@ -20,19 +20,26 @@ namespace LibraryManagement.Pages
 
         public ObservableCollection<string> employeesList {get;set;}
         public ObservableCollection<string> booksList { get; set; }
+        string placeHolderEmployeeInfo = "userName - firstName - lastName - email - phoneNumber";
+        string placeHolderBookInfo = "name - writer - genre - printingNumber - count";
         Admin admin;
 
-        public AdminPanelPage(PageChangerNoArg changeToLoginPage, PageChanger changeToAddEmployeePage,
-            ChangeAdminPageToIncreaseBudgetPage changeAdminPageToIncreaseBudgetPage, PageChanger changeToPayEmployeePage,
-            PageChanger changeToAddBookPage, Admin admin)
+        public AdminPanelPage(
+                            PageChangerNoArg changeToLoginPage,
+                            PageChanger changeToAddEmployeePage,
+                            ChangeAdminPageToIncreaseBudgetPage changeAdminPageToIncreaseBudgetPage,
+                            PageChanger changeToPayEmployeePage,
+                            PageChanger changeToAddBookPage,
+                            Admin admin)
         {
             InitializeComponent();
             this.changeToLoginPage = changeToLoginPage;
-            this.admin = admin;
             this.changeToAddEmployeePage = changeToAddEmployeePage;
+            this.changeAdminPageToIncreaseBudgetPage = changeAdminPageToIncreaseBudgetPage;
             this.changeToPayEmployeePage = changeToPayEmployeePage;
             this.changeToAddBookPage = changeToAddBookPage;
-            this.changeAdminPageToIncreaseBudgetPage = changeAdminPageToIncreaseBudgetPage;
+            this.admin = admin;
+            
             employeesList = new ObservableCollection<string>();
             booksList = new ObservableCollection<string>();
             this.DataContext = this;
@@ -44,24 +51,25 @@ namespace LibraryManagement.Pages
         private void updateEmployeeList()
         {
             employeesList.Clear();
-            DataTable dataTable = PeopleTable.read();
-            for (int i = 0; i < dataTable.Rows.Count; i++)
+            employeesList.Add(placeHolderEmployeeInfo);
+
+            ObservableCollection<Employee> employees = this.admin.showEmployees();
+            for (int i = 0; i < employees.Count; i++)
             {
-                if (dataTable.Rows[i][PeopleTable.indexRole].ToString() == Role.Employee.ToString())
-                {
-                    string employeeInfo = $"{dataTable.Rows[i][PeopleTable.indexUserName].ToString()} - {dataTable.Rows[i][PeopleTable.indexFirstName].ToString()} - {dataTable.Rows[i][PeopleTable.indexLastName].ToString()} - {dataTable.Rows[i][PeopleTable.indexPhoneNumber].ToString()}";
-                    employeesList.Add(employeeInfo);
-                }
+                string employeeInfo = $"{employees[i].userName} - {employees[i].firstName} - {employees[i].lastName} - {employees[i].email} - {employees[i].phoneNumber}";
+                employeesList.Add(employeeInfo);
             }
         }
 
         private void updateBooksList()
         {
             booksList.Clear();
-            DataTable dataTable = BooksTable.read();
-            for (int i = 0; i < dataTable.Rows.Count; i++)
+            booksList.Add(placeHolderBookInfo);
+            ObservableCollection<Book> books = this.admin.showBooks();
+
+            for (int i = 0; i < books.Count; i++)
             {
-                string BookInfo = $"{dataTable.Rows[i][BooksTable.indexName].ToString()} - {dataTable.Rows[i][BooksTable.indexWriter].ToString()} - {dataTable.Rows[i][BooksTable.indexGenre].ToString()} - {dataTable.Rows[i][BooksTable.indexPrintingNumber].ToString()} - {dataTable.Rows[i][BooksTable.indexCount].ToString()}";
+                string BookInfo = $"{books[i].name} - {books[i].writer} - {books[i].genre} - {books[i].printingNumber} - {books[i].count}";
                 booksList.Add(BookInfo);
             }
         }
@@ -94,7 +102,7 @@ namespace LibraryManagement.Pages
                     if (dataTable.Rows[i][PeopleTable.indexUserName].ToString() == deleteEmployeeBox.Text)
                     {
                         isValid = true;
-                        PeopleTable.delete(deleteEmployeeBox.Text);
+                        this.admin.deleteEmployee(deleteEmployeeBox.Text);
                         deleteEmployeeBox.Text = "";
                         break;
                     }
@@ -132,7 +140,10 @@ namespace LibraryManagement.Pages
                     MessageBox.Show("Money must be positive");
                     return;
                 }
-                changeAdminPageToIncreaseBudgetPage(this.admin, money);
+                else
+                {
+                    changeAdminPageToIncreaseBudgetPage(this.admin, money);
+                }
             }
             catch
             {

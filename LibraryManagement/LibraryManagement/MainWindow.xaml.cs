@@ -61,9 +61,12 @@ namespace LibraryManagement
         void goToAdminPanelPage(Person person)
         {
             Admin admin = person as Admin;
-            MainWindowFrame.Content = new AdminPanelPage(goToLoginPage, goToAddEmployeePage, 
-                                                        goToIncreaseBudgetPage, goToPayEmployeePage,
-                                                        goToAddBookPage, admin);
+            MainWindowFrame.Content = new AdminPanelPage(goToLoginPage,
+                                                        goToAddEmployeePage, 
+                                                        goToIncreaseBudgetPage,
+                                                        goToPayEmployeePage,
+                                                        goToAddBookPage,
+                                                        admin);
         }
 
         void goToIncreaseBudgetPage(Admin admin, double increaseMoney)
