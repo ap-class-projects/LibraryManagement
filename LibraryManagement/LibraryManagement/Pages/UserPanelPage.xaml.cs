@@ -180,9 +180,31 @@ namespace LibraryManagement.Pages
                             }
                             else
                             {
-                                user.borrowBook(borrowTextBlock.Text);
-                                updateBorrowedBooks();
-                                MessageBox.Show("Book borrowed successfully!");
+                                bool bookIsAvailable = false;
+
+                                ObservableCollection<Book> allAvailableBooks = user.showAvailableBooks();
+
+                                for(int i = 0; i < allAvailableBooks.Count; i++)
+                                {
+                                    if(allAvailableBooks[i].name == borrowTextBlock.Text)
+                                    {
+                                        bookIsAvailable = true;
+                                    }
+                                }
+
+                                if(!bookIsAvailable)
+                                {
+                                    MessageBox.Show("We dont have book with this name!");
+                                }
+                                else
+                                {
+                                    user.borrowBook(borrowTextBlock.Text);
+                                    borrowTextBlock.Text = "";
+                                    updateAvailableBooks();
+                                    //updateSearchResultBooks();
+                                    updateBorrowedBooks();
+                                    MessageBox.Show("Book borrowed successfully!");
+                                } 
                             }
                         }
                         else
@@ -223,7 +245,7 @@ namespace LibraryManagement.Pages
                 }
                 else
                 {
-                    MessageBox.Show("Please check on of the checkboxes!");
+                    MessageBox.Show("Please check one of the checkboxes!");
                 }
             }
         }

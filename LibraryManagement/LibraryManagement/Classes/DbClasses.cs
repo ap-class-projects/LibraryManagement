@@ -191,7 +191,7 @@ namespace LibraryManagement.Classes
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command, sqlConnection);
             DataTable dataTable = new DataTable();
             sqlDataAdapter.Fill(dataTable);
-            sqlConnection.Close();
+            sqlConnection.delayedClose();
             return dataTable;
         }
 

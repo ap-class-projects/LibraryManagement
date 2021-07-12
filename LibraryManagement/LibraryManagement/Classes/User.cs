@@ -3,6 +3,7 @@ using System.Data;
 using System.Globalization;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.Windows;
 
 namespace LibraryManagement.Classes
 {
@@ -119,7 +120,7 @@ namespace LibraryManagement.Classes
                 if (dataTable.Rows[i][UsersInfosTable.indexUserName].ToString() == this.userName)
                 {
                     //check books
-                    for (int j = 1; j < 10; j++)
+                    for (int j = 1; j < 10; j += 2)
                     {
                         if (dataTable.Rows[i][j].ToString() != "" && dataTable.Rows[i][j] != null)
                         {
@@ -153,7 +154,7 @@ namespace LibraryManagement.Classes
 
 
             //update UsersInfos
-            string[] books = new string[5];
+            int indexEmpty = 0;
             DataTable dataTable = UsersInfosTable.read();
             for(int i = 0; i < dataTable.Rows.Count; i++)
             {
@@ -161,15 +162,40 @@ namespace LibraryManagement.Classes
                 {
                     for(int j = 1; j < 10; j += 2)
                     {
-                        books[j] = dataTable.Rows[i][j].ToString();
+                        if(dataTable.Rows[i][j].ToString() == "" || dataTable.Rows[i][j] == null)
+                        {
+                            indexEmpty = j;
+                            break;
+                        }
                     }
                     break;
                 }
             }
 
             SqlConnection sqlConnection1 = new SqlConnection(projectInfo.connectionString);
+            string command1 = "";
+            if (indexEmpty == 1)
+            {
+                command1 = "update UsersInfos SET book1 = '" + bookName + "', expireDate1 = '" + DateTime.Now.AddDays(projectInfo.borrowBookDays) + "' where userName = '" + this.userName + "' ";
+            }
+            else if (indexEmpty == 3)
+            {
+                command1 = "update UsersInfos SET book2 = '" + bookName + "', expireDate2 = '" + DateTime.Now.AddDays(projectInfo.borrowBookDays) + "' where userName = '" + this.userName + "' ";
+            }
+            else if (indexEmpty == 5)
+            {
+                command1 = "update UsersInfos SET book3 = '" + bookName + "', expireDate3 = '" + DateTime.Now.AddDays(projectInfo.borrowBookDays) + "' where userName = '" + this.userName + "' ";
+            }
+            else if (indexEmpty == 7)
+            {
+                command1 = "update UsersInfos SET book4 = '" + bookName + "', expireDate4 = '" + DateTime.Now.AddDays(projectInfo.borrowBookDays) + "' where userName = '" + this.userName + "' ";
+            }
+            else if (indexEmpty == 9)
+            {
+                command1 = "update UsersInfos SET book5 = '" + bookName + "', expireDate5 = '" + DateTime.Now.AddDays(projectInfo.borrowBookDays) + "' where userName = '" + this.userName + "' ";
+            }
+
             sqlConnection1.Open();
-            string command1 = "update UsersInfos SET count = '" + (bookCount(bookName) - 1) + "' where name ='" + bookName + "' ";
             SqlCommand sqlCommand1 = new SqlCommand(command1, sqlConnection1);
             sqlCommand1.BeginExecuteNonQuery();
             sqlConnection1.delayedClose();
