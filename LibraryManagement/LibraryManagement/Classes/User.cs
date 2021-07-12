@@ -307,7 +307,7 @@ namespace LibraryManagement.Classes
             //update UsersInfos Table
             SqlConnection sqlConnection = new SqlConnection(projectInfo.connectionString);
             sqlConnection.Open();
-            string command = "update UsersInfos SET subRenewalDate = '" + subRenewalDate + "', subExpireDate = '"+ subExpireDate +"' where name ='" + this.userName + "' ";
+            string command = "update UsersInfos SET subRenewalDate = '" + subRenewalDate + "', subExpireDate = '"+ subExpireDate +"' where userName ='" + this.userName + "' ";
             SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
             sqlCommand.BeginExecuteNonQuery();
             sqlConnection.delayedClose();
