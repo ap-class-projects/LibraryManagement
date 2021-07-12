@@ -32,6 +32,7 @@ namespace LibraryManagement
         public const double salaryPerEmployee = 50;
         public static DateTime dateTimeMinValue;
         public const int borrowBookDays = 30;
+        public const double delayPenalty = 20;
 
         static projectInfo()
         {

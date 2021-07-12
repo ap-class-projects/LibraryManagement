@@ -268,7 +268,10 @@ namespace LibraryManagement.Pages
             }
             else
             {
-
+                user.returnBook(book.name);
+                updateBorrowedBooks();
+                updateAvailableBooks();
+                MessageBox.Show("Book returned successfully!");
             }
         }
 
