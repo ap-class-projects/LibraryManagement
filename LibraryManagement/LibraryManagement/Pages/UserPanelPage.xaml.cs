@@ -268,10 +268,31 @@ namespace LibraryManagement.Pages
             }
             else
             {
-                user.returnBook(book.name);
-                updateBorrowedBooks();
-                updateAvailableBooks();
-                MessageBox.Show("Book returned successfully!");
+                if(user.bookReturnDateIsExpired(book.name))
+                {
+                    if(user.moneyBag >= projectInfo.delayPenalty)
+                    {
+                        MessageBox.Show("Penalty payed from your budget!");
+                        user.payPenalty();
+                        user.returnBook(book.name);
+                        updateBorrowedBooks();
+                        updateAvailableBooks();
+                        updateBudgetTab();
+                        MessageBox.Show("Book returned successfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Increase your budget to return an expired book!");
+                    }
+     
+                }
+                else
+                {
+                    user.returnBook(book.name);
+                    updateBorrowedBooks();
+                    updateAvailableBooks();
+                    MessageBox.Show("Book returned successfully!");
+                }
             }
         }
 

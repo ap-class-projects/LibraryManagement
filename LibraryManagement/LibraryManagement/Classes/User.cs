@@ -328,13 +328,32 @@ namespace LibraryManagement.Classes
             sqlConnection.delayedClose();
         }
 
-        public void bookReturnDateIsExpired(string bookName)
+        public bool bookReturnDateIsExpired(string bookName)
         {
             DataTable dataTable = UsersInfosTable.read();
             for(int i = 0; i < dataTable.Rows.Count; i++)
             {
-
+                if(dataTable.Rows[i][UsersInfosTable.indexUserName].ToString() == this.userName)
+                {
+                    for(int j = 1; j < 10; j += 2)
+                    {
+                        if(dataTable.Rows[i][j].ToString() == bookName)
+                        {
+                            DateTime expirationDate = (DateTime)dataTable.Rows[i][j + 1];
+                            if (DateTime.Compare(expirationDate, DateTime.Now) < 0)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                    break;
+                }
             }
+            return false;
         }
 
         public void returnBook(string bookName)
@@ -482,44 +501,12 @@ namespace LibraryManagement.Classes
         //}
 
         /// <summary>
-        /// mohasebe jarime takhir va bargardandanesh
+        /// update money bag of this user in ram and database
         /// </summary>
-        public int payPenalty()
+        public void payPenalty()
         {
-            DataTable data = UsersInfosTable.read();
-            int sum = 0;
-            for (int i = 0; i < data.Rows.Count; i++)
-            {
-                if (data.Rows[i][UsersInfosTable.indexUserName].ToString() == this.userName)
-                {
-                    DateTime a1 = (DateTime)data.Rows[i][UsersInfosTable.indexExpireDate1];
-                    TimeSpan a2 = DateTime.Today.Subtract(a1);
-                    int adad1 = int.Parse(a2.ToString());
-                    adad1 = adad1 * 100;
-                    sum = sum + adad1;
-                    DateTime b1 = (DateTime)data.Rows[i][UsersInfosTable.indexExpireDate2];
-                    TimeSpan b2 = DateTime.Today.Subtract(b1);
-                    int adad2 = int.Parse(b2.ToString());
-                    adad2 = adad2 * 100;
-                    sum = sum + adad2;
-                    DateTime c1 = (DateTime)data.Rows[i][UsersInfosTable.indexExpireDate3];
-                    TimeSpan c2 = DateTime.Today.Subtract(c1);
-                    int adad3 = int.Parse(c2.ToString());
-                    adad3 = adad3 * 100;
-                    sum = sum + adad3;
-                    DateTime d1 = (DateTime)data.Rows[i][UsersInfosTable.indexExpireDate4];
-                    TimeSpan d2 = DateTime.Today.Subtract(d1);
-                    int adad4 = int.Parse(d2.ToString());
-                    adad4 = adad4 * 100;
-                    sum = sum + adad4;
-                    DateTime e1 = (DateTime)data.Rows[i][UsersInfosTable.indexExpireDate5];
-                    TimeSpan e2 = DateTime.Today.Subtract(e1);
-                    int adad5 = int.Parse(e2.ToString());
-                    adad5 = adad5 * 100;
-                    sum = sum + adad5;
-                }
-            }
-            return sum;
+            this.moneyBag -= projectInfo.delayPenalty;
+            PeopleTable.update(this.userName, this);
         }
     }
 }
