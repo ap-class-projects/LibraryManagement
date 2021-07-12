@@ -20,7 +20,7 @@ namespace LibraryManagement.Pages
         public ObservableCollection<string> availableBooks { get; set; }
         public ObservableCollection<string> searchResultBooks { get; set; }
         public ObservableCollection<string> borrowedBooks { get; set; }
-        ObservableCollection<Book> borrowedBooksTypeBook { get; set; }
+        public ObservableCollection<Book> borrowedBooksTypeBook { get; set; }
 
         User user;
         string placeHolderBookInfo = "name - writer - genre - printingNumber - count";
@@ -40,6 +40,7 @@ namespace LibraryManagement.Pages
             availableBooks = new ObservableCollection<string>();
             searchResultBooks = new ObservableCollection<string>();
             borrowedBooks = new ObservableCollection<string>();
+            borrowedBooksTypeBook = new ObservableCollection<Book>();
 
             this.DataContext = this;
 
@@ -87,7 +88,15 @@ namespace LibraryManagement.Pages
         {
             borrowedBooks.Clear();
             borrowedBooks.Add(placeHolderBookInfo);
-            borrowedBooksTypeBook = user.showBorrowedBooks();
+
+            ObservableCollection<Book> tempCollection = user.showBorrowedBooks();
+            borrowedBooksTypeBook.Clear();
+
+            foreach(var item in tempCollection)
+            {
+                borrowedBooksTypeBook.Add(item);
+            }
+
             for (int i = 0; i < borrowedBooksTypeBook.Count; i++)
             {
                 string bookInfo = $"{borrowedBooksTypeBook[i].name} - {borrowedBooksTypeBook[i].writer} - {borrowedBooksTypeBook[i].genre} - {borrowedBooksTypeBook[i].printingNumber} - {borrowedBooksTypeBook[i].count}";
@@ -252,7 +261,15 @@ namespace LibraryManagement.Pages
 
         private void returnBorrowedBookButton_Click(object sender, RoutedEventArgs e)
         {
+            Book book = borrowedBooksComboBox.SelectedItem as Book;
+            if(book == null)
+            {
+                MessageBox.Show("Select a book to return!");
+            }
+            else
+            {
 
+            }
         }
 
         private void extendSubButton_Click(object sender, RoutedEventArgs e)

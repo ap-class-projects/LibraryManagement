@@ -134,13 +134,31 @@
                             <ComboBox Margin="0,10"
                                       x:Name="borrowedBooksComboBox"
                                       Width="200"
-                                      Height="30"
-                                      ItemsSource="{Binding borrowedBooks}"
-                                      ></ComboBox>
+                                      Height="25"
+                                      ItemsSource="{Binding borrowedBooksTypeBook, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Row="0"
+                                                       Grid.Column="0"
+                                                       TextAlignment="Center"
+                                                       Text="{Binding name}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                             <Button Margin="0,10"
                                     x:Name="returnBorrowedBookButton"
                                     Click="returnBorrowedBookButton_Click"
-                                    Width="100">Return</Button>
+                                    Width="100"
+                                    Height="30">Return</Button>
                         </StackPanel>
                     </Grid>
                 </TabItem>
