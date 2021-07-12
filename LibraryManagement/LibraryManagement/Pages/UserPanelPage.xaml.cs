@@ -78,7 +78,7 @@ namespace LibraryManagement.Pages
                 for (int i = 0; i < tempCollection.Count; i++)
                 {
                     string bookInfo = $"{tempCollection[i].name} - {tempCollection[i].writer} - {tempCollection[i].genre} - {tempCollection[i].printingNumber} - {tempCollection[i].count}";
-                    availableBooks.Add(bookInfo);
+                    searchResultBooks.Add(bookInfo);
                 }
             }
         }

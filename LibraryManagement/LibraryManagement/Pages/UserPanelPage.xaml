@@ -134,7 +134,7 @@
                             <ComboBox Margin="0,10"
                                       x:Name="borrowedBooksComboBox"
                                       Width="200"
-                                      Height="20"
+                                      Height="30"
                                       ItemsSource="{Binding borrowedBooks}"
                                       ></ComboBox>
                             <Button Margin="0,10"
