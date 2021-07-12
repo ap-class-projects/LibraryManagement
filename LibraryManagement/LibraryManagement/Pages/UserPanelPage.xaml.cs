@@ -301,6 +301,8 @@ namespace LibraryManagement.Pages
             if(user.moneyBag >= 30)
             {
                 user.extendSub();
+                updateBudgetTab();
+                updateSubTab();
                 MessageBox.Show("Sub extended successfully for 1 month");
             }
             else
